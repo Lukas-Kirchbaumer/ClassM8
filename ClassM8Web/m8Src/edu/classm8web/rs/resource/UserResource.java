@@ -29,7 +29,7 @@ public class UserResource {
 		max.setFirstname("Max");
 		max.setLastname("Haider");
 		max.setHasVoted(false);
-		max.setPassword("danke".toCharArray());
+		max.setPassword("danke");
 		max.setVotes(0);
 		
 		M8 kramer = new M8();
@@ -38,7 +38,7 @@ public class UserResource {
 		kramer.setFirstname("Lukas");
 		kramer.setLastname("Kramer");
 		kramer.setHasVoted(true);
-		kramer.setPassword("danke".toCharArray());
+		kramer.setPassword("danke");
 		kramer.setVotes(324);
 		
 		Vector<M8> m8s = new Vector<>();

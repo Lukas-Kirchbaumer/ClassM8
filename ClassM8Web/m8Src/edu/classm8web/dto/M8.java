@@ -26,7 +26,7 @@ public class M8 implements Serializable{
 	
 	private String email;
 	
-	private char[] password;
+	private String password;
 	
 	private boolean hasVoted;
 	
@@ -66,11 +66,11 @@ public class M8 implements Serializable{
 		this.email = email;
 	}
 
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -99,7 +99,7 @@ public class M8 implements Serializable{
 		result = prime * result + (hasVoted ? 1231 : 1237);
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + Arrays.hashCode(password);
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + votes;
 		return result;
 	}
@@ -132,12 +132,17 @@ public class M8 implements Serializable{
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (!Arrays.equals(password, other.password))
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
 			return false;
 		if (votes != other.votes)
 			return false;
 		return true;
 	}
+
+
 	
 	
 }
