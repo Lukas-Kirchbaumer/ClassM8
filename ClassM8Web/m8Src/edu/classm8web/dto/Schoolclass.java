@@ -86,6 +86,16 @@ public class Schoolclass implements Serializable{
 	public void setSchool(String school) {
 		this.school = school;
 	}
+	
+	public void setNewClass(Schoolclass sc){
+		this.classMembers = sc.classMembers;
+		this.name = sc.name;
+		this.room = sc.room;
+		this.president = sc.president;
+		this.presidentDeputy = sc.presidentDeputy;
+		this.school = sc.school;
+	}
+	
 
 	@Override
 	public int hashCode() {

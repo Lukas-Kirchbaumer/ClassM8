@@ -87,6 +87,17 @@ public class M8 implements Serializable{
 	public void setVotes(int votes) {
 		this.votes = votes;
 	}
+	
+	public void setNewM8(M8 newm8){
+		this.firstname = newm8.firstname;
+		this.lastname = newm8.lastname;
+		this.email = newm8.email;
+		this.password = newm8.password;
+		this.hasVoted = newm8.hasVoted;
+		this.votes = newm8.votes;
+	}
+	
+
 
 	@Override
 	public int hashCode() {
@@ -139,6 +150,14 @@ public class M8 implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "M8 [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + password + ", hasVoted=" + hasVoted + ", votes=" + votes + "]";
+	}
+	
+	
 
 
 	
