@@ -5,14 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
-@Entity
+
 public class Schoolclass implements Serializable{
 
 	/**
@@ -20,20 +14,17 @@ public class Schoolclass implements Serializable{
 	 */
 	private static final long serialVersionUID = -69655466883930376L;
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@OneToMany
-	private List<M8> classMembers = new ArrayList<M8>();
+
+	private Vector<M8> classMembers = new Vector<M8>();
 	
 	private String name;
 	
 	private String room;
 	
-	@OneToOne
 	private M8 president;
 	
-	@OneToOne
 	private M8 presidentDeputy;
 	
 	private String school;
@@ -48,11 +39,11 @@ public class Schoolclass implements Serializable{
 		this.id = id;
 	}
 
-	public List<M8> getClassMembers() {
+	public Vector<M8> getClassMembers() {
 		return classMembers;
 	}
 
-	public void setClassMembers(List<M8> classMembers) {
+	public void setClassMembers(Vector<M8> classMembers) {
 		this.classMembers = classMembers;
 	}
 
