@@ -58,7 +58,6 @@ public class UserResource {
 	}
 	
 	@DELETE
-	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response delete(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
