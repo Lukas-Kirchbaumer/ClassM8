@@ -58,7 +58,6 @@ public class UserResource {
 	}
 	
 	@DELETE
-	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response delete(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
@@ -67,6 +66,18 @@ public class UserResource {
 		UserService.getInstance().deleteUser(Integer.parseInt(id));
 
 		return Response.status(Response.Status.ACCEPTED).build();
+	}
+	
+	@GET
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response get(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@QueryParam("id") String id) {
+
+		M8Result result = new M8Result();
+		result.setSuccess(true);
+		result.getContent().add(UserService.getInstance().getM8(Long.parseLong(id)));
+
+		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.M8;
+import edu.classm8web.dto.Schoolclass;
 
 public class UserService {
 
@@ -44,6 +45,10 @@ public class UserService {
 		List<Long> sortedKeys=new ArrayList<Long>(Database.getInstance().getMades().keySet());
 		Collections.sort(sortedKeys);
 		return Collections.max(sortedKeys);
+	}
+	
+	public M8 getM8(long m8id){
+		return Database.getInstance().getMades().get(m8id);
 	}
 
 }
