@@ -15,7 +15,7 @@ public class SecurityService {
 
 	public long checkLogin(String email, String password){
 		long ret = -1;
-		for (M8 m8 : Database.getInstance().getMades()) {
+		for (M8 m8 : Database.getInstance().getMades().values()) {
 			if (m8.getEmail().equals(email)) {
 				if(m8.getPassword().equals(password)){
 					ret = m8.getId();

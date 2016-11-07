@@ -30,7 +30,7 @@ public class SchoolclassResource {
 		
 		
 		Vector<Schoolclass> resObject = new Vector<>();
-		resObject.addAll(Database.getInstance().getSchoolClasses());
+		resObject.addAll(Database.getInstance().getSchoolclasses().values());
 		
 		SchoolclassResult res = new SchoolclassResult();	
 		res.setSchoolclasses(resObject);

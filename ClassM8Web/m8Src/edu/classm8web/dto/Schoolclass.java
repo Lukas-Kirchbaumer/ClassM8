@@ -1,9 +1,7 @@
 package edu.classm8web.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.HashMap;
 
 
 
@@ -17,7 +15,7 @@ public class Schoolclass implements Serializable{
 	private long id;
 	
 
-	private Vector<M8> classMembers = new Vector<M8>();
+	private HashMap<Long, M8> classMembers = new HashMap<Long, M8>();
 	
 	private String name;
 	
@@ -39,11 +37,11 @@ public class Schoolclass implements Serializable{
 		this.id = id;
 	}
 
-	public Vector<M8> getClassMembers() {
+	public HashMap<Long, M8> getClassMembers() {
 		return classMembers;
 	}
 
-	public void setClassMembers(Vector<M8> classMembers) {
+	public void setClassMembers(HashMap<Long, M8> classMembers) {
 		this.classMembers = classMembers;
 	}
 

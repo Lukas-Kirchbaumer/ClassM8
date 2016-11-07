@@ -1,5 +1,9 @@
 package edu.classm8web.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.M8;
 
@@ -21,43 +25,25 @@ public class UserService {
 		m8.setId(getHighestId()+1);
 		m8.setVotes(0);
 		m8.setHasVoted(false);
-		Database.getInstance().getMades().add(m8);
+		Database.getInstance().getMades().put(m8.getId(), m8);
 	}
 
 	public void updateUser(M8 newm8) {
-		for (int i = 0; i < Database.getInstance().getMades().size(); i++) {
-			if (newm8.getId() == Database.getInstance().getMades().elementAt(i).getId()) {
-				Database.getInstance().getMades().elementAt(i).setNewM8(newm8);
-			}
-		}
+		Database.getInstance().getMades().get(newm8.getId()).setNewM8(newm8);;
 	}
 
-	public void deleteUser(int id) {
-		for (int i = 0; i < Database.getInstance().getMades().size(); i++) {
-			if (id == Database.getInstance().getMades().elementAt(i).getId()) {
-				Database.getInstance().getMades().remove(i);
-			}
-		}
+	public void deleteUser(long id) {
+		Database.getInstance().getMades().remove(id);
 	}
 
-	public M8 getMade(int m8id) {
-		M8 ret = null;
-		for (int i = 0; i < Database.getInstance().getMades().size(); i++) {
-			if (m8id == Database.getInstance().getMades().elementAt(i).getId()) {
-				ret = Database.getInstance().getMades().elementAt(i);
-			}
-		}
-		return ret;
+	public M8 getMade(long m8id) {
+		return Database.getInstance().getMades().get(m8id);
 	}
 	
 	private long getHighestId(){
-		long highest = 0;
-		for (int i = 0; i < Database.getInstance().getMades().size(); i++) {
-			if (highest < Database.getInstance().getMades().elementAt(i).getId()) {
-				highest = Database.getInstance().getMades().elementAt(i).getId();
-			}
-		}
-		return highest;
+		List<Long> sortedKeys=new ArrayList<Long>(Database.getInstance().getMades().keySet());
+		Collections.sort(sortedKeys);
+		return Collections.max(sortedKeys);
 	}
 
 }

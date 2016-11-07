@@ -1,6 +1,10 @@
 package edu.classm8web.services;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.M8;
@@ -21,129 +25,63 @@ public class SchoolclassService {
 	}
 	
 	public void registerSchoolclass(Schoolclass sc, long m8id){
-		sc.setId(getHighestId());
+		sc.setId(getHighestId()+1);
 		sc.setPresident(null);
 		sc.setPresidentDeputy(null);
 		
-		for(int i = 0; i < Database.getInstance().getMades().size(); i++){
-			if(m8id == Database.getInstance().getMades().elementAt(i).getId()){
-				sc.getClassMembers().add(Database.getInstance().getMades().elementAt(i));
-			}
-		}
-		
-		Database.getInstance().getSchoolClasses().add(sc);
+		Database.getInstance().getSchoolclasses().put(sc.getId(), sc);
+		M8 m8 = Database.getInstance().getMades().get(m8id);
+		Database.getInstance().getSchoolclasses().get(sc.getId()).getClassMembers().put(m8id, m8);
 	}
 	
 	public void updateSchoolclass(Schoolclass sc){
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(sc.getId() == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				Database.getInstance().getSchoolClasses().elementAt(i).setNewClass(sc);;
-			}
-		}
+		
+		Database.getInstance().getSchoolclasses().get(sc.getId()).setNewClass(sc);
 	}
 	
 	public void deleteSchoolclass(long id){
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(id == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				Database.getInstance().getSchoolClasses().remove(i);
-			}
-		}
+		
+		Database.getInstance().getSchoolclasses().remove(id);
 	}
 	
 	public void addM8ToSchoolClass(long scid, long m8id){
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				
-				for(int j = 0; j < Database.getInstance().getMades().size();j++){
-					if(m8id == Database.getInstance().getMades().elementAt(j).getId()){
-						Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers().add(Database.getInstance().getMades().elementAt(j));
-					}
-				}
-				
-			}
-		}
+		M8 m8 = Database.getInstance().getMades().get(m8id);
+		Database.getInstance().getSchoolclasses().get(scid).getClassMembers().put(m8id, m8);
+		
 	}
 	
 	public void removeM8FromSchoolClass(long scid, long m8id){
-		int remove = -1;
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				
-				for(int j = 0; j < Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers().size();j++){
-					if(m8id == Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers().get(j).getId()){
-						Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers().remove(j);
-						if(Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers().size() == 0){
-							remove = i;
-						}
-					}
-				}
-				
-			}
-		}
-		if(remove != -1){
-			Database.getInstance().getSchoolClasses().remove(remove);
+		Database.getInstance().getSchoolclasses().get(scid).getClassMembers().remove(m8id);
+		if(Database.getInstance().getSchoolclasses().get(scid).getClassMembers().size() == 0){
+			Database.getInstance().getSchoolclasses().remove(scid);
 		}
 	}
 	
 	public void setPresidentInSchoolClass(int scid, int m8id){
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				
-				for(int j = 0; j < Database.getInstance().getMades().size();j++){
-					if(m8id == Database.getInstance().getMades().elementAt(j).getId()){
-						Database.getInstance().getSchoolClasses().elementAt(i).setPresident(Database.getInstance().getMades().elementAt(j));
-					}
-				}
-				
-			}
-		}
+		M8 m8 = Database.getInstance().getMades().get(m8id);
+		Database.getInstance().getSchoolclasses().get(scid).setPresident(m8);
 	}
 	
 	public void setPresidentDebutyInSchoolClass(int scid, int m8id){
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				
-				for(int j = 0; j < Database.getInstance().getMades().size();j++){
-					if(m8id == Database.getInstance().getMades().elementAt(j).getId()){
-						Database.getInstance().getSchoolClasses().elementAt(i).setPresidentDeputy(Database.getInstance().getMades().elementAt(j));
-					}
-				}
-				
-			}
-		}
+		M8 m8 = Database.getInstance().getMades().get(m8id);
+		Database.getInstance().getSchoolclasses().get(scid).setPresidentDeputy(m8);
 	}
 	
-	public Vector<M8> getMades(int scid){
-		
-		Vector<M8> mades = null;
-		
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				mades = Database.getInstance().getSchoolClasses().elementAt(i).getClassMembers();
-			}
-		}
-		
-		return mades;
+	public HashMap<Long, M8> getMades(int scid){
+		return Database.getInstance().getSchoolclasses().get(scid).getClassMembers();
 	}
 	
 	public Schoolclass getSchoolClass(int scid){
-		Schoolclass ret = null;
-		
-		for(int i = 0; i < Database.getInstance().getSchoolClasses().size();i++){
-			if(scid == Database.getInstance().getSchoolClasses().elementAt(i).getId()){
-				ret = Database.getInstance().getSchoolClasses().elementAt(i);
-			}
-		}
-		return ret;
+		return Database.getInstance().getSchoolclasses().get(scid);
 	}
 	
 	public Schoolclass getSchoolClassByM8(long m8id){
 		Schoolclass ret = null;
 		
-		for(Schoolclass sc : Database.getInstance().getSchoolClasses()){
-			for(M8 m8 : sc.getClassMembers()){
-				if(m8.getId() == m8id){
-					ret = sc;
+		for(Entry<Long,Schoolclass> sc : Database.getInstance().getSchoolclasses().entrySet()){
+			for(Entry<Long,M8> m8 : sc.getValue().getClassMembers().entrySet()){
+				if(m8.getValue().getId() == m8id){
+					ret = sc.getValue();
 				}
 			}
 		}
@@ -152,13 +90,9 @@ public class SchoolclassService {
 	
 	
 	private long getHighestId(){
-		long highest = 0;
-		for (int i = 0; i < Database.getInstance().getSchoolClasses().size(); i++) {
-			if (highest < Database.getInstance().getSchoolClasses().elementAt(i).getId()) {
-				highest = Database.getInstance().getSchoolClasses().elementAt(i).getId();
-			}
-		}
-		return highest;
+		List<Long> sortedKeys=new ArrayList<Long>(Database.getInstance().getSchoolclasses().keySet());
+		Collections.sort(sortedKeys);
+		return Collections.max(sortedKeys);
 	}
 	
 }

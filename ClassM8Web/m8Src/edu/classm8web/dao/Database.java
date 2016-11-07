@@ -1,6 +1,6 @@
 package edu.classm8web.dao;
 
-import java.util.Vector;
+import java.util.HashMap;
 
 import edu.classm8web.dto.M8;
 import edu.classm8web.dto.Schoolclass;
@@ -8,9 +8,16 @@ import edu.classm8web.dto.Schoolclass;
 public class Database {
 
 	private static Database instance;
+	
+	public static Database getInstance() {
+		if (Database.instance == null) {
+			Database.instance = new Database();
+		}
+		return Database.instance;
+	}
 
-	private Vector<M8> mades = new Vector<>();
-	private Vector<Schoolclass> classes = new Vector<>();
+	private HashMap<Long,M8> mades = new HashMap<>();
+	private HashMap<Long,Schoolclass> classes = new HashMap<>();
 
 	private Database() {
 		M8 max = new M8();
@@ -31,11 +38,11 @@ public class Database {
 		kramer.setPassword("dnke");
 		kramer.setVotes(324);
 
-		mades.add(kramer);
-		mades.add(max);
+		mades.put(kramer.getId(), kramer);
+		mades.put(max.getId(), max);
 
 		Schoolclass b5 = new Schoolclass();
-		b5.getClassMembers().add(max);
+		b5.getClassMembers().put(max.getId(), max);
 		b5.setId(1);
 		b5.setName("5bhifs");
 		b5.setPresident(max);
@@ -43,30 +50,29 @@ public class Database {
 		b5.setRoom("1337");
 		b5.setSchool("HTÖL");
 		
-		classes.addElement(b5);
+		classes.put(b5.getId(), b5);
 	}
+	
+	
+	
+	public HashMap<Long, Schoolclass> getSchoolclasses() {
+		return classes;
+	}
+	
+	public void setSchoolclasses(HashMap<Long, Schoolclass> classes) {
+		this.classes = classes;
+	}
+	
 
-	public Vector<M8> getMades() {
+	public HashMap<Long,M8> getMades() {
 		return mades;
 	}
 
-	public void setMades(Vector<M8> mades) {
+	public void setMades(HashMap<Long,M8> mades) {
 		this.mades = mades;
 	}
 
-	public static Database getInstance() {
-		if (Database.instance == null) {
-			Database.instance = new Database();
-		}
-		return Database.instance;
-	}
 
-	public Vector<Schoolclass> getSchoolClasses() {
-		return classes;
-	}
 
-	public void setSchoolClasses(Vector<Schoolclass> classes) {
-		this.classes = classes;
-	}
 
 }
