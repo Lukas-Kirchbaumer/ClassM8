@@ -24,6 +24,10 @@ public class SchoolclassService {
 	private SchoolclassService() {
 	}
 	
+	public HashMap<Long,Schoolclass> getAllSchoolClasses(){
+		return Database.getInstance().getSchoolclasses();
+	}
+	
 	public void registerSchoolclass(Schoolclass sc, long m8id){
 		sc.setId(getHighestId()+1);
 		sc.setPresident(null);

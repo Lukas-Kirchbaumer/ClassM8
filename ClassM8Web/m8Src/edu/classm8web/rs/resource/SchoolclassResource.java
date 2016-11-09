@@ -28,13 +28,10 @@ public class SchoolclassResource {
 	
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response get(@Context Request request, @Context HttpServletRequest httpServletRequest) {
-		
+	public Response getAllSchoolclasses(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 		
 		Vector<MappedSchoolclass> resObject = new Vector<>();
-		
-		
-		resObject.addAll(ObjectMapper.map(Database.getInstance().getSchoolclasses().values()));
+		resObject.addAll(ObjectMapper.map(SchoolclassService.getInstance().getAllSchoolClasses()));
 		
 		SchoolclassResult res = new SchoolclassResult();	
 		res.setSchoolclasses(resObject);
@@ -46,7 +43,7 @@ public class SchoolclassResource {
 	@PUT
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response update(@Context Request request, @Context HttpServletRequest httpServletRequest,
+	public Response updateSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id, final Schoolclass input) {
 
 		Schoolclass sc = new Schoolclass();
@@ -60,7 +57,7 @@ public class SchoolclassResource {
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response create(final Schoolclass input, @QueryParam("m8id") String id) {
+	public Response createSchoolclass(final Schoolclass input, @QueryParam("m8id") String id) {
 		SchoolclassService.getInstance().registerSchoolclass(input,Long.parseLong(id));
 		return Response.status(Response.Status.ACCEPTED).build();
 	}
@@ -68,7 +65,7 @@ public class SchoolclassResource {
 	@DELETE
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response delete(@Context Request request, @Context HttpServletRequest httpServletRequest,
+	public Response deleteSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
 
 

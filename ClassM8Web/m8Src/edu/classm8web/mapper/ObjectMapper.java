@@ -1,6 +1,10 @@
 package edu.classm8web.mapper;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 
 import edu.classm8web.dto.M8;
@@ -35,5 +39,15 @@ public class ObjectMapper {
 		}
 		
 		return mscs;
+	}
+
+	public static Vector<MappedSchoolclass> map(HashMap<Long, Schoolclass> allSchoolClasses) {
+		Iterator it = allSchoolClasses.entrySet().iterator();
+		Vector<MappedSchoolclass> ret = new Vector<MappedSchoolclass>();
+		while(it.hasNext()){
+			Map.Entry<Integer, Schoolclass> entry = (Entry<Integer, Schoolclass>) it.next();
+			ret.add(ObjectMapper.map(entry.getValue()));
+		}
+		return ret;
 	}
 }
