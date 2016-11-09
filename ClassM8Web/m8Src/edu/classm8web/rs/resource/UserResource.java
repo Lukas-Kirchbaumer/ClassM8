@@ -1,6 +1,5 @@
 package edu.classm8web.rs.resource;
 
-import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;

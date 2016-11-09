@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
-import edu.classm8web.dao.Database;
 import edu.classm8web.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.mapper.objects.MappedSchoolclass;

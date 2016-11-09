@@ -6,7 +6,6 @@ import java.util.List;
 
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.M8;
-import edu.classm8web.dto.Schoolclass;
 
 public class UserService {
 

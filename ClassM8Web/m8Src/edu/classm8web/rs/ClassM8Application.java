@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import edu.classm8web.dto.Schoolclass;
 import edu.classm8web.rs.resource.SchoolclassResource;
 import edu.classm8web.rs.resource.SecurityResource;
 import edu.classm8web.rs.resource.UserResource;
