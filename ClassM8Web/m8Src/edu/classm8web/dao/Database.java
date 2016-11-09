@@ -3,11 +3,11 @@ package edu.classm8web.dao;
 import java.util.HashMap;
 import java.util.Vector;
 
-import dto.M8;
-import dto.School;
-import dto.Schoolclass;
-import services.SchoolService;
-import services.SchoolclassService;
+import edu.classm8web.dto.M8;
+import edu.classm8web.dto.School;
+import edu.classm8web.dto.Schoolclass;
+import edu.classm8web.services.SchoolService;
+import edu.classm8web.services.SchoolclassService;
 
 import java.sql.*;
 

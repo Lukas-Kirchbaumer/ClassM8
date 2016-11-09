@@ -2,10 +2,10 @@ package edu.classm8web.services;
 
 import java.util.HashMap;
 
-import dao.Database;
-import dao.DatabaseException;
-import dto.M8;
-import dto.Schoolclass;
+import edu.classm8web.dao.Database;
+import edu.classm8web.dao.DatabaseException;
+import edu.classm8web.dto.M8;
+import edu.classm8web.dto.Schoolclass;
 
 public class SchoolclassService {
 	

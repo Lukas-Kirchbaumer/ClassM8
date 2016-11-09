@@ -1,8 +1,8 @@
 package edu.classm8web.services;
 
-import dao.Database;
-import dao.DatabaseException;
-import dto.M8;
+import edu.classm8web.dao.Database;
+import edu.classm8web.dao.DatabaseException;
+import edu.classm8web.dto.M8;
 
 public class SecurityService {
 	private static SecurityService instance;
