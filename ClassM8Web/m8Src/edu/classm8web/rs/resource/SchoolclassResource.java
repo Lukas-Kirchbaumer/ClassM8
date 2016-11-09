@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -74,10 +75,10 @@ public class SchoolclassResource {
 	}
 	
 	@GET
-	@Path("m8")
+	@Path("{m8id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getClassbyUser(@Context Request request, @Context HttpServletRequest httpServletRequest,
-			@QueryParam("m8id") String id) {
+			@PathParam("m8id") String id) {
 		
 		
 		Schoolclass sc = SchoolclassService.getInstance().getSchoolClassByM8(Long.parseLong(id));
@@ -92,10 +93,10 @@ public class SchoolclassResource {
 	}
 	
 	@POST
-	@Path("m8")
+	@Path("{m8id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response addM8ToSchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
-			@QueryParam("m8id") String m8id,@QueryParam("scid") String scid) {
+			@PathParam("m8id") String m8id,@QueryParam("scid") String scid) {
 
 
 		SchoolclassService.getInstance().addM8ToSchoolClass(Long.parseLong(scid), Long.parseLong(m8id));
@@ -104,10 +105,10 @@ public class SchoolclassResource {
 	}
 	
 	@DELETE
-	@Path("m8")
+	@Path("{m8id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response removeM8fromSchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
-			@QueryParam("m8id") String m8id,@QueryParam("scid") String scid){
+			@PathParam("m8id") String m8id,@QueryParam("scid") String scid){
 		
 		SchoolclassService.getInstance().removeM8FromSchoolClass(Long.parseLong(scid), Long.parseLong(m8id));
 
