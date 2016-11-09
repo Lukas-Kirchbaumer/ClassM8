@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.Schoolclass;
+import edu.classm8web.mapper.ObjectMapper;
+import edu.classm8web.mapper.objects.MappedSchoolclass;
 import edu.classm8web.rs.result.SchoolclassResult;
 import edu.classm8web.services.SchoolclassService;
 
@@ -29,8 +31,10 @@ public class SchoolclassResource {
 	public Response get(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 		
 		
-		Vector<Schoolclass> resObject = new Vector<>();
-		resObject.addAll(Database.getInstance().getSchoolclasses().values());
+		Vector<MappedSchoolclass> resObject = new Vector<>();
+		
+		
+		resObject.addAll(ObjectMapper.map(Database.getInstance().getSchoolclasses().values()));
 		
 		SchoolclassResult res = new SchoolclassResult();	
 		res.setSchoolclasses(resObject);
@@ -81,8 +85,8 @@ public class SchoolclassResource {
 		
 		
 		Schoolclass sc = SchoolclassService.getInstance().getSchoolClassByM8(Long.parseLong(id));
-		Vector<Schoolclass> resObject = new Vector<>();
-		resObject.add(sc);
+		Vector<MappedSchoolclass> resObject = new Vector<>();
+		resObject.add(ObjectMapper.map(sc));
 		
 		SchoolclassResult res = new SchoolclassResult();	
 		res.setSchoolclasses(resObject);
