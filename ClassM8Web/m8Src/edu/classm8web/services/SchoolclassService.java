@@ -1,6 +1,7 @@
 package edu.classm8web.services;
 
 import java.util.HashMap;
+import java.util.Vector;
 
 import edu.classm8web.dao.Database;
 import edu.classm8web.dao.DatabaseException;
@@ -151,6 +152,11 @@ public class SchoolclassService {
 			e.printStackTrace();
 		}
 		return id;
+	}
+
+	public Vector<Schoolclass> getAllSchoolClasses() {
+		//TODO: @bört DB need a collection of all schoolclasses
+		return null;
 	}
 	
 }

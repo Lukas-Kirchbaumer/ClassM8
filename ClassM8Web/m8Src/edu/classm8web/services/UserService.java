@@ -1,5 +1,8 @@
 package edu.classm8web.services;
 
+import java.util.Collection;
+import java.util.Vector;
+
 import edu.classm8web.dao.Database;
 import edu.classm8web.dao.DatabaseException;
 import edu.classm8web.dto.M8;
@@ -46,16 +49,6 @@ public class UserService {
 			e.printStackTrace();
 		}
 	}
-
-	public M8 getMade(long m8id) {
-		M8 mate = null;
-		try {
-			mate= Database.getInstance().getStudentById((int)m8id);
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
-		return mate;
-	}
 	
 	private long getHighestId(){
 		long id = 0;
@@ -75,6 +68,18 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return mate;
+	}
+
+	public Vector<M8> getAllM8s() {
+		Vector<M8> mates = null;
+		try {
+			//TODO: @bört need all m8s in a collection
+			//mates = ? 
+			throw new DatabaseException("NO EXC");
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		return mates;
 	}
 
 }

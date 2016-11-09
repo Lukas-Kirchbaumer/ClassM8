@@ -30,7 +30,7 @@ public class UserResource {
 
 		M8Result result = new M8Result();
 		result.setSuccess(true);
-		result.getContent().addAll(Database.getInstance().getMades().values());
+		result.getContent().addAll(UserService.getInstance().getAllM8s());
 
 		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}

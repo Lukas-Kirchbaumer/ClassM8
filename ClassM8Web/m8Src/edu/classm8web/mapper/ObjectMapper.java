@@ -20,7 +20,7 @@ public class ObjectMapper {
 		msc.setPresident(sc.getPresident());
 		msc.setPresidentDeputy(sc.getPresidentDeputy());
 		msc.setRoom(sc.getRoom());
-		msc.setSchool(sc.getSchool());
+		msc.setSchool(sc.getSchool().getIdentifier());
 		Vector<M8> mscClassMembers = new Vector<M8>();
 		
 		for(M8 m8 : sc.getClassMembers().values()){
