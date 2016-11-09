@@ -1,8 +1,8 @@
 package edu.classm8web.services;
 
 import edu.classm8web.dao.Database;
-import edu.classm8web.dao.DatabaseException;
 import edu.classm8web.dto.School;
+import edu.classm8web.exception.DatabaseException;
 
 public class SchoolService {
 	private static SchoolService instance;
@@ -13,35 +13,22 @@ public class SchoolService {
 		}
 		return SchoolService.instance;
 	}
-	
-	public void registerSchool(School s){
-		try {
-			s.setId(getHighestId()+1);
-			System.out.println(s.getId());
-			Database.getInstance().addSchool(s);
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
+
+	public void registerSchool(School s) throws DatabaseException {
+		s.setId(getHighestId() + 1);
+		System.out.println(s.getId());
+		Database.getInstance().addSchool(s);
 	}
-	
-	private long getHighestId(){
+
+	private long getHighestId() throws DatabaseException {
 		int id = 0;
-		try {
-			id = Database.getInstance().getMaxSchoolId();
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		id = Database.getInstance().getMaxSchoolId();
 		return id;
 	}
 
-	public School getSchoolByID(Integer idSchool) {
+	public School getSchoolByID(Integer idSchool) throws DatabaseException {
 		School s = null;
-		try {
-			s = Database.getInstance().getSchoolById(idSchool);
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
+		s = Database.getInstance().getSchoolById(idSchool);
 		return s;
 	}
 }

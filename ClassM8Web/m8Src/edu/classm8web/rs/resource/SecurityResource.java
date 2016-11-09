@@ -12,21 +12,24 @@ import edu.classm8web.rs.result.LoginResult;
 import edu.classm8web.services.SecurityService;
 
 @Path("login")
-public class SecurityResource {
-	
-	
+public class SecurityResource extends AbstractResource {
 
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response login(final M8 input) {
-		long ret;
-		ret = SecurityService.getInstance().checkLogin(input.getEmail(), input.getPassword());
-		
+
 		LoginResult res = new LoginResult();
-		res.setId(ret);
-		res.setSuccess(true);
-		
+
+		try {
+			long ret = SecurityService.getInstance().checkLogin(input.getEmail(), input.getPassword());
+			res.setId(ret);
+			res.setSuccess(true);
+
+		} catch (Exception e) {
+			handelAndThrowError(e, res);
+		}
+
 		return Response.status(Response.Status.ACCEPTED).entity(res).build();
 	}
 }

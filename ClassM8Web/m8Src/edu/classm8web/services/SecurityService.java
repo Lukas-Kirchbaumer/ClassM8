@@ -1,8 +1,8 @@
 package edu.classm8web.services;
 
 import edu.classm8web.dao.Database;
-import edu.classm8web.dao.DatabaseException;
 import edu.classm8web.dto.M8;
+import edu.classm8web.exception.DatabaseException;
 
 public class SecurityService {
 	private static SecurityService instance;
@@ -14,18 +14,15 @@ public class SecurityService {
 		return SecurityService.instance;
 	}
 
-	public long checkLogin(String email, String password){
+	public long checkLogin(String email, String password) throws DatabaseException {
 		long ret = -1;
 		M8 dude = null;
-		try {
-			dude = Database.getInstance().getStudentbyPasswordAndEMail(email, password);
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
-		
-		if(dude != null)
+
+		dude = Database.getInstance().getStudentbyPasswordAndEMail(email, password);
+
+		if (dude != null)
 			ret = dude.getId();
-		
+
 		return ret;
 	}
 }

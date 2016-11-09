@@ -6,9 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LoginResult extends Result {
 	private long id;
 	
-	public LoginResult() {
-		// TODO Auto-generated constructor stub
-	}
+	public LoginResult() {}
 	
 	public long getId() {
 		return id;

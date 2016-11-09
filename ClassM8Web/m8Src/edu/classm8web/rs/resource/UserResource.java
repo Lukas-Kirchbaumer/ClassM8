@@ -1,6 +1,5 @@
 package edu.classm8web.rs.resource;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,18 +18,24 @@ import javax.ws.rs.core.Response;
 import edu.classm8web.dao.Database;
 import edu.classm8web.dto.M8;
 import edu.classm8web.rs.result.M8Result;
+import edu.classm8web.rs.result.Result;
 import edu.classm8web.services.UserService;
 
 @Path("user")
-public class UserResource {
+public class UserResource extends AbstractResource {
 
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getUsers(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 
 		M8Result result = new M8Result();
-		result.setSuccess(true);
-		result.getContent().addAll(UserService.getInstance().getAllM8s());
+
+		try {
+			result.setSuccess(true);
+			result.getContent().addAll(UserService.getInstance().getAllM8s());
+		} catch (Exception e) {
+			handelAndThrowError(e, result);
+		}
 
 		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}
@@ -41,33 +46,57 @@ public class UserResource {
 	public Response update(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id, final M8 input) {
 
-		M8 m8 = input;
-		m8.setId(Integer.parseInt(id));
+		Result r = new Result();
+		
+		try {
+			M8 m8 = input;
+			m8.setId(Integer.parseInt(id));
+			UserService.getInstance().updateUser(m8);
+			r.setSuccess(true);
+		} catch (Exception e) {
+			handelAndThrowError(e, r);
+		}
 
-		UserService.getInstance().updateUser(m8);
 
-		return Response.status(Response.Status.ACCEPTED).build();
+		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
 
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response create(final M8 input) {
-		UserService.getInstance().registerUser(input);
-		return Response.status(Response.Status.ACCEPTED).build();
+		
+		Result r = new Result();
+		
+		try{
+			UserService.getInstance().registerUser(input);
+			r.setSuccess(true);
+		}catch(Exception e){
+			handelAndThrowError(e, r);
+			
+		}
+		
+		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
-	
+
 	@DELETE
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response delete(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
 
+		Result r = new Result();
+		
+		try{
+			UserService.getInstance().deleteUser(Integer.parseInt(id));
+			r.setSuccess(true);
 
-		UserService.getInstance().deleteUser(Integer.parseInt(id));
-
-		return Response.status(Response.Status.ACCEPTED).build();
+		}catch(Exception e){
+			handelAndThrowError(e, r);
+		}
+		
+		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
-	
+
 	@GET
 	@Path("{id}")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -75,8 +104,13 @@ public class UserResource {
 			@PathParam("id") String id) {
 
 		M8Result result = new M8Result();
-		result.setSuccess(true);
-		result.getContent().add(UserService.getInstance().getM8(Long.parseLong(id)));
+		
+		try{
+			result.setSuccess(true);
+			result.getContent().add(UserService.getInstance().getM8(Long.parseLong(id)));
+		}catch(Exception e){
+			handelAndThrowError(e, result);
+		}
 
 		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}

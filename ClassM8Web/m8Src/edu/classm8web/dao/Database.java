@@ -6,6 +6,7 @@ import java.util.Vector;
 import edu.classm8web.dto.M8;
 import edu.classm8web.dto.School;
 import edu.classm8web.dto.Schoolclass;
+import edu.classm8web.exception.DatabaseException;
 import edu.classm8web.services.SchoolService;
 import edu.classm8web.services.SchoolclassService;
 
@@ -77,7 +78,7 @@ public class Database {
         Connection conn = this.OpenConnection();
         ResultSet rs = null;
         PreparedStatement selectStudent = null;
-        M8 s = new M8();
+        M8 s = null;
         try {
             String updateString =
                     "select * from M8 where Id = ?";
