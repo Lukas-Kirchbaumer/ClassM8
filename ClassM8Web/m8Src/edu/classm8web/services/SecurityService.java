@@ -1,4 +1,4 @@
-package services;
+package edu.classM8.services;
 
 import dao.Database;
 import dao.DatabaseException;

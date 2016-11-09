@@ -1,4 +1,4 @@
-package dao;
+package edu.classM8.dao;
 
 import java.util.HashMap;
 import java.util.Vector;
