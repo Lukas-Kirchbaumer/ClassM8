@@ -1,4 +1,4 @@
-package edu.classM8.dao;
+package edu.classm8web.dao;
 
 public class DatabaseException extends Exception {
     private StringBuilder message;

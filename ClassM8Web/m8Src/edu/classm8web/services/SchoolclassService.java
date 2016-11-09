@@ -1,4 +1,4 @@
-package edu.classM8.services;
+package edu.classm8web.services;
 
 import java.util.HashMap;
 

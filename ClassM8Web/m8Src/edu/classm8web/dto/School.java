@@ -1,4 +1,4 @@
-package edu.classM8.dto;
+package edu.classm8web.dto;
 
 import java.io.Serializable;
 
