@@ -1,6 +1,7 @@
-package edu.classm8web.dto;
+package dto;
 
 import java.io.Serializable;
+
 
 public class M8 implements Serializable{
 
@@ -25,6 +26,21 @@ public class M8 implements Serializable{
 	private int votes;
 	
 	public M8() {}
+	
+	
+
+	public M8(long id, String firstname, String lastname, String email, String password, boolean hasVoted, int votes) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.password = password;
+		this.hasVoted = hasVoted;
+		this.votes = votes;
+	}
+
+
 
 	public long getId() {
 		return id;

@@ -1,11 +1,8 @@
-package edu.classm8web.services;
+package services;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import edu.classm8web.dao.Database;
-import edu.classm8web.dto.M8;
+import dao.Database;
+import dao.DatabaseException;
+import dto.M8;
 
 public class UserService {
 
@@ -22,32 +19,62 @@ public class UserService {
 	}
 
 	public void registerUser(M8 m8) {
+		
 		m8.setId(getHighestId()+1);
 		m8.setVotes(0);
 		m8.setHasVoted(false);
-		Database.getInstance().getMades().put(m8.getId(), m8);
+		
+		try {
+			Database.getInstance().addStudent(m8);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void updateUser(M8 newm8) {
-		Database.getInstance().getMades().get(newm8.getId()).setNewM8(newm8);;
+		try {
+			Database.getInstance().updateStudent(newm8);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void deleteUser(long id) {
-		Database.getInstance().getMades().remove(id);
+		try {
+			Database.getInstance().removeStudentById((int)id);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public M8 getMade(long m8id) {
-		return Database.getInstance().getMades().get(m8id);
+		M8 mate = null;
+		try {
+			mate= Database.getInstance().getStudentById((int)m8id);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		return mate;
 	}
 	
 	private long getHighestId(){
-		List<Long> sortedKeys=new ArrayList<Long>(Database.getInstance().getMades().keySet());
-		Collections.sort(sortedKeys);
-		return Collections.max(sortedKeys);
+		long id = 0;
+		try {
+			id = Database.getInstance().getMaxM8Id();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 	
 	public M8 getM8(long m8id){
-		return Database.getInstance().getMades().get(m8id);
+		M8 mate = null;
+		try {
+			mate= Database.getInstance().getStudentById((int)m8id);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		return mate;
 	}
 
 }

@@ -1,4 +1,4 @@
-package edu.classm8web.dto;
+package dto;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class Schoolclass implements Serializable{
 	
 	private M8 presidentDeputy;
 	
-	private String school;
+	private School school;
 	
 	public Schoolclass() {}
 
@@ -77,11 +77,11 @@ public class Schoolclass implements Serializable{
 		this.presidentDeputy = presidentDeputy;
 	}
 
-	public String getSchool() {
+	public School getSchool() {
 		return school;
 	}
 
-	public void setSchool(String school) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
 	
@@ -152,7 +152,17 @@ public class Schoolclass implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Schoolclass{" +
+				"id=" + id +
+				", classMembers=" + classMembers +
+				", name='" + name + '\'' +
+				", room='" + room + '\'' +
+				", president=" + president +
+				", presidentDeputy=" + presidentDeputy +
+				", school=" + school +
+				'}';
+	}
 }
