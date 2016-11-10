@@ -8,6 +8,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Program Files (x86)/Java/jdk1.8.0_111/ojdbc6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
