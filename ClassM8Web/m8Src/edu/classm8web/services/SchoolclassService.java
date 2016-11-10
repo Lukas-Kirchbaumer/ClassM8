@@ -101,8 +101,8 @@ public class SchoolclassService {
 	}
 
 	public Vector<Schoolclass> getAllSchoolClasses() throws DatabaseException{
-		// TODO: @bört DB need a collection of all schoolclasses
-		return null;
+		
+		return Database.getInstance().getAllSchoolclasses();
 	}
 
 }

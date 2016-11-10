@@ -25,7 +25,7 @@ public class Schoolclass implements Serializable{
 	
 	private M8 presidentDeputy;
 	
-	private School school;
+	private String school;
 	
 	public Schoolclass() {}
 
@@ -77,11 +77,11 @@ public class Schoolclass implements Serializable{
 		this.presidentDeputy = presidentDeputy;
 	}
 
-	public School getSchool() {
+	public String getSchool() {
 		return school;
 	}
 
-	public void setSchool(School school) {
+	public void setSchool(String school) {
 		this.school = school;
 	}
 	

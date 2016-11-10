@@ -59,9 +59,7 @@ public class UserService {
 	public Vector<M8> getAllM8s() throws DatabaseException {
 		Vector<M8> mates = null;
 
-		// TODO: @bört need all m8s in a collection
-		// mates = ?
-		//throw new DatabaseException("NO EXC");
+		mates = Database.getInstance().getAllMates();
 
 		return mates;
 	}

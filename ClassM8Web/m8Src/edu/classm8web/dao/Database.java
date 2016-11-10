@@ -7,7 +7,6 @@ import edu.classm8web.dto.M8;
 import edu.classm8web.dto.School;
 import edu.classm8web.dto.Schoolclass;
 import edu.classm8web.exception.DatabaseException;
-import edu.classm8web.services.SchoolService;
 import edu.classm8web.services.SchoolclassService;
 
 import java.sql.*;
@@ -19,7 +18,8 @@ public class Database {
 
     // JDBC driver name and database URL
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String DB_URL = "jdbc:oracle:thin:@212.152.179.117:1521:ora11g";
+    private static final String DB_URL_EXTERN = "jdbc:oracle:thin:@212.152.179.117:1521:ora11g";
+    private static final String DB_URL_INTERN = "jdbc:oracle:thin:@192.168.128.152:ora11g";
 
     //  Database credentials
     private static final String USER = "d5b09";
@@ -39,11 +39,20 @@ public class Database {
         Connection conn = null;
         try {
             Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            conn.setAutoCommit(false);
-        }catch (SQLException e){
-            throw new DatabaseException(e.getMessage());
-        }catch (ClassNotFoundException e){
+            try{
+            	conn = DriverManager.getConnection(DB_URL_EXTERN, USER, PASS);
+            	conn.setAutoCommit(false);
+            }catch (SQLException e){
+            	try{
+            		Class.forName(JDBC_DRIVER);
+                    conn = DriverManager.getConnection(DB_URL_INTERN, USER, PASS);
+                    conn.setAutoCommit(false);
+                    
+            	}catch(SQLException ex){
+            		throw new DatabaseException(ex.getMessage());
+            	}
+            }
+        } catch (ClassNotFoundException e){
             throw new DatabaseException(e.getMessage());
         }
         return conn;
@@ -157,7 +166,7 @@ public class Database {
 
             Integer idPresident = null;
             Integer idPresidentDeputy = null;
-            Integer idSchool = null;
+            
             int ids = 0;
             while (rs.next()) {
                 int ID = rs.getInt("ID");
@@ -166,7 +175,7 @@ public class Database {
                 String room = rs.getString("ROOM");
                 idPresident = rs.getInt("PRESIDENT");
                 idPresidentDeputy = rs.getInt("PRESIDENT_DEPUTY");
-                idSchool = rs.getInt("SCHOOLID");
+                c.setSchool(rs.getString("SCHOOLID"));
                 c.setId(ID);
                 c.setName(name);
                 c.setRoom(room);
@@ -186,10 +195,7 @@ public class Database {
                 System.out.println("president-deputy");
                 c.setPresidentDeputy(c.getClassMembers().get((long)idPresidentDeputy.intValue()));
             }
-            if (idSchool != 0) {
-                c.setSchool(SchoolService.getInstance().getSchoolByID(idSchool));
-            }
-
+           
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         } finally {
@@ -459,11 +465,9 @@ public class Database {
             selectStudent = conn.prepareStatement(updateString);
 
             selectStudent.setInt(1,(int)sclass.getId());
-            if(sclass.getSchool() != null)
-                selectStudent.setInt(2,(int)sclass.getSchool().getId());
-            else
-                selectStudent.setString(2,null);
-
+           
+            selectStudent.setString(2,sclass.getSchool());
+            
             if(sclass.getPresident() != null)
                 selectStudent.setInt(3,(int)sclass.getPresident().getId());
             else
@@ -808,57 +812,80 @@ public int getMaxM8Id() throws DatabaseException {
 		
 	}
 
-	public int getMaxSchoolId() throws DatabaseException {
-		int max = 0;
-        Connection conn = this.OpenConnection();
+	public Vector<M8> getAllMates() throws DatabaseException {
+		Vector<M8> mates = new Vector<>();
+		Connection conn = this.OpenConnection();
+		        ResultSet rs = null;
+		        PreparedStatement selectStudent = null;
+		        try {
+		            String updateString =
+		                    "SELECT * FROM M8";
+		            selectStudent = conn.prepareStatement(updateString);
+		           
+		            rs = selectStudent.executeQuery();
+
+		            while (rs.next()) {
+		            	int ID = rs.getInt("ID");
+		            	String firstname= rs.getString("VORNAME");
+		            	String lastname= rs.getString("NACHNAME");
+		            	String email= rs.getString("EMAIL");
+		            	String passwort= rs.getString("PASSWORD");
+		            	boolean hasVoted= rs.getBoolean("HASVOTED");
+		            	int votes= rs.getInt("VOTES");
+		               
+		            	mates.add(new M8(ID, firstname, lastname, email, passwort, hasVoted, votes));
+		           
+		            }
+		            rs.close();
+		            selectStudent.close();
+		            conn.close();
+		        } catch (SQLException e) {
+		            throw new DatabaseException(e.getMessage());
+		        } finally {
+		            this.isConnectionClosed(rs, conn);
+		        }
+		        return mates;
+		    }
+
+	public Vector<Schoolclass> getAllSchoolclasses() throws DatabaseException {
+		Connection conn = this.OpenConnection();
         ResultSet rs = null;
         PreparedStatement selectStudent = null;
+        Vector<Schoolclass> vec = new Vector<>();
         try {
             String updateString =
-                    "select MAX(id) as ID from SCHOOL";
+                    "select * FROM SCHOOLCLASS";
+
             selectStudent = conn.prepareStatement(updateString);
+           
             rs = selectStudent.executeQuery();
-
+            
+            int ids = 0;
             while (rs.next()) {
-            	max = rs.getInt("ID");
-            	 }
-            rs.close();
-            selectStudent.close();
-            conn.close();
-        } catch (SQLException e) {
-            throw new DatabaseException(e.getMessage());
-        } finally {
-            this.isConnectionClosed(rs, conn);
-        }
-        return max;
-	}
-
-
-    public  School getSchoolById(Integer idSchool) throws DatabaseException {
-        Connection conn = this.OpenConnection();
-        ResultSet rs = null;
-        PreparedStatement selectStudent = null;
-        School s = new School();
-        try {
-            String updateString =
-                    "select * from SCHOOL where Id = ?";
-            selectStudent = conn.prepareStatement(updateString);
-            selectStudent.setInt(1,idSchool);
-            rs = selectStudent.executeQuery();
-
-            while (rs.next()) {
-                String identifier = rs.getString("IDENTIFIER");
-                s = new School(idSchool, identifier);
+            	Schoolclass c = new Schoolclass();
+                int ID = rs.getInt("ID");
+                ids = ID;
+                String name = rs.getString("NAME");
+                String room = rs.getString("ROOM");
+                c.setSchool(rs.getString("SCHOOLID"));
+                c.setId(ID);
+                c.setName(name);
+                c.setRoom(room);
+                vec.add(c);
             }
 
             rs.close();
             selectStudent.close();
             conn.close();
+
+   
+            
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         } finally {
             this.isConnectionClosed(rs, conn);
         }
-        return s;
-    }
+        return vec;
+	}
+	
 }
