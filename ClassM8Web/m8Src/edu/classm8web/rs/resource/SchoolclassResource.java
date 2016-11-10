@@ -76,6 +76,7 @@ public class SchoolclassResource extends AbstractResource {
 			r.setSuccess(true);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
 
@@ -117,6 +118,7 @@ public class SchoolclassResource extends AbstractResource {
 			res.setSchoolclasses(resObject);
 			res.setSuccess(true);
 		} catch (Exception e) {
+			e.printStackTrace();
 			handelAndThrowError(e, res);
 		}
 

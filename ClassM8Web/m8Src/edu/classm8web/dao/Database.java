@@ -151,13 +151,13 @@ public class Database {
         try {
             String updateString =
                     "select SCHOOLCLASS.ID,\n" +
-                            "SCHOOLCLASS.SCHOOLID, \n" +
+                            "SCHOOLCLASS.SCHOOL, \n" +
                             "SCHOOLCLASS.NAME,\n" +
                             "SCHOOLCLASS.PRESIDENT , \n" +
                             "SCHOOLCLASS.PRESIDENT_DEPUTY, \n" +
                             "SCHOOLCLASS.ROOM \n" +
                             "from M8 inner join \n" +
-                            "SCHOOLCLASS on SCHOOLCLASS.ID = M8.SCHOOLCLASS where M8.ID = ?";
+                            "SCHOOLCLASS on SCHOOLCLASS.ID = M8.SCHOOLID where M8.ID = ?";
 
             selectStudent = conn.prepareStatement(updateString);
             selectStudent.setInt(1, id);
@@ -175,7 +175,7 @@ public class Database {
                 String room = rs.getString("ROOM");
                 idPresident = rs.getInt("PRESIDENT");
                 idPresidentDeputy = rs.getInt("PRESIDENT_DEPUTY");
-                c.setSchool(rs.getString("SCHOOLID"));
+                c.setSchool(rs.getString("SCHOOL"));
                 c.setId(ID);
                 c.setName(name);
                 c.setRoom(room);
@@ -437,7 +437,7 @@ public class Database {
         PreparedStatement selectStudent = null;
         try {
             String updateString =
-                    "UPDATE M8 SET SCHOOLCLASS = ? where ID = ?";
+                    "UPDATE M8 SET SCHOOLID = ? where ID = ?";
             selectStudent = conn.prepareStatement(updateString);
             selectStudent.setInt(1,ClassId);
             selectStudent.setInt(2,StudentId);
@@ -499,7 +499,7 @@ public class Database {
         PreparedStatement selectStudent = null;
         try {
             String updateString =
-                    "select * from M8 where SCHOOLCLASS = ?";
+                    "select * from M8 where SCHOOLID = ?";
             selectStudent = conn.prepareStatement(updateString);
             selectStudent.setInt(1,id);
             rs = selectStudent.executeQuery();
@@ -578,7 +578,6 @@ public class Database {
 
     public boolean removeStudentById(int id)throws DatabaseException{
         Connection conn = this.OpenConnection();
-        ResultSet rs = null;
         PreparedStatement selectStudent = null;
         boolean retVal;
         try {
@@ -586,16 +585,14 @@ public class Database {
                     "DELETE M8 where ID = ?";
             selectStudent = conn.prepareStatement(updateString);
             selectStudent.setInt(1,id);
-            rs = selectStudent.executeQuery();
+            retVal = selectStudent.execute();
 
-            retVal = rs.getBoolean(0);
-            rs.close();
             selectStudent.close();
             conn.close();
         } catch (SQLException e) {
             throw new DatabaseException(e.getMessage());
         } finally {
-            this.isConnectionClosed(rs, conn);
+            this.isConnectionClosed(conn);
         }
         return retVal;
     }
@@ -606,7 +603,7 @@ public class Database {
         boolean retVal;
         try {
             String updateString =
-                    "UPDATE M8 SET SCHOOLCLASS=null where ID = ?";
+                    "UPDATE M8 SET SCHOOLID = null where ID = ?";
             selectStudent = conn.prepareStatement(updateString);
             selectStudent.setInt(1,StudentId);
             retVal = selectStudent.execute();
@@ -848,6 +845,7 @@ public int getMaxM8Id() throws DatabaseException {
 		    }
 
 	public Vector<Schoolclass> getAllSchoolclasses() throws DatabaseException {
+		//TODO: @bört DOOOOOO
 		Connection conn = this.OpenConnection();
         ResultSet rs = null;
         PreparedStatement selectStudent = null;

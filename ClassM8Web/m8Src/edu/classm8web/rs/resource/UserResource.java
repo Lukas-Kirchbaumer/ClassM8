@@ -91,6 +91,7 @@ public class UserResource extends AbstractResource {
 			r.setSuccess(true);
 
 		}catch(Exception e){
+			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
 		
