@@ -11,7 +11,6 @@ public class SchoolclassResult extends Result{
 	private Vector<MappedSchoolclass> schoolclasses = new Vector<>();
 	
 	public SchoolclassResult() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Vector<MappedSchoolclass> getSchoolclasses() {

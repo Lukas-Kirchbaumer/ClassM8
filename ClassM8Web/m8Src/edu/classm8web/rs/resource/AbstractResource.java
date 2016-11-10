@@ -10,5 +10,7 @@ public abstract class AbstractResource {
 		error.setErrorMessage(e.getMessage());
 		r.setError(error);
 		r.setSuccess(false);
+		
+		e.printStackTrace();
 	}
 }
