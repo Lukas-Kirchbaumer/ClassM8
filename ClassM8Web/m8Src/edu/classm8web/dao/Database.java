@@ -19,7 +19,7 @@ public class Database {
     // JDBC driver name and database URL
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
     private static final String DB_URL_EXTERN = "jdbc:oracle:thin:@212.152.179.117:1521:ora11g";
-    private static final String DB_URL_INTERN = "jdbc:oracle:thin:@192.168.128.152:ora11g";
+    private static final String DB_URL_INTERN = "jdbc:oracle:thin:@192.168.128.152:1521:ora11g";
 
     //  Database credentials
     private static final String USER = "d5b09";
