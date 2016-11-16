@@ -54,7 +54,7 @@ public class SchoolclassResource extends AbstractResource {
 		try {
 			Schoolclass sc = new Schoolclass();
 			sc.setId(Long.parseLong(id));
-
+			//TODO: Insert input into SchoolclassService (input has still ID of old Schoolclass)
 			SchoolclassService.getInstance().updateSchoolclass(sc);
 			r.setSuccess(true);
 
