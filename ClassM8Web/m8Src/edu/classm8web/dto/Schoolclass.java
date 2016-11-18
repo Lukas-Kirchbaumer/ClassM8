@@ -86,6 +86,7 @@ public class Schoolclass implements Serializable{
 	}
 	
 	public void setNewClass(Schoolclass sc){
+		//TODO: @kirche check for null values!
 		this.classMembers = sc.classMembers;
 		this.name = sc.name;
 		this.room = sc.room;
