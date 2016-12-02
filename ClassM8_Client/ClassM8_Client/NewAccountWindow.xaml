@@ -5,30 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassM8_Client"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="NoResize"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
         Icon="res/Logo.png"
-        Title="Neuen Benutzer anlegen" Height="400" Width="500">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFA268D6"  Offset="-2"/>
-            <GradientStop Color="#CCF38156"  Offset="1.1"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Grid>
-        <TextBlock x:Name="textBlock" FontSize="14" HorizontalAlignment="Left" Margin="100,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="118" Height="21"><Run Text="Vorname"/><Run Text=": "/></TextBlock>
-        <TextBlock x:Name="textBlock_Copy" FontSize="14" HorizontalAlignment="Left" Margin="100,110,0,0" TextWrapping="Wrap" Text="Nachname:" VerticalAlignment="Top" Width="118"/>
-        <TextBlock x:Name="textBlock_Copy1" FontSize="14" HorizontalAlignment="Left" Margin="100,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"><Run Text="Email Adresse"/><Run Text=":"/></TextBlock>
-        <TextBox x:Name="firstname" HorizontalAlignment="Left" Height="21" Margin="244,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
-        <TextBox x:Name="lastname" HorizontalAlignment="Left" Height="21" Margin="244,110,0,0" VerticalAlignment="Top" Width="150"/>
-        <TextBox x:Name="email" HorizontalAlignment="Left" Height="21" Margin="244,150,0,0" VerticalAlignment="Top" Width="150"/>
-        <TextBlock x:Name="textBlock_Copy2" FontSize="14" HorizontalAlignment="Left" Margin="100,190,0,0" TextWrapping="Wrap" Text="Passwort:" VerticalAlignment="Top" Width="118"/>
-        <TextBlock x:Name="textBlock_Copy3" FontSize="14" HorizontalAlignment="Left" Margin="100,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144"><Run Text="Passwort "/><Run Text="bestätigen:"/></TextBlock>
-        <PasswordBox x:Name="password" HorizontalAlignment="Left" Height="21" Margin="244,190,0,0" VerticalAlignment="Top" Width="150"/>
-        <PasswordBox x:Name="passwordverify" HorizontalAlignment="Left" Height="21" Margin="244,230,0,0" VerticalAlignment="Top" Width="150"/>
-        <Button x:Name="btnNewAccCreate" Content="Erstellen" HorizontalAlignment="Left" Height="21" Margin="100,288,0,0" VerticalAlignment="Top" Width="75" Click="btnNewAccCreate_Click"/>
-        <Button x:Name="btnNewAccCancle" Content="Cancel" HorizontalAlignment="Left" Height="21" Margin="319,288,0,0" VerticalAlignment="Top" Width="75" Click="btnNewAccCancle_Click"/>
-        <TextBlock x:Name="txtError" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="244,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="220"/>
+        Title="Neuen Benutzer anlegen" Height="600" Width="600">
+
+    <materialDesign:Card Margin="10" Height="Auto" MinWidth="300" MaxWidth="500" MinHeight="400" VerticalAlignment="Center" Background="{DynamicResource MaterialDesignPaper}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Benutzer anlegen</TextBlock>
+            </materialDesign:ColorZone>
+
+            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Vorname</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Nachname</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">E-mail</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Passwort</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Passwort bestätigen</TextBlock>
+            <TextBlock x:Name="txtError" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20 8 20 8"></TextBlock>
+
+            <TextBox x:Name="firstname" Grid.Column="1" Grid.Row="1" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+            <TextBox x:Name="lastname" Grid.Column="1" Grid.Row="2" Margin="8 20 8 0" VerticalAlignment="Center" Height="26"></TextBox>
+            <TextBox x:Name="email" Grid.Column="1" Grid.Row="3" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+            <PasswordBox x:Name="password" Grid.Column="1" Grid.Row="4" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></PasswordBox>
+            <PasswordBox x:Name="passwordverify" Grid.Column="1" Grid.Row="5" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></PasswordBox>
 
 
-    </Grid>
+
+            <Grid Name="innerGrid" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="20 8 20 8" Height="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Button Click="btnNewAccCreate_Click" Grid.Column="0" Grid.Row="0" Width="100" Margin="20 8 20 8">Ok</Button>
+                <Button Click="btnNewAccCancle_Click" Grid.Column="1" Grid.Row="0" Width="100" Margin="20 8 20 8">Abbrechen</Button>
+
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
 </Window>

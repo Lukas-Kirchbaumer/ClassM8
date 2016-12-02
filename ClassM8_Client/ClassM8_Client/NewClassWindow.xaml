@@ -5,24 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassM8_Client"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         ResizeMode="CanMinimize"
-        Title="Neue Klasse erstellen" Height="280" Width="376">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFA064D6"  Offset="-2"/>
-            <GradientStop Color="#CCF57B4D"  Offset="1.1"/>
-        </LinearGradientBrush>
-    </Window.Background>
+        Title="Neue Klasse erstellen" Height="400" Width="500">
 
-    <Grid Margin="0,0,4,0">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="40,30,0,0" TextWrapping="Wrap" FontSize="14" Text="Name:" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtClassname" HorizontalAlignment="Left" FontSize="12" Height="21" Margin="93,30,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="230"/>
-        <Button x:Name="btnNewAccCancle" Content="Cancel" HorizontalAlignment="Left" Height="21" Margin="248,204,0,0" VerticalAlignment="Top" Width="75" Click="btnNewClassCancle_Click"/>
-        <Button x:Name="btnNewClass" Content="Erstellen" HorizontalAlignment="Left" Margin="40,205,0,0" VerticalAlignment="Top" Width="75" Click="btnNewClass_Click" />
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="40,80,0,0" TextWrapping="Wrap" FontSize="14" Text="Schule:" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtSchool" HorizontalAlignment="Left" FontSize="12" Height="21" Margin="93,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="179"/>
-        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="40,130,0,0" TextWrapping="Wrap" FontSize="14" VerticalAlignment="Top"><Run Text="Raum"/><Run Text=":"/></TextBlock>
-        <TextBox x:Name="txtRoom" HorizontalAlignment="Left" FontSize="12" Height="21" Margin="93,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
+    <materialDesign:Card Margin="10" Height="Auto" MinWidth="400" MaxWidth="500" MinHeight="350" VerticalAlignment="Center" Background="{DynamicResource MaterialDesignPaper}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Benutzer bearbeiten</TextBlock>
+        </materialDesign:ColorZone>
+
+
+        <TextBlock x:Name="textBlock" Margin="20 8 20 8" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="14" Text="Name:" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textBlock_Copy" Margin="20 8 20 8" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="14" Text="Schule:" VerticalAlignment="Center"/>
+        <TextBlock x:Name="textBlock_Copy1" Margin="20 8 20 8" Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Center" TextWrapping="Wrap" FontSize="14" Text="Raum:" VerticalAlignment="Center"></TextBlock>
+
+        <TextBox x:Name="txtClassname" Grid.Column="1" Grid.Row="1" Margin="8 20 8 0" VerticalAlignment="Center" Height="26" />
+        <TextBox x:Name="txtSchool" Margin="8 20 8 20" Grid.Row="2" Grid.Column="1" Text="" VerticalAlignment="Center" />
+        <TextBox x:Name="txtRoom" Margin="8 20 8 20" Grid.Row="3" Grid.Column="1" Text="" VerticalAlignment="Center" />
+
+
+        <Grid Name="innerGrid" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="20 8 20 8" Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnNewAccCancle"  Click="btnNewClassCancle_Click" Content="Abbrechen" Grid.Column="1" Grid.Row="0" Width="100" Margin="20 8 20 8"/>
+            <Button x:Name="btnNewClass" Content="Erstellen"  Click="btnNewClass_Click" Grid.Column="0" Grid.Row="0" Width="100" Margin="20 8 20 8" />
+        </Grid>
+        
     </Grid>
+    </materialDesign:Card>
 </Window>

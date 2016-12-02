@@ -30,7 +30,6 @@ namespace ClassM8_Client
 
         private void btnNewAccCancle_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
         }
 
         private void btnNewAccCreate_Click(object sender, RoutedEventArgs e)
@@ -89,8 +88,7 @@ namespace ClassM8_Client
                 var result = streamReader.ReadToEnd();
                 Console.WriteLine(result);
             }
-
-            this.Close();
+            
 
         }
     }

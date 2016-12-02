@@ -4,31 +4,62 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClassM8_Client"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         ResizeMode="CanMinimize"
-        Title="" Height="330.667" Width="340">
-    <Window.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFA268D6"  Offset="-2"/>
-            <GradientStop Color="#CCF38156"  Offset="1.1"/>
-        </LinearGradientBrush>
-    </Window.Background>
-    <Grid>
-        <TextBlock x:Name="name" HorizontalAlignment="Left" Height="21" Margin="40,25,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="school" HorizontalAlignment="Left" Height="21" Margin="40,65,0,0" TextWrapping="Wrap" Text="Schule:" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="room" HorizontalAlignment="Left" Height="21" Margin="40,105,0,0" TextWrapping="Wrap" Text="Raum:" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="president" HorizontalAlignment="Left" Height="21" Margin="40,145,0,0" TextWrapping="Wrap" Text="Klassensprecher:" VerticalAlignment="Top" Width="100"/>
-        <TextBlock x:Name="presDep" HorizontalAlignment="Left" Height="21" Margin="40,185,0,0" TextWrapping="Wrap" Text="Stellvertreter:" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="21" Margin="174,24,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="126"/>
-        <TextBox x:Name="txtSchool" HorizontalAlignment="Left" Height="21" Margin="174,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="126"/>
-        <TextBox x:Name="txtRoom" HorizontalAlignment="Left" Height="21" Margin="174,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="126"/>
-        <ComboBox x:Name="cbPres" HorizontalAlignment="Left" Height="21" Margin="174,145,0,0" VerticalAlignment="Top" Width="126"/>
-        <ComboBox x:Name="cbPresDep" HorizontalAlignment="Left" Height="21" Margin="174,185,0,0" VerticalAlignment="Top" Width="126"/>
-        <Button x:Name="btnUpdate" Content="Ok" HorizontalAlignment="Left" Height="21" Margin="40,254,0,0" VerticalAlignment="Top" Width="67" Click="btnUpdate_Click"/>
-        <Button x:Name="btnCancle" Content="Cancel" HorizontalAlignment="Left" Height="21" Margin="233,254,0,0" VerticalAlignment="Top" Width="67" Click="btnCancle_Click"/>
-        <Label x:Name="errorMsg" Visibility="Hidden"  Content="Klassensprecher und Stellvertreter &#xD;&#xA;dürfen nicht die selbe Person sein" FontSize="10" Foreground="White" HorizontalAlignment="Left" Height="48" Margin="157,205,0,0" VerticalAlignment="Top" Width="167"/>
-        <TextBlock x:Name="txtInfo" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="114,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Height="21" Margin="138,253,0,0" VerticalAlignment="Top" Width="67" Click="btnDelete_Click"/>
+        Title="" Height="435" Width="500">
 
-    </Grid>
+    <materialDesign:Card Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Klasse bearbeiten</TextBlock>
+            </materialDesign:ColorZone>
+
+            <TextBlock x:Name="name" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Name</TextBlock>
+            <TextBlock x:Name="school" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Schule</TextBlock>
+            <TextBlock x:Name="room" Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Raum</TextBlock>
+            <TextBlock x:Name="president" Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Klassensprecher</TextBlock>
+            <TextBlock x:Name="presDep" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Ks. Stellvertreter</TextBlock>
+
+            <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+            <TextBox x:Name="txtSchool" Grid.Column="1" Grid.Row="2" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+            <TextBox x:Name="txtRoom" Grid.Column="1" Grid.Row="3" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+            <ComboBox x:Name="cbPres" Grid.Column="1" Grid.Row="4" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26" />
+            <ComboBox x:Name="cbPresDep" Grid.Column="1" Grid.Row="5" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></ComboBox>
+
+            <Label x:Name="errorMsg" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Visibility="Hidden" Content="Klassensprecher und Stellvertreter &#xD;&#xA;dürfen nicht die selbe Person sein" FontSize="10" Foreground="White" HorizontalAlignment="Left" Height="48" Margin="10" VerticalAlignment="Top" Width="167"/>
+            <TextBlock x:Name="txtInfo" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+
+            <Grid Name="innerGrid" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="20 8 20 8" Height="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnUpdate" Content="Ok" Grid.Column="0" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnUpdate_Click"/>
+                <Button x:Name="btnCancle" Content="Abbrechen" Grid.Column="2" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnCancle_Click"/>
+                <Button x:Name="btnDelete" Content="Löschen" Grid.Column="1" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnDelete_Click"/>
+            </Grid>
+
+        </Grid>
+    </materialDesign:Card>
 </Window>
