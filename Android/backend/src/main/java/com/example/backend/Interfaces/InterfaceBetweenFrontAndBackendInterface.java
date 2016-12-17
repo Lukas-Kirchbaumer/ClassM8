@@ -1,7 +1,7 @@
 package com.example.backend.Interfaces;
 
-import com.example.backend.DTO.M8;
-import com.example.backend.DTO.Schoolclass;
+import com.example.backend.Dto.M8;
+import com.example.backend.Dto.Schoolclass;
 
 /**
  * Created by laubi on 12/2/2016.

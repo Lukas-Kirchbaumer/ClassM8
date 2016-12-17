@@ -1,4 +1,4 @@
-package com.example.backend.DTO;
+package com.example.backend.Dto;
 
 import java.io.Serializable;
 import java.util.HashMap;
