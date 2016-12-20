@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
-import edu.classm8web.dto.M8;
-import edu.classm8web.dto.Schoolclass;
+import edu.classm8web.database.dto.M8;
+import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
 
 public class ObjectMapper {

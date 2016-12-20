@@ -3,9 +3,9 @@ package edu.classm8web.services;
 import java.util.HashMap;
 import java.util.Vector;
 
-import edu.classm8web.dao.Database;
-import edu.classm8web.dto.M8;
-import edu.classm8web.dto.Schoolclass;
+import edu.classm8web.database.dao.Database;
+import edu.classm8web.database.dto.M8;
+import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.exception.DatabaseException;
 
 public class SchoolclassService {

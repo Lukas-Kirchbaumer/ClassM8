@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import edu.classm8web.dto.M8;
+import edu.classm8web.database.dto.M8;
 
 @XmlRootElement
 public class M8Result extends Result{
