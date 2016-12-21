@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * Created by laubi on 12/7/2016.
  */
@@ -65,10 +67,10 @@ public class Executer extends AsyncTask<URL, String, String> {
 */
     protected String doInBackground(URL... urls) {
 
-        HttpURLConnection urlConnection = null;
+        HttpsURLConnection urlConnection = null;
 
         try {
-            urlConnection = (HttpURLConnection) urls[0].openConnection();
+            urlConnection = (HttpsURLConnection) urls[0].openConnection();
             urlConnection.setRequestMethod(method);
             urlConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -78,12 +80,11 @@ public class Executer extends AsyncTask<URL, String, String> {
         catch (IOException e) {
         e.printStackTrace();
         }
-        urlConnection.setRequestProperty("Accept", "application/json");
         try {
 
-            urlConnection.setDoOutput(true);
-            if(method != "GET")
-                urlConnection.setChunkedStreamingMode(0);
+            if(method != "GET"){
+                urlConnection.setDoOutput(true);
+                urlConnection.setChunkedStreamingMode(0);}
 
             OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
             writeStream(out);
@@ -97,7 +98,7 @@ public class Executer extends AsyncTask<URL, String, String> {
             urlConnection.disconnect();
         }
 
-        return null;
+        return data;
     }
 
     private void readStream(InputStream in) throws Exception {

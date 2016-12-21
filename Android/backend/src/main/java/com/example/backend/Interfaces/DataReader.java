@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 
 /**
@@ -300,6 +302,74 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
             e.printStackTrace();
         }
         return newUser;
+    }
+
+    public void uploadFile(File f) {
+            try {
+            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/fileshare/");
+
+            executer.setMethod("POST");
+                FileInputStream imageInFile = new FileInputStream(f);
+                byte fileData[] = new byte[(int)f.length()];
+                imageInFile.read(fileData);
+                String imageDataString = encode(fileData);
+
+            executer.setData(gson.toJson(imageDataString));
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            JsonElement o = parser.parse(strFromWebService);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String encode(byte[] fileData) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b:fileData) {
+            sb.append(b);
+        }
+        return sb.toString();
+
+    }
+
+    public void placeVoteForPresident(M8 user, M8 votedMate) {
+        try {
+            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/" + user.getId());
+
+            executer.setMethod("POST");
+            executer.setData(gson.toJson(votedMate, M8.class));
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            JsonElement o = parser.parse(strFromWebService);
+        } catch (Exception e) {
+
+        }
+    }
+    public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
+        try {
+            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/Deputy/" + user.getId());
+
+            executer.setMethod("POST");
+            executer.setData(gson.toJson(votedMate, M8.class));
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            JsonElement o = parser.parse(strFromWebService);
+        } catch (Exception e) {
+
+        }
     }
 
 
