@@ -1,5 +1,6 @@
 package com.example.backend.Interfaces;
 
+import com.example.backend.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.MappedSchoolclass;
 import com.example.backend.Dto.Schoolclass;
@@ -82,7 +83,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
             o = parser.parse(strFromWebService);
             M8Result m8r = gson.fromJson(o, M8Result.class);
             user = m8r.getContent().get(0);
-
+            Database.getInstance().setCurrentMate(user);
 
         }catch (Exception e){
             user = null;
@@ -115,7 +116,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
                 MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
 
                 schoolclass = mappedSchoolclass.toSchoolClass();
-
+                Database.getInstance().setCurrentSchoolclass(schoolclass);
 
             }catch (Exception e){
                 schoolclass = null;
