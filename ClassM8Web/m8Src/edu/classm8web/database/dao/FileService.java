@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import edu.classm8web.database.dao.common.BaseDBService;
 import edu.classm8web.database.dto.File;
+import edu.classm8web.exception.DatabaseException;
 
 public class FileService implements BaseDBService<Long,File>{
 
@@ -27,69 +29,102 @@ public class FileService implements BaseDBService<Long,File>{
 	}
 	
 	@Override
-	public void persist(File entity) {
-		// TODO Auto-generated method stub
-		
+	public void persist(File entity) throws DatabaseException {
+		try {
+			em.getTransaction().begin();
+
+			em.persist(entity);
+
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+		}				
 	}
 
 	@Override
-	public void removeById(Long id) {
-		// TODO Auto-generated method stub
-		
+	public void removeById(Long id) throws DatabaseException {
+		try {
+			em.getTransaction().begin();
+			File itemToRemove = this.findById(id);
+			if (itemToRemove != null) {
+				em.remove(itemToRemove);
+			} else {
+				em.getTransaction().commit();
+				throw new DatabaseException("Entity not in Database");
+			}
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+}		
 	}
 
 	@Override
-	public void removeByEntity(File entity) {
-		// TODO Auto-generated method stub
-		
+	public void removeByEntity(File entity) throws DatabaseException {
+		try {
+			em.getTransaction().begin();
+			if (em.contains(entity))
+				em.remove(entity);
+			else
+				throw new DatabaseException("Entity not in Database");
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+}		
 	}
 
 	@Override
-	public void update(File entity) {
-		// TODO Auto-generated method stub
-		
+	public void update(File entity) throws DatabaseException {
+		try {
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+}		
 	}
 
 	@Override
 	public File findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(File.class, id);
 	}
 
 	@Override
 	public List<File> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		String query = new StringBuilder("SELECT u FROM ").append(File.class.getSimpleName()).append(" u").toString();
+		return em.createQuery(query).getResultList();
 	}
 
 	@Override
 	public void createPersistentComponents() {
-		// TODO Auto-generated method stub
-		
+		emf = Persistence.createEntityManagerFactory("ClassM8Web");
+		em = emf.createEntityManager(); 		
 	}
 
 	@Override
 	public void closeEntityManagerFactory() {
-		// TODO Auto-generated method stub
-		
+		emf.close();
 	}
 
 	@Override
 	public void closeEntityManager() {
-		// TODO Auto-generated method stub
-		
+		em.close();
 	}
 
 	@Override
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+	public void deleteAll() throws DatabaseException {
+		try {
+			em.getTransaction().begin();
+			String query = new StringBuilder("DELETE FROM ").append(File.class.getSimpleName()).append(" u").toString();
+			em.createQuery(query).executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			throw new DatabaseException(e.getMessage());
+}		
 	}
 
 	@Override
 	public EntityManager getEm() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.em;
 	}
 
 }
