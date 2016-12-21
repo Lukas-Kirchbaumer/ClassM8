@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
-            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Benutzer bearbeiten</TextBlock>
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Klasse bearbeiten</TextBlock>
         </materialDesign:ColorZone>
 
 

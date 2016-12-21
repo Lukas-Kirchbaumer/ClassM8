@@ -43,8 +43,7 @@
             <TextBox x:Name="email" Grid.Column="1" Grid.Row="3" Margin="8 20 8 0" VerticalAlignment="Center" Height="26" />
             <TextBox x:Name="password" Grid.Column="1" Grid.Row="4" Margin="8 20 8 0" VerticalAlignment="Center" Height="26" />
 
-            <TextBlock x:Name="txtInfo" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-
+            <TextBlock x:Name="txtInfo" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Center" Width="Auto"/>
             <Grid Name="innerGrid" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="20 8 20 8" Height="Auto">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
