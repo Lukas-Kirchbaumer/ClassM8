@@ -16,17 +16,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:name=".HomeActivity" />
         <activity
-            android:name=".NewAccountActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:name=".NewAccountActivity" />
         <activity
-            android:name=".UserSettingsActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:name=".UserSettingsActivity" />
         <activity
-            android:name=".VoteActivity"
-            android:theme="@style/Theme.AppCompat.Light" />
+            android:name=".VoteActivity" />
     </application>
 
 </manifest>

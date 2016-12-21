@@ -1,12 +1,10 @@
 package com.example.backend.Dto;
 
-import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Vector;
 
 
-
-public class Schoolclass implements Serializable{
-
+public class MappedSchoolclass {
 	/**
 	 * 
 	 */
@@ -15,7 +13,7 @@ public class Schoolclass implements Serializable{
 	private long id;
 	
 
-	private HashMap<Long, M8> classMembers = new HashMap<Long, M8>();
+	private Vector<M8> classMembers = new Vector<M8>();
 	
 	private String name;
 	
@@ -27,7 +25,7 @@ public class Schoolclass implements Serializable{
 	
 	private String school;
 	
-	public Schoolclass() {}
+	public MappedSchoolclass() {}
 
 	public long getId() {
 		return id;
@@ -37,11 +35,11 @@ public class Schoolclass implements Serializable{
 		this.id = id;
 	}
 
-	public HashMap<Long, M8> getClassMembers() {
+	public Vector<M8> getClassMembers() {
 		return classMembers;
 	}
 
-	public void setClassMembers(HashMap<Long, M8> classMembers) {
+	public void setClassMembers(Vector<M8> classMembers) {
 		this.classMembers = classMembers;
 	}
 
@@ -85,7 +83,7 @@ public class Schoolclass implements Serializable{
 		this.school = school;
 	}
 	
-	public void setNewClass(Schoolclass sc){
+	public void setNewClass(MappedSchoolclass sc){
 		this.classMembers = sc.classMembers;
 		this.name = sc.name;
 		this.room = sc.room;
@@ -117,7 +115,7 @@ public class Schoolclass implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Schoolclass other = (Schoolclass) obj;
+		MappedSchoolclass other = (MappedSchoolclass) obj;
 		if (classMembers == null) {
 			if (other.classMembers != null)
 				return false;
@@ -153,16 +151,23 @@ public class Schoolclass implements Serializable{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Schoolclass{" +
-				"id=" + id +
-				", classMembers=" + classMembers +
-				", name='" + name + '\'' +
-				", room='" + room + '\'' +
-				", president=" + president +
-				", presidentDeputy=" + presidentDeputy +
-				", school=" + school +
-				'}';
+
+	public Schoolclass toSchoolClass() {
+		Schoolclass s = new Schoolclass();
+		s.setId(this.getId());
+
+		s.setName(this.getName());
+		s.setPresident(this.getPresident());
+		s.setPresidentDeputy(this.getPresidentDeputy());
+		s.setRoom(this.getRoom());
+		s.setSchool(this.getSchool());
+
+		HashMap<Long, M8> classMembers = new HashMap<>();
+		for(M8 m8 : this.getClassMembers()){
+			classMembers.put(m8.getId(),m8);
+		}
+		s.setClassMembers(classMembers);
+
+		return s;
 	}
 }

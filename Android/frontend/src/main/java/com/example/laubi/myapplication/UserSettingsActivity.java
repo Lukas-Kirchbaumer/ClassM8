@@ -1,17 +1,17 @@
 package com.example.laubi.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.backend.DTO.M8;
+import com.example.backend.Dto.M8;
 
 import static com.example.laubi.myapplication.MainActivity.EXTRA_M8;
 
-public class UserSettingsActivity extends AppCompatActivity {
+public class UserSettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

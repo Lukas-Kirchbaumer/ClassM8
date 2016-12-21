@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.example.backend.DTO.*;
+import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 public class MainActivity extends Activity {
@@ -61,15 +59,17 @@ public class MainActivity extends Activity {
                 }
                 System.out.println(txtEmail.getText() + "  " + txtPassword.getText());
                 if(correct){
-
+                /*
                     //TODO try to login User
                     DataReader dr = new DataReader();
 
-                    M8 currm8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+                    M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+                */
 
+                    M8 currM8 = new M8(2,"Thomas","Leiter","Thoams@Sillian","asdf",true, 2);
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
-                    intent.putExtra(EXTRA_M8, currm8);
+                    intent.putExtra(EXTRA_M8, currM8);
 
                     //Falls er wegen Theme.AppCompat theme blablba weint
                     //android:theme="@style/Theme.AppCompat.Light"

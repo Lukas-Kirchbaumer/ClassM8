@@ -1,18 +1,18 @@
 package com.example.laubi.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.backend.DTO.*;
+import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 import static com.example.laubi.myapplication.MainActivity.EXTRA_M8;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends Activity {
 
     TextView tvCurrClass = null;
 
@@ -25,14 +25,14 @@ public class HomeActivity extends AppCompatActivity {
         tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
 
         Intent intent = getIntent();
-        M8 m8 = (M8) intent.getSerializableExtra(EXTRA_M8);
+        final M8 m8 = (M8) intent.getSerializableExtra(EXTRA_M8);
 
         getCurrClass(m8);
 
         btnM8Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentSettings = new Intent(HomeActivity.this, VoteActivity.class);
+                Intent intentSettings = new Intent(HomeActivity.this, UserSettingsActivity.class);
 
                 intentSettings.putExtra(EXTRA_M8, m8);
 

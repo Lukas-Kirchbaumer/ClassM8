@@ -1,14 +1,15 @@
 package com.example.laubi.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.support.v7.appcompat.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.backend.DTO.M8;
+import com.example.backend.Dto.M8;
 
-public class NewAccountActivity extends AppCompatActivity {
+public class NewAccountActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
