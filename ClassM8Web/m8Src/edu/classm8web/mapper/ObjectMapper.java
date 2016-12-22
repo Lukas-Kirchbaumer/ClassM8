@@ -92,7 +92,7 @@ public class ObjectMapper {
 	public static Vector<MappedM8> mapM8s(List<M8> m8s){
 		Vector<MappedM8> maped = new Vector<>();
 		for(M8 m8 : m8s){
-			maped.add(ObjectMapper.map(m8));
+			maped.add(ObjectMapper.mapForSchoolClass(m8));
 		}
 		return maped;
 		
