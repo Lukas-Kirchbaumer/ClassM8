@@ -1,20 +1,13 @@
 package com.example.backend.Interfaces;
 
-import com.example.backend.Database;
 import com.example.backend.Dto.M8;
-import com.example.backend.Dto.MappedSchoolclass;
 import com.example.backend.Dto.Schoolclass;
-import com.example.backend.Executer;
-import com.example.backend.Results.LoginResult;
-import com.example.backend.Results.M8Result;
-import com.example.backend.Results.SchoolclassResult;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.example.backend.Services.FileServices;
+import com.example.backend.Services.SchoolclassServices;
+import com.example.backend.Services.UserServices;
+import com.example.backend.Services.VotingServices;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
 
 /**
  * Created by laubi on 12/2/2016.
@@ -22,17 +15,9 @@ import java.net.URL;
 
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
-    private Executer executer = new Executer();;
-    private Gson gson = new Gson();
-    private JsonParser parser = new JsonParser();
+    private static DataReader instance = null;
 
-    private DataReader instance = null;
-
-    /**
-     * DataReader is a Singleton. getInstance() returns the instance (duh)
-     * @return the Instance of DataReader
-     */
-    public DataReader getInstance(){
+    public static DataReader getInstance(){
         if(instance == null){
             instance = new DataReader();
         }
@@ -48,47 +33,12 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
      */
     @Override
     public M8 login(String email, String password) {
-
         M8 user = new M8();
         user.setEmail(email);
         user.setPassword(password);
 
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/login");
+        user = UserServices.getInstance().login(user);
 
-            executer.setMethod("POST");
-            executer.setData(gson.toJson(user, M8.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-            LoginResult r = gson.fromJson(o, LoginResult.class);
-
-
-            serverURL = new URL("http://localhost:8080/ClassM8Web/services/user/"+r.getId());
-
-
-            executer.setMethod("GET");
-            executer.execute(serverURL);
-
-            strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            user = gson.fromJson(strFromWebService, M8.class);
-
-            o = parser.parse(strFromWebService);
-            M8Result m8r = gson.fromJson(o, M8Result.class);
-            user = m8r.getContent().get(0);
-            Database.getInstance().setCurrentMate(user);
-
-        }catch (Exception e){
-            user = null;
-            e.printStackTrace();
-        }
         return user;
     }
 
@@ -97,31 +47,9 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
      * @param user The logged in User
      * @return the Schoolclass of the User
      */
-        @Override
-        public Schoolclass getSchoolclassByUser(M8 user) {
-            Schoolclass schoolclass = null;
-            try {
-                URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/schoolclass/"+ user.getId());
-
-                executer.setMethod("GET");
-                executer.execute(serverURL);
-
-                String strFromWebService = executer.get();
-
-                System.out.println("returned string: " + strFromWebService);
-
-                JsonElement o = parser.parse(strFromWebService);
-                SchoolclassResult r = gson.fromJson(o, SchoolclassResult.class);
-
-                MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
-
-                schoolclass = mappedSchoolclass.toSchoolClass();
-                Database.getInstance().setCurrentSchoolclass(schoolclass);
-
-            }catch (Exception e){
-                schoolclass = null;
-                e.printStackTrace();
-            }
+    @Override
+    public Schoolclass getSchoolclassByUser(M8 user) {
+            Schoolclass schoolclass = SchoolclassServices.getInstance().getSchoolclassByUser(user);
         return schoolclass;
     }
 
@@ -132,27 +60,10 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         s.setSchool(school);
         s.setRoom(room);
 
+        SchoolclassServices.getInstance().createNewClass(s);
 
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/schoolclass");
-
-            executer.setMethod("POST");
-            executer.setData(gson.toJson(s, Schoolclass.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-            LoginResult r = gson.fromJson(o, LoginResult.class);
-        }catch (Exception e){
-            s= null;
-            e.printStackTrace();
-        }
         return s;
     }
-
 
     @Override
     public Schoolclass updateClass(String name, String school, String room, Schoolclass oldSchoolClass) {
@@ -161,109 +72,44 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         newSchoolclass.setSchool(school);
         newSchoolclass.setName(name);
 
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/schoolclass/" + oldSchoolClass.getId());
+        SchoolclassServices.getInstance().updateClass(newSchoolclass, oldSchoolClass);
 
-            executer.setMethod("PUT");
-            executer.setData(gson.toJson(newSchoolclass, Schoolclass.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-
-        } catch (Exception e) {
-            newSchoolclass = null;
-            e.printStackTrace();
-        }
         return newSchoolclass;
     }
 
     @Override
     public void updateClass(Schoolclass schoolClass) {
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/schoolclass/"+schoolClass.getId());
-
-            executer.setMethod("PUT");
-            executer.setData(gson.toJson(schoolClass, Schoolclass.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        SchoolclassServices.getInstance().updateClass(schoolClass);
     }
 
     @Override
     public void deleteClass(Schoolclass schoolClass) {
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/schoolclass/"+schoolClass.getId());
-
-            executer.setMethod("DELETE");
-            executer.setData(gson.toJson(schoolClass, Schoolclass.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        SchoolclassServices.getInstance().deleteClass(schoolClass);
     }
 
     @Override
     public M8 createNewUser(String firstname, String lastname, String eMail, String password, String passwordConfirmation) {
-        //  String serverURL = "http://androidexample.com/media/webservice/JsonReturn.php";
-        //  new Executer().execute(serverURL);
+        M8 user = null;
+        if(password == passwordConfirmation) {
+            user = new M8();
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setEmail(eMail);
+            user.setPassword(password);
 
-        return null;
+            UserServices.getInstance().createNewUser(user);
+        }
+        return user;
     }
 
     @Override
     public void deleteUser(M8 user) {
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/user/"+user.getId());
-
-            executer.setMethod("DELETE");
-            executer.setData(gson.toJson(user, Schoolclass.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        UserServices.getInstance().deleteUser(user);
     }
 
     @Override
     public void updateUser(M8 user) {
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/user/" + user.getId());
-
-            executer.setMethod("PUT");
-            executer.setData(gson.toJson(user, M8.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        UserServices.getInstance().updateUser(user);
     }
 
     /**
@@ -285,93 +131,20 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         newUser.setId(OldUser.getId());
         newUser.setVotes(OldUser.getVotes());
 
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/user/" + OldUser.getId());
+        UserServices.getInstance().updateUser(newUser, OldUser);
 
-            executer.setMethod("PUT");
-            executer.setData(gson.toJson(newUser, M8.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-
-        } catch (Exception e) {
-            newUser = null;
-            e.printStackTrace();
-        }
         return newUser;
     }
 
     public void uploadFile(File f) {
-            try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/fileshare/");
-
-            executer.setMethod("POST");
-                FileInputStream imageInFile = new FileInputStream(f);
-                byte fileData[] = new byte[(int)f.length()];
-                imageInFile.read(fileData);
-                String imageDataString = encode(fileData);
-
-            executer.setData(gson.toJson(imageDataString));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String encode(byte[] fileData) {
-        StringBuilder sb = new StringBuilder();
-        for (byte b:fileData) {
-            sb.append(b);
-        }
-        return sb.toString();
-
+        FileServices.getInstance().uploadFile(f);
     }
 
     public void placeVoteForPresident(M8 user, M8 votedMate) {
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/" + user.getId());
-
-            executer.setMethod("POST");
-            executer.setData(gson.toJson(votedMate, M8.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-        } catch (Exception e) {
-
-        }
-    }
-    public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
-        try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/Deputy/" + user.getId());
-
-            executer.setMethod("POST");
-            executer.setData(gson.toJson(votedMate, M8.class));
-            executer.execute(serverURL);
-
-            String strFromWebService = executer.get();
-
-            System.out.println("returned string: " + strFromWebService);
-
-            JsonElement o = parser.parse(strFromWebService);
-        } catch (Exception e) {
-
-        }
+        VotingServices.getInstance().placeVoteForPresident(user, votedMate);
     }
 
-
+   /* public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
+        VotingServices.getInstance().placeVoteForPresidentDeputy(user, votedMate);
+    }*/
 }

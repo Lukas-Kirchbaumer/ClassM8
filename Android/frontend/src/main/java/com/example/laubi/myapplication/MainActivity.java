@@ -3,17 +3,20 @@ package com.example.laubi.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.backend.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 public class MainActivity extends Activity {
 
     public static Activity mainActivity;
+    private DataReader dr = new DataReader();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +63,11 @@ public class MainActivity extends Activity {
                 }
                 System.out.println(txtEmail.getText() + "  " + txtPassword.getText());
                 if(correct){
-                /*
-                    //TODO try to login User
-                    DataReader dr = new DataReader();
-
-                    M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+                    //M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+                    M8 currM8 = new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass());
+                    Database.getInstance().setCurrentMate(currM8);
 
 
-                */
-
-                    M8 currM8 = new M8(2,"Thomas","Leiter","Thoams@Sillian","asdf",true, 2);
 
                     if(currM8 != null) {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);

@@ -17,7 +17,6 @@ public class Database {
 
     private Schoolclass currentSchoolclass;
 
-    private String currentSchool;
 
     private Database() {
     }
@@ -36,13 +35,5 @@ public class Database {
 
     public void setCurrentSchoolclass(Schoolclass currentSchoolclass) {
         this.currentSchoolclass = currentSchoolclass;
-    }
-
-    public String getCurrentSchool() {
-        return currentSchool;
-    }
-
-    public void setCurrentSchool(String currentSchool) {
-        this.currentSchool = currentSchool;
     }
 }

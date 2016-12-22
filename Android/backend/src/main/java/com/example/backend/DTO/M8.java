@@ -3,12 +3,10 @@ package com.example.backend.Dto;
 import java.io.Serializable;
 
 
+
 public class M8 implements Serializable{
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7576437934172296816L;
 
 	private long id;
@@ -16,7 +14,7 @@ public class M8 implements Serializable{
 	private String firstname;
 	
 	private String lastname;
-	
+
 	private String email;
 	
 	private String password;
@@ -24,12 +22,14 @@ public class M8 implements Serializable{
 	private boolean hasVoted;
 	
 	private int votes;
+
+	private Schoolclass schoolclass;
+	
 	
 	public M8() {}
 	
-	
 
-	public M8(long id, String firstname, String lastname, String email, String password, boolean hasVoted, int votes) {
+	public M8(long id, String firstname, String lastname, String email, String password, boolean hasVoted, int votes, Schoolclass schoolclass) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -38,9 +38,8 @@ public class M8 implements Serializable{
 		this.password = password;
 		this.hasVoted = hasVoted;
 		this.votes = votes;
+		this.schoolclass = schoolclass;
 	}
-
-
 
 	public long getId() {
 		return id;
@@ -105,70 +104,21 @@ public class M8 implements Serializable{
 		this.password = newm8.password;
 		this.hasVoted = newm8.hasVoted;
 		this.votes = newm8.votes;
-	}
-	
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + (hasVoted ? 1231 : 1237);
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + votes;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		M8 other = (M8) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (hasVoted != other.hasVoted)
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (votes != other.votes)
-			return false;
-		return true;
+		this.schoolclass = newm8.schoolclass;
 	}
 
 	@Override
 	public String toString() {
 		return firstname + " " + lastname;
 	}
-	
-	
 
+	public Schoolclass getSchoolclass() {
+		return schoolclass;
 
-	
-	
+	}
+
+	public void setSchoolclass(Schoolclass schoolclass) {
+		this.schoolclass = schoolclass;
+	}
+
 }

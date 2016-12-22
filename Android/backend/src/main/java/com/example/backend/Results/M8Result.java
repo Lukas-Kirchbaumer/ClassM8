@@ -1,20 +1,21 @@
 package com.example.backend.Results;
 
-import com.example.backend.Dto.M8;
+import com.example.backend.MappedObjects.MappedM8;
 
 import java.util.Vector;
 
+
 public class M8Result extends Result{
 	
-	private Vector<M8> content = new Vector<M8>();
+	private Vector<MappedM8> content = new Vector<>();
 	
 	public M8Result() {}
 
-	public Vector<M8> getContent() {
+	public Vector<MappedM8> getContent() {
 		return content;
 	}
 
-	public void setContent(Vector<M8> content) {
+	public void setContent(Vector<MappedM8> content) {
 		this.content = content;
 	}
 	

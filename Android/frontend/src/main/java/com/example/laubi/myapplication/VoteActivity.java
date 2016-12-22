@@ -25,24 +25,17 @@ public class VoteActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
         spPresidentChoice = (Spinner) findViewById(R.id.spPresidentChoice);
-        spDeputyChoice = (Spinner) findViewById(R.id.spDeputyChoice);
         Button btnVote = (Button) findViewById(R.id.btnVote);
 
 
         ArrayList<com.example.backend.Dto.M8> m8s;
 
-        //m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers().values();
-
-        m8s = new ArrayList<M8>();
-        m8s.add(new M8(1,"Thomas","L","asd","1313",false, 4));
-        m8s.add(new M8(1,"Lukas","D","asdf","1111",false, 0));
-        m8s.add(new M8(1,"Andreas","D","asdf","33",false, 43));
+        m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
 
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, m8s);
 
         spPresidentChoice.setAdapter(spinnerArrayAdapter);
-        spDeputyChoice.setAdapter(spinnerArrayAdapter);
 
 
         btnVote.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +49,8 @@ public class VoteActivity extends Activity {
 
     public void vote(){
         M8 president = (M8) spPresidentChoice.getSelectedItem();
-        M8 deputy = (M8) spDeputyChoice.getSelectedItem();
 
         dr.placeVoteForPresident(Database.getInstance().getCurrentMate(), president);
-        dr.placeVoteForPresidentDeputy(Database.getInstance().getCurrentMate(), deputy);
         Database.getInstance().getCurrentMate().setHasVoted(true);
         dr.updateUser(Database.getInstance().getCurrentMate());
 

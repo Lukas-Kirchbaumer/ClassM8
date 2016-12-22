@@ -27,15 +27,10 @@ public class HomeActivity extends Activity {
         btnStartVote = (Button) findViewById(R.id.btnStartVote);
         tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
 
-        //M8 m8 = Database.getInstance().getCurrentMate();
-
-        M8 m8 = new M8(2,"Thomas","Leiter","asdf","1234", false,3);
-
-        Database.getInstance().setCurrentMate(m8);
+        M8 m8 = Database.getInstance().getCurrentMate();
 
         getCurrClass(m8);
 
-        //ToDo get infomation if new Vote is out
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
         }
@@ -61,7 +56,7 @@ public class HomeActivity extends Activity {
     public void getCurrClass(M8 m8){
 
         DataReader dr = new DataReader();
-        //Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
+        Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
 
         if(Database.getInstance().getCurrentSchoolclass() != null) {
             showClass();
