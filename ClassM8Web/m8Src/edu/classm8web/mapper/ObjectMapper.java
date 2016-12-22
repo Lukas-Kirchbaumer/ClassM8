@@ -3,12 +3,14 @@ package edu.classm8web.mapper;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.mapper.objects.MappedM8;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
 
 public class ObjectMapper {
@@ -21,14 +23,32 @@ public class ObjectMapper {
 		msc.setPresidentDeputy(sc.getPresidentDeputy());
 		msc.setRoom(sc.getRoom());
 		msc.setSchool(sc.getSchool());
-		Vector<M8> mscClassMembers = new Vector<M8>();
+		Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
 		
 		for(M8 m8 : sc.getClassMembers()){
-			mscClassMembers.add(m8);
+			mscClassMembers.add(ObjectMapper.mapForSchoolClass(m8));
 		}
 		
 		msc.setClassMembers(mscClassMembers);
 		return msc;
+	}
+
+	private static MappedM8 mapForSchoolClass(M8 m8) {
+		MappedM8 mm8 = new MappedM8();
+		mm8.setNewM8NoSchoolClass(m8);
+		return mm8;
+	}
+	
+	private static MappedM8 map(M8 m8){
+		MappedM8 mm8 = new MappedM8();
+		mm8.setNewM8(m8);
+		return mm8;
+	}
+	
+	private static Vector<MappedM8> map(List<M8> m8s){
+		
+		return null;
+		
 	}
 
 	public static Vector<MappedSchoolclass> map(Collection<Schoolclass> values) {
