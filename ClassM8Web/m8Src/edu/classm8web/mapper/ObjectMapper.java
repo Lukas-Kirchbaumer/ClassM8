@@ -19,8 +19,8 @@ public class ObjectMapper {
 		MappedSchoolclass msc = new MappedSchoolclass();
 		msc.setName(sc.getName());
 		msc.setId(sc.getId());
-		msc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
-		msc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
+		if(sc.getPresident() != null) msc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
+		if(sc.getPresidentDeputy() != null) msc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
 		msc.setRoom(sc.getRoom());
 		msc.setSchool(sc.getSchool());
 		Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
@@ -65,9 +65,12 @@ public class ObjectMapper {
 		mm8.setLastname(m8.getLastname());
 		mm8.setEmail(m8.getEmail());
 		mm8.setHasVoted(m8.isHasVoted());
-		mm8.setVotes(mm8.getVotes());
+		mm8.setVotes(m8.getVotes());
 		
-		mm8.setSchoolclass(ObjectMapper.mapForM8(m8.getSchoolclass()));
+		if(m8.getSchoolclass() != null) {
+			mm8.setSchoolclass(ObjectMapper.mapForM8(m8.getSchoolclass()));
+		}
+		
 		
 		return mm8;
 	}

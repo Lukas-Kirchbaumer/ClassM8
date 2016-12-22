@@ -90,6 +90,7 @@ public class MappedM8 {
 	}
 	
 	public void setNewM8NoSchoolClass(M8 newm8){
+		this.id = newm8.getId();
 		this.firstname = newm8.getFirstname();
 		this.lastname = newm8.getLastname();
 		this.email = newm8.getEmail();
@@ -100,6 +101,7 @@ public class MappedM8 {
 	}
 	
 	public void setNewM8(M8 newm8){
+		this.id = newm8.getId();
 		this.firstname = newm8.getFirstname();
 		this.lastname = newm8.getLastname();
 		this.email = newm8.getEmail();

@@ -31,11 +31,15 @@ public class UserResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getUsers(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 
+		workaround();
+
+		
 		M8Result result = new M8Result();
 
 		try {
-			result.setSuccess(true);
 			result.getContent().addAll(ObjectMapper.mapM8s(MateService.getInstance().findAll()));
+			result.setSuccess(true);
+
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
@@ -110,11 +114,14 @@ public class UserResource extends AbstractResource {
 	public Response get(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("id") String id) {
 
+		workaround();
+		
 		M8Result result = new M8Result();
 
 		try {
-			result.setSuccess(true);
 			result.getContent().add(ObjectMapper.map(MateService.getInstance().findById(Long.parseLong(id))));
+			result.setSuccess(true);
+
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}

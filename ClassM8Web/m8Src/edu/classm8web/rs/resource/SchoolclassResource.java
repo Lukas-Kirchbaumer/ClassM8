@@ -32,6 +32,9 @@ public class SchoolclassResource extends AbstractResource {
 	@GET
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getAllSchoolclasses(@Context Request request, @Context HttpServletRequest httpServletRequest) {
+		
+		workaround();
+		
 		SchoolclassResult res = new SchoolclassResult();
 
 		try {
@@ -81,6 +84,7 @@ public class SchoolclassResource extends AbstractResource {
 				
 				MateService.getInstance().update(m8);
 				SchoolclassService.getInstance().update(input);
+				r.setSuccess(true);
 			}
 			else{
 				throw new Exception("M8 not persisted");
@@ -119,6 +123,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response getClassbyUser(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("m8id") String id) {
 
+		workaround();
+
+		
 		SchoolclassResult res = new SchoolclassResult();
 
 		try {
@@ -128,6 +135,7 @@ public class SchoolclassResource extends AbstractResource {
 					Vector<MappedSchoolclass> msc = new Vector<MappedSchoolclass>();
 					msc.add(ObjectMapper.map(m8.getSchoolclass()));
 					res.setSchoolclasses(msc);
+					res.setSuccess(true);
 				}
 			}
 		} catch (Exception e) {
