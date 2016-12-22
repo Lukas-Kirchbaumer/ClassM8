@@ -16,6 +16,7 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
+import edu.classm8web.rs.resource.ElectionResource;
 import edu.classm8web.rs.resource.FileResource;
 import edu.classm8web.rs.resource.SchoolclassResource;
 import edu.classm8web.rs.resource.SecurityResource;
@@ -33,6 +34,7 @@ public class ClassM8Application extends Application{
 		classes.add(SecurityResource.class);
 		classes.add(SchoolclassResource.class);
 		classes.add(FileResource.class);
+		classes.add(ElectionResource.class);
 		return classes;
 	}
 	
