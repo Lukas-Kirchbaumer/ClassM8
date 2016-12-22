@@ -16,15 +16,16 @@ import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.rs.result.M8Result;
+import edu.classm8web.rs.result.Result;
 
 @Path("election")
 public class ElectionResource extends AbstractResource {
 
 	@PUT
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response vote(@QueryParam("VoterM8") String voterM8, @QueryParam("VotedM8") String votedM8) {
+	public Response vote(@QueryParam("voterid") String voterM8, @QueryParam("votedid") String votedM8) {
 		workaround();
-		M8Result result = new M8Result();
+		Result result = new Result();
 
 		try {
 			M8 voter = MateService.getInstance().findById(Long.parseLong(voterM8));
@@ -35,6 +36,10 @@ public class ElectionResource extends AbstractResource {
 				voter.setHasVoted(true);
 				int votes = voted.getVotes() + 1;
 				voted.setVotes(votes);
+				
+				MateService.getInstance().update(voter);
+				MateService.getInstance().update(voted);
+				
 				result.setSuccess(true);
 			} else {
 				throw new Exception("Voter has already voted or Voter is not in the same class as the M8 he voted for");
