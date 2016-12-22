@@ -1,7 +1,7 @@
 package com.example.backend.Results;
 
-import com.example.backend.Dto.MappedSchoolclass;
-import com.example.backend.Dto.Schoolclass;
+
+import com.example.backend.MappedObjects.MappedSchoolclass;
 
 import java.util.Vector;
 
