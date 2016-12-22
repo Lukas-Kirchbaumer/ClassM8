@@ -15,11 +15,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
-import edu.classm8web.database.dao.Database;
+import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.rs.result.M8Result;
 import edu.classm8web.rs.result.Result;
-import edu.classm8web.services.UserService;
 
 @Path("user")
 public class UserResource extends AbstractResource {
@@ -32,7 +31,7 @@ public class UserResource extends AbstractResource {
 
 		try {
 			result.setSuccess(true);
-			result.getContent().addAll(UserService.getInstance().getAllM8s());
+			result.getContent().addAll(MateService.getInstance().findAll());
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
@@ -47,16 +46,15 @@ public class UserResource extends AbstractResource {
 			@QueryParam("id") String id, final M8 input) {
 
 		Result r = new Result();
-		
+
 		try {
-			M8 m8 = input;
-			m8.setId(Integer.parseInt(id));
-			UserService.getInstance().updateUser(m8);
+			M8 m8 = MateService.getInstance().findById(Long.parseLong(id));
+			m8.setNewM8(input);
+			MateService.getInstance().update(m8);
 			r.setSuccess(true);
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
 		}
-
 
 		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
@@ -65,17 +63,18 @@ public class UserResource extends AbstractResource {
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response create(final M8 input) {
-		
+
 		Result r = new Result();
-		
-		try{
-			UserService.getInstance().registerUser(input);
+
+		try {
+			input.setVotes(0);
+			input.setHasVoted(false);
+			MateService.getInstance().persist(input);
 			r.setSuccess(true);
-		}catch(Exception e){
+		} catch (Exception e) {
 			handelAndThrowError(e, r);
-			
 		}
-		
+
 		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
 
@@ -85,16 +84,16 @@ public class UserResource extends AbstractResource {
 			@QueryParam("id") String id) {
 
 		Result r = new Result();
-		
-		try{
-			UserService.getInstance().deleteUser(Integer.parseInt(id));
+
+		try {
+			MateService.getInstance().removeById(Long.parseLong(id));
 			r.setSuccess(true);
 
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
-		
+
 		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
 
@@ -105,11 +104,11 @@ public class UserResource extends AbstractResource {
 			@PathParam("id") String id) {
 
 		M8Result result = new M8Result();
-		
-		try{
+
+		try {
 			result.setSuccess(true);
-			result.getContent().add(UserService.getInstance().getM8(Long.parseLong(id)));
-		}catch(Exception e){
+			result.getContent().add(MateService.getInstance().findById(Long.parseLong(id)));
+		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
 

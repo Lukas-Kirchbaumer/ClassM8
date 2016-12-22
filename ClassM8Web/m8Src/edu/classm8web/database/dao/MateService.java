@@ -1,10 +1,12 @@
 package edu.classm8web.database.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import edu.classm8web.database.dao.common.BaseDBService;
 import edu.classm8web.database.dto.M8;
@@ -126,6 +128,18 @@ public class MateService implements BaseDBService<Long, M8> {
 	public EntityManager getEm() {
 		return this.em;
 
+	}
+	
+	public List<M8> findByEmail(String email) throws DatabaseException{
+		Query query = em.createQuery("SELECT u from " + M8.class.getSimpleName() + " u where u.email=:arg1");
+		query.setParameter("arg1", email);
+
+		M8 u = (M8) query.getSingleResult();
+		List<M8> list = new ArrayList<M8>();
+		list.add(u);
+
+		return list;
+		
 	}
 
 }

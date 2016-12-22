@@ -23,7 +23,7 @@ public class ObjectMapper {
 		msc.setSchool(sc.getSchool());
 		Vector<M8> mscClassMembers = new Vector<M8>();
 		
-		for(M8 m8 : sc.getClassMembers().values()){
+		for(M8 m8 : sc.getClassMembers()){
 			mscClassMembers.add(m8);
 		}
 		

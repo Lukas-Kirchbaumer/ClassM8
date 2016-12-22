@@ -17,12 +17,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
+import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
 import edu.classm8web.rs.result.Result;
 import edu.classm8web.rs.result.SchoolclassResult;
-import edu.classm8web.services.SchoolclassService;
 
 @Path("schoolclass")
 public class SchoolclassResource extends AbstractResource {
@@ -34,7 +34,7 @@ public class SchoolclassResource extends AbstractResource {
 
 		try {
 			Vector<MappedSchoolclass> resObject = new Vector<>();
-			resObject.addAll(ObjectMapper.map(SchoolclassService.getInstance().getAllSchoolClasses()));
+			resObject.addAll(SchoolclassService.getInstance().findAll());
 			res.setSchoolclasses(resObject);
 			res.setSuccess(true);
 		} catch (Exception e) {

@@ -5,15 +5,10 @@ import java.util.Vector;
 import edu.classm8web.database.dto.M8;
 
 public class MappedSchoolclass {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -69655466883930376L;
 
 	private long id;
-	
 
-	private Vector<M8> classMembers = new Vector<M8>();
+	private Vector<MappedM8> classMembers = new Vector<MappedM8>();
 	
 	private String name;
 	
@@ -35,11 +30,11 @@ public class MappedSchoolclass {
 		this.id = id;
 	}
 
-	public Vector<M8> getClassMembers() {
+	public Vector<MappedM8> getClassMembers() {
 		return classMembers;
 	}
 
-	public void setClassMembers(Vector<M8> classMembers) {
+	public void setClassMembers(Vector<MappedM8> classMembers) {
 		this.classMembers = classMembers;
 	}
 
@@ -93,67 +88,5 @@ public class MappedSchoolclass {
 	}
 	
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((classMembers == null) ? 0 : classMembers.hashCode());
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((president == null) ? 0 : president.hashCode());
-		result = prime * result + ((presidentDeputy == null) ? 0 : presidentDeputy.hashCode());
-		result = prime * result + ((room == null) ? 0 : room.hashCode());
-		result = prime * result + ((school == null) ? 0 : school.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MappedSchoolclass other = (MappedSchoolclass) obj;
-		if (classMembers == null) {
-			if (other.classMembers != null)
-				return false;
-		} else if (!classMembers.equals(other.classMembers))
-			return false;
-		if (id != other.id)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (president == null) {
-			if (other.president != null)
-				return false;
-		} else if (!president.equals(other.president))
-			return false;
-		if (presidentDeputy == null) {
-			if (other.presidentDeputy != null)
-				return false;
-		} else if (!presidentDeputy.equals(other.presidentDeputy))
-			return false;
-		if (room == null) {
-			if (other.room != null)
-				return false;
-		} else if (!room.equals(other.room))
-			return false;
-		if (school == null) {
-			if (other.school != null)
-				return false;
-		} else if (!school.equals(other.school))
-			return false;
-		return true;
-	}
-
-
-
-	
-	
 	
 }

@@ -10,15 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "Mate")
 public class M8 implements Serializable{
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7576437934172296816L;
 
 	@Id
