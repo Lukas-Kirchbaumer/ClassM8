@@ -1,7 +1,6 @@
 package com.example.backend;
 
 import com.example.backend.Dto.M8;
-import com.example.backend.Dto.School;
 import com.example.backend.Dto.Schoolclass;
 
 /**
