@@ -1,12 +1,17 @@
 package edu.classm8web.rs;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+
+import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
@@ -30,6 +35,7 @@ public class ClassM8Application extends Application{
 		classes.add(FileResource.class);
 		return classes;
 	}
+	
 	
 	@PostConstruct
 	private void servletStartUp(){

@@ -15,9 +15,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.Response.Status;
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.File;
@@ -58,13 +55,13 @@ public class FileResource extends AbstractResource{
 		return builder.build();
 	}
 	
-	@POST
+	/*@POST
 	@Path("content/{fileid}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("fileid") String fileid){
 		return null;
-	}
+	}*/
 	
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -86,6 +83,8 @@ public class FileResource extends AbstractResource{
 				
 				SchoolclassService.getInstance().update(s);
 				FileService.getInstance().update(input);
+				
+				r.setSuccess(true);
 
 			} else {
 				throw new Exception("Schoolclass doesn't exist");

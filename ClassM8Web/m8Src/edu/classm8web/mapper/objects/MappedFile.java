@@ -2,7 +2,8 @@ package edu.classm8web.mapper.objects;
 
 import java.sql.Date;
 
-
+import edu.classm8web.database.dto.File;
+import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
 
 public class MappedFile {
@@ -69,5 +70,12 @@ public class MappedFile {
 		this.referencedSchoolclass = referencedSchoolclass;
 	}
 	
-	
+	public void setNewFileNoSchoolClass(File newFile){
+		this.id = newFile.getId();
+		this.uploadDate = newFile.getUploadDate();
+		this.contentSize = newFile.getContentSize();
+		this.contentType = newFile.getContentType();
+		this.fileName = newFile.getFileName();
+		this.referencedSchoolclass = null;
+	}
 }
