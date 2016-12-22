@@ -29,8 +29,16 @@
             android:layout_column="0"
             tools:layout_editor_absoluteY="11dp"
             tools:layout_editor_absoluteX="8dp"
-            android:layout_width="0dp"
-            android:layout_weight="1" />
+            android:layout_width="wrap_content"
+            android:layout_weight="0.33" />
+
+        <Button
+            android:text="Vote"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnStartVote"
+            style="@android:style/Widget.Holo.Button"
+            android:layout_marginRight="20dp"
+            android:layout_width="70dp" />
 
         <Button
             android:id="@+id/btnM8Settings"

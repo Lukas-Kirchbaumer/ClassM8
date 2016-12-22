@@ -15,14 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HomeActivity" />
-        <activity
-            android:name=".NewAccountActivity" />
-        <activity
-            android:name=".UserSettingsActivity" />
-        <activity
-            android:name=".VoteActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".NewAccountActivity" />
+        <activity android:name=".UserSettingsActivity" />
+        <activity android:name=".VoteActivity" />
+        <activity android:name=".ClassSettingsActivity" />
+        <activity android:name=".NewClassActivity"></activity>
     </application>
 
 </manifest>

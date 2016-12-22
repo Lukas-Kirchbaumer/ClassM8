@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.backend.Database;
 import com.example.backend.Dto.M8;
-
-import static com.example.laubi.myapplication.MainActivity.EXTRA_M8;
 
 public class UserSettingsActivity extends Activity {
 
@@ -23,9 +24,9 @@ public class UserSettingsActivity extends Activity {
         final EditText txtSettingsLastname = (EditText) findViewById(R.id.txtSettingsLastname);
         final EditText txtSettingsEmail = (EditText) findViewById(R.id.txtSettingsEmail);
         final EditText txtSettingsPw = (EditText) findViewById(R.id.txtSettingsPassword);
+        final TextView tvUserSettingsError = (TextView) findViewById(R.id.tvUserSettingsError);
 
-        Intent intent = getIntent();
-        M8 m8 = (M8) intent.getSerializableExtra(EXTRA_M8);
+        M8 m8 = Database.getInstance().getCurrentMate();
         txtSettingsFirstname.setText(m8.getFirstname());
         txtSettingsLastname.setText(m8.getLastname());
         txtSettingsEmail.setText(m8.getEmail());
@@ -34,13 +35,22 @@ public class UserSettingsActivity extends Activity {
         btnUserSettingsOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String fn = (txtSettingsFirstname.getText().toString());
+                String ln = (txtSettingsLastname.getText().toString());
+                String email = (txtSettingsEmail.getText().toString());
+                String pw = (txtSettingsPw.getText().toString());
                 M8 m8 = new M8();
-                m8.setFirstname(txtSettingsFirstname.getText().toString());
-                m8.setLastname(txtSettingsLastname.getText().toString());
-                m8.setEmail(txtSettingsEmail.getText().toString());
-                m8.setPassword(txtSettingsPw.getText().toString());
 
-                System.out.println("Update " + m8.toString());
+                if(fn != "" && ln != "" && email != "" && pw != ""){
+                    m8.setId(m8.getId());
+                    m8.setFirstname(fn);
+                    m8.setLastname(ln);
+                    m8.setEmail(email);
+                    m8.setPassword(pw);
+                }else{
+                    tvUserSettingsError.setText("Alle Felder ausfüllen");
+                }
+                Database.getInstance().setCurrentMate(m8);
                 finish();
             }
         });

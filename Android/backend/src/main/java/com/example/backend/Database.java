@@ -1,7 +1,6 @@
 package com.example.backend;
 
 import com.example.backend.Dto.M8;
-import com.example.backend.Dto.School;
 import com.example.backend.Dto.Schoolclass;
 
 /**
@@ -18,7 +17,7 @@ public class Database {
 
     private Schoolclass currentSchoolclass;
 
-    private School currentSchool;
+    private String currentSchool;
 
     private Database() {
     }
@@ -39,11 +38,11 @@ public class Database {
         this.currentSchoolclass = currentSchoolclass;
     }
 
-    public School getCurrentSchool() {
+    public String getCurrentSchool() {
         return currentSchool;
     }
 
-    public void setCurrentSchool(School currentSchool) {
+    public void setCurrentSchool(String currentSchool) {
         this.currentSchool = currentSchool;
     }
 }

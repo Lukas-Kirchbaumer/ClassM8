@@ -12,14 +12,15 @@ import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 public class MainActivity extends Activity {
-    public final static String EXTRA_M8 = "currM8";
+
+    public static Activity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainActivity = this;
         final Button btnLogin = (Button) findViewById(R.id.btnLogin);
         final Button btnNewAccount = (Button) findViewById(R.id.btnNewAccount);
         final EditText txtEmail = (EditText) findViewById(R.id.txtEmail);
@@ -64,17 +65,23 @@ public class MainActivity extends Activity {
                     DataReader dr = new DataReader();
 
                     M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+
+
                 */
 
                     M8 currM8 = new M8(2,"Thomas","Leiter","Thoams@Sillian","asdf",true, 2);
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
-                    intent.putExtra(EXTRA_M8, currM8);
+                    if(currM8 != null) {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
-                    //Falls er wegen Theme.AppCompat theme blablba weint
-                    //android:theme="@style/Theme.AppCompat.Light"
-                    //im Manifest bei der Activity einfügen
-                    startActivity(intent);
+                        //Falls er wegen Theme.AppCompat theme blablba weint
+                        //android:theme="@style/Theme.AppCompat.Light"
+                        //im Manifest bei der Activity einfügen
+                        startActivity(intent);
+                    }
+                    else{
+                        tvLoginPasswordError.setText("M8 nicht bekannt");
+                    }
 
                 }
 
