@@ -19,8 +19,8 @@ public class ObjectMapper {
 		MappedSchoolclass msc = new MappedSchoolclass();
 		msc.setName(sc.getName());
 		msc.setId(sc.getId());
-		msc.setPresident(sc.getPresident());
-		msc.setPresidentDeputy(sc.getPresidentDeputy());
+		msc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
+		msc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
 		msc.setRoom(sc.getRoom());
 		msc.setSchool(sc.getSchool());
 		Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
@@ -33,41 +33,63 @@ public class ObjectMapper {
 		return msc;
 	}
 
-	private static MappedM8 mapForSchoolClass(M8 m8) {
+	public static MappedM8 mapForSchoolClass(M8 m8) {
 		MappedM8 mm8 = new MappedM8();
 		mm8.setNewM8NoSchoolClass(m8);
 		return mm8;
 	}
 	
-	private static MappedM8 map(M8 m8){
+	public static MappedSchoolclass mapForM8(Schoolclass sc){
+		MappedSchoolclass mmc = new MappedSchoolclass();
+		mmc.setId(sc.getId());
+		mmc.setName(sc.getName());
+		mmc.setRoom(sc.getRoom());
+		mmc.setSchool(sc.getSchool());
+		
+		for(M8 member : sc.getClassMembers()){
+			mmc.getClassMembers().add(ObjectMapper.mapForSchoolClass(member));
+		}
+		
+		mmc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
+		mmc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
+		
+		return mmc;
+		
+	}
+	
+	public static MappedM8 map(M8 m8){
 		MappedM8 mm8 = new MappedM8();
-		mm8.setNewM8(m8);
+		mm8.setId(m8.getId());
+		mm8.setEmail(m8.getEmail());
+		mm8.setFirstname(m8.getFirstname());
+		mm8.setLastname(m8.getLastname());
+		mm8.setEmail(m8.getEmail());
+		mm8.setHasVoted(m8.isHasVoted());
+		mm8.setVotes(mm8.getVotes());
+		
+		mm8.setSchoolclass(ObjectMapper.mapForM8(m8.getSchoolclass()));
+		
 		return mm8;
 	}
 	
-	private static Vector<MappedM8> map(List<M8> m8s){
+	public static Vector<MappedM8> mapM8s(List<M8> m8s){
+		Vector<MappedM8> maped = new Vector<>();
+		for(M8 m8 : m8s){
+			maped.add(ObjectMapper.map(m8));
+		}
+		return maped;
 		
-		return null;
+	}
+	
+	public static Vector<MappedSchoolclass> mapSchoolclasses(List<Schoolclass> schoolclasses){
+		Vector<MappedSchoolclass> maped = new Vector<>();
+		for(Schoolclass s : schoolclasses){
+			maped.add(ObjectMapper.map(s));
+		}
+		return maped;
 		
 	}
 
-	public static Vector<MappedSchoolclass> map(Collection<Schoolclass> values) {
-		Vector<MappedSchoolclass> mscs = new Vector<MappedSchoolclass>();
-		
-		for(Schoolclass sc : values){
-			mscs.add(ObjectMapper.map(sc));
-		}
-		
-		return mscs;
-	}
 
-	public static Vector<MappedSchoolclass> map(HashMap<Long, Schoolclass> allSchoolClasses) {
-		Iterator it = allSchoolClasses.entrySet().iterator();
-		Vector<MappedSchoolclass> ret = new Vector<MappedSchoolclass>();
-		while(it.hasNext()){
-			Map.Entry<Integer, Schoolclass> entry = (Entry<Integer, Schoolclass>) it.next();
-			ret.add(ObjectMapper.map(entry.getValue()));
-		}
-		return ret;
-	}
+
 }

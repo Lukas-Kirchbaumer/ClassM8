@@ -14,9 +14,9 @@ public class MappedSchoolclass {
 	
 	private String room;
 	
-	private M8 president;
+	private MappedM8 president;
 	
-	private M8 presidentDeputy;
+	private MappedM8 presidentDeputy;
 	
 	private String school;
 	
@@ -54,19 +54,19 @@ public class MappedSchoolclass {
 		this.room = room;
 	}
 
-	public M8 getPresident() {
+	public MappedM8 getPresident() {
 		return president;
 	}
 
-	public void setPresident(M8 president) {
+	public void setPresident(MappedM8 president) {
 		this.president = president;
 	}
 
-	public M8 getPresidentDeputy() {
+	public MappedM8 getPresidentDeputy() {
 		return presidentDeputy;
 	}
 
-	public void setPresidentDeputy(M8 presidentDeputy) {
+	public void setPresidentDeputy(MappedM8 presidentDeputy) {
 		this.presidentDeputy = presidentDeputy;
 	}
 
@@ -86,6 +86,16 @@ public class MappedSchoolclass {
 		this.presidentDeputy = sc.presidentDeputy;
 		this.school = sc.school;
 	}
+	
+	public void setNewClassNoM8(MappedSchoolclass sc){
+		this.classMembers = null;
+		this.name = sc.name;
+		this.room = sc.room;
+		this.president = sc.president;
+		this.presidentDeputy = sc.presidentDeputy;
+		this.school = sc.school;
+	}
+	
 	
 
 	

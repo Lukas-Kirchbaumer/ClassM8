@@ -17,7 +17,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
+import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
+import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
@@ -34,7 +36,7 @@ public class SchoolclassResource extends AbstractResource {
 
 		try {
 			Vector<MappedSchoolclass> resObject = new Vector<>();
-			resObject.addAll(SchoolclassService.getInstance().findAll());
+			resObject.addAll(ObjectMapper.mapSchoolclasses(SchoolclassService.getInstance().findAll()));
 			res.setSchoolclasses(resObject);
 			res.setSuccess(true);
 		} catch (Exception e) {
@@ -52,10 +54,9 @@ public class SchoolclassResource extends AbstractResource {
 		Result r = new Result();
 
 		try {
-			Schoolclass sc = new Schoolclass();
-			sc.setId(Long.parseLong(id));
+			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(id));
 			sc.setNewClass(input);
-			SchoolclassService.getInstance().updateSchoolclass(sc);
+			SchoolclassService.getInstance().update(sc);
 			r.setSuccess(true);
 
 
@@ -72,8 +73,19 @@ public class SchoolclassResource extends AbstractResource {
 		Result r = new Result();
 
 		try {
-			SchoolclassService.getInstance().registerSchoolclass(input, Long.parseLong(id));
-			r.setSuccess(true);
+			M8 m8 = MateService.getInstance().findById(Long.parseLong(id));
+			if(m8 != null){
+				SchoolclassService.getInstance().persist(input);
+				input.getClassMembers().add(m8);
+				m8.setSchoolclass(input);
+				
+				MateService.getInstance().update(m8);
+				SchoolclassService.getInstance().update(input);
+			}
+			else{
+				throw new Exception("M8 not persisted");
+			}
+
 
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
@@ -91,7 +103,7 @@ public class SchoolclassResource extends AbstractResource {
 		Result r = new Result();
 
 		try {
-			SchoolclassService.getInstance().deleteSchoolclass(Long.parseLong(id));
+			SchoolclassService.getInstance().removeById(Long.parseLong(id));
 			r.setSuccess(true);
 
 		} catch (Exception e) {
@@ -110,12 +122,14 @@ public class SchoolclassResource extends AbstractResource {
 		SchoolclassResult res = new SchoolclassResult();
 
 		try {
-			Schoolclass sc = SchoolclassService.getInstance().getSchoolClassByM8(Long.parseLong(id));
-			Vector<MappedSchoolclass> resObject = new Vector<>();
-			resObject.add(ObjectMapper.map(sc));
-
-			res.setSchoolclasses(resObject);
-			res.setSuccess(true);
+			M8 m8 = MateService.getInstance().findById(Long.parseLong(id));
+			if(m8 != null){
+				if(m8.getSchoolclass() != null){
+					Vector<MappedSchoolclass> msc = new Vector<MappedSchoolclass>();
+					msc.add(ObjectMapper.map(m8.getSchoolclass()));
+					res.setSchoolclasses(msc);
+				}
+			}
 		} catch (Exception e) {
 			handelAndThrowError(e, res);
 		}
@@ -132,8 +146,21 @@ public class SchoolclassResource extends AbstractResource {
 		Result r = new Result();
 
 		try {
-			SchoolclassService.getInstance().addM8ToSchoolClass(Long.parseLong(scid), Long.parseLong(m8id));
-			r.setSuccess(true);
+
+			M8 m8 = MateService.getInstance().findById(Long.parseLong(m8id));
+			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(scid));
+			
+			if(m8 != null && sc != null){
+				sc.getClassMembers().add(m8);
+				m8.setSchoolclass(sc);
+				SchoolclassService.getInstance().update(sc);
+				MateService.getInstance().update(m8);
+				r.setSuccess(true);
+			}
+			else{
+				throw new Exception("m8 or schoolclass not in database");
+			}
+			
 
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
@@ -151,12 +178,37 @@ public class SchoolclassResource extends AbstractResource {
 		Result r = new Result();
 
 		try {
-			SchoolclassService.getInstance().removeM8FromSchoolClass(Long.parseLong(scid), Long.parseLong(m8id));
-			r.setSuccess(true);
+
+			M8 m8 = MateService.getInstance().findById(Long.parseLong(m8id));
+			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(scid));
+			
+			if(m8 != null && sc != null){
+				int i = 0;
+				int toremove = -1;
+				for(M8 m88 : sc.getClassMembers()){
+					if(m88.getId() == m8.getId()){
+						toremove = i;
+					}
+					i++;
+				}
+				if(toremove != -1){
+					sc.getClassMembers().remove(toremove);
+					SchoolclassService.getInstance().update(sc);
+					MateService.getInstance().update(m8);
+					r.setSuccess(true);
+				}
+				else{
+					throw new Exception("M8 not in schoolclass");
+				}
+			}
+			else{
+				throw new Exception("M8 or Schoolclass not in database");
+			}
+			
+
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
 		}
-		
 
 		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}

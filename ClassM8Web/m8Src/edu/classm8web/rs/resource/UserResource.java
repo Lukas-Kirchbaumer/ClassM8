@@ -1,5 +1,7 @@
 package edu.classm8web.rs.resource;
 
+import java.util.Vector;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +19,8 @@ import javax.ws.rs.core.Response;
 
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dto.M8;
+import edu.classm8web.mapper.ObjectMapper;
+import edu.classm8web.mapper.objects.MappedM8;
 import edu.classm8web.rs.result.M8Result;
 import edu.classm8web.rs.result.Result;
 
@@ -31,7 +35,7 @@ public class UserResource extends AbstractResource {
 
 		try {
 			result.setSuccess(true);
-			result.getContent().addAll(MateService.getInstance().findAll());
+			result.getContent().addAll(ObjectMapper.mapM8s(MateService.getInstance().findAll()));
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
@@ -64,12 +68,15 @@ public class UserResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response create(final M8 input) {
 
-		Result r = new Result();
+		M8Result r = new M8Result();
 
 		try {
 			input.setVotes(0);
 			input.setHasVoted(false);
 			MateService.getInstance().persist(input);
+			Vector<MappedM8> m8 = new Vector<MappedM8>();
+			m8.add(ObjectMapper.map(input));
+			r.setContent(m8);
 			r.setSuccess(true);
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
@@ -107,7 +114,7 @@ public class UserResource extends AbstractResource {
 
 		try {
 			result.setSuccess(true);
-			result.getContent().add(MateService.getInstance().findById(Long.parseLong(id)));
+			result.getContent().add(ObjectMapper.map(MateService.getInstance().findById(Long.parseLong(id))));
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
