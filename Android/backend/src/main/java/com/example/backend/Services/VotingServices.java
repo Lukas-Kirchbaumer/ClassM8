@@ -1,0 +1,68 @@
+package com.example.backend.Services;
+
+import com.example.backend.Dto.M8;
+import com.example.backend.Executer;
+import com.example.backend.Interfaces.DataReader;
+import com.example.backend.Results.LoginResult;
+import com.example.backend.Results.M8Result;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import java.net.URL;
+
+/**
+ * Created by laubi on 12/22/2016.
+ */
+
+public class VotingServices {
+
+    private Executer executer = new Executer();;
+    private Gson gson = new Gson();
+    private JsonParser parser = new JsonParser();
+    private static VotingServices instance = null;
+
+    public static VotingServices getInstance(){
+        if(instance == null){
+            instance = new VotingServices();
+        }
+        return instance;
+    }
+
+    public void placeVoteForPresident(M8 user, M8 votedMate) {
+        try {
+            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
+
+            executer.setMethod("@PUT");
+            executer.setData("");
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            JsonElement o = parser.parse(strFromWebService);
+            M8Result r = gson.fromJson(o, M8Result.class);
+        } catch (Exception e) {
+
+        }
+    }
+
+  /*  public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
+        try {
+            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/Deputy/" + user.getId());
+
+            executer.setMethod("POST");
+            executer.setData(gson.toJson(votedMate, M8.class));
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            JsonElement o = parser.parse(strFromWebService);
+        } catch (Exception e) {
+
+        }
+    }*/
+}
