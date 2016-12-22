@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.mapper.objects.MappedFile;
 import edu.classm8web.mapper.objects.MappedM8;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
 
@@ -24,11 +26,17 @@ public class ObjectMapper {
 		msc.setRoom(sc.getRoom());
 		msc.setSchool(sc.getSchool());
 		Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
+		Vector<MappedFile> mscFiles = new Vector<MappedFile>();
 		
 		for(M8 m8 : sc.getClassMembers()){
 			mscClassMembers.add(ObjectMapper.mapForSchoolClass(m8));
 		}
 		
+		for(File f : sc.getFiles()){
+			mscFiles.add(ObjectMapper.mapForSchoolClasss(f));
+		}
+		
+		msc.setFiles(mscFiles);
 		msc.setClassMembers(mscClassMembers);
 		return msc;
 	}
@@ -37,6 +45,12 @@ public class ObjectMapper {
 		MappedM8 mm8 = new MappedM8();
 		mm8.setNewM8NoSchoolClass(m8);
 		return mm8;
+	}
+	
+	private static MappedFile mapForSchoolClasss(File f) {
+		MappedFile mf = new MappedFile();
+		mf.setNewFileNoSchoolClass(f);
+		return mf;
 	}
 	
 	public static MappedSchoolclass mapForM8(Schoolclass sc){

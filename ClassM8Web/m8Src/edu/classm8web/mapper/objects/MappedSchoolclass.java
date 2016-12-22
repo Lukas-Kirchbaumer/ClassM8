@@ -20,6 +20,8 @@ public class MappedSchoolclass {
 	
 	private String school;
 	
+	private Vector<MappedFile> files = new Vector<MappedFile>();
+	
 	public MappedSchoolclass() {}
 
 	public long getId() {
@@ -94,6 +96,14 @@ public class MappedSchoolclass {
 		this.president = sc.president;
 		this.presidentDeputy = sc.presidentDeputy;
 		this.school = sc.school;
+	}
+
+	public Vector<MappedFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(Vector<MappedFile> files) {
+		this.files = files;
 	}
 	
 	
