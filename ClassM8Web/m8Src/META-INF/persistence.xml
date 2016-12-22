@@ -9,7 +9,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:oracle:thin:@212.152.179.117:1521:ora11g" />
-			<property name="javax.persistence.jdbc.user" value="d5b05" />
+			<property name="javax.persistence.jdbc.user" value="d5b04" />
 			<property name="javax.persistence.jdbc.password" value="d5b" />
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
 			<property name="eclipselink.target-database" value="Oracle" />
