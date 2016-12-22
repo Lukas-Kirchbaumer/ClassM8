@@ -144,7 +144,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         VotingServices.getInstance().placeVoteForPresident(user, votedMate);
     }
 
-    public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
+   /* public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
         VotingServices.getInstance().placeVoteForPresidentDeputy(user, votedMate);
-    }
+    }*/
 }
