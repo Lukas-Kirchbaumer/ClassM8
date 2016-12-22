@@ -1,7 +1,9 @@
 package edu.classm8web.rs.resource;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
@@ -28,6 +30,7 @@ import edu.classm8web.rs.result.Result;
 @Path("file")
 public class FileResource extends AbstractResource {
 
+	private static final String DATA_PATH = "E:\\HTL\\BSD\\5. Klasse\\Glassfish\\glassfish4\\glassfish\\domains\\cm8\\generated\\data";
 	
 	
 	@GET
@@ -43,7 +46,7 @@ public class FileResource extends AbstractResource {
 			File file = FileService.getInstance().findById(Long.valueOf(fileid));
 
 			java.io.File f = new java.io.File(
-					"D:\\servers\\glassfish4\\glassfish\\domains\\cm8\\generated\\data\\" + file.getFileName());
+					DATA_PATH + file.getFileName());
 
 			InputStream is = new FileInputStream(f);
 
@@ -58,13 +61,34 @@ public class FileResource extends AbstractResource {
 		return builder.build();
 	}
 
-//	@POST
-//	@Path("content/{fileid}")
-//	@Consumes(MediaType.MULTIPART_FORM_DATA)
-//	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
-//			@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("fileid") String fileid) {
-//		return null;
-//	}
+	@POST
+	@Path("content/{fileid}")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
+	@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("fileid") String fileid) {
+		Result r = new Result();
+		try{
+			File f = FileService.getInstance().findById(Long.parseLong(fileid));
+			if(f != null){
+		        OutputStream os = null;
+		        java.io.File fileToUpload = new java.io.File(DATA_PATH + f.getFileName());
+		        fileToUpload.getParentFile().mkdirs(); 
+		        fileToUpload.createNewFile();
+		        os = new FileOutputStream(fileToUpload);
+		        byte[] b = new byte[(int) f.getContentSize()];
+		        int length;
+		        while ((length = uploadedInputStream.read(b)) != -1) {
+		            os.write(b, 0, length);
+		        }
+		        os.flush();
+		        os.close();
+			}
+		}
+		catch(Exception e){
+			handelAndThrowError(e, r);
+		}
+		return null;
+	}
 
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

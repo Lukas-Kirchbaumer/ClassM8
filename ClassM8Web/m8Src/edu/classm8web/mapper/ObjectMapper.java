@@ -64,8 +64,8 @@ public class ObjectMapper {
 			mmc.getClassMembers().add(ObjectMapper.mapForSchoolClass(member));
 		}
 		
-		mmc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
-		mmc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
+		if(sc.getPresident()!= null) mmc.setPresident(ObjectMapper.mapForSchoolClass(sc.getPresident()));
+		if(sc.getPresidentDeputy()!= null) mmc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
 		
 		return mmc;
 		

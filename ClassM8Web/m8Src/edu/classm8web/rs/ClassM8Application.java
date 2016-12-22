@@ -35,6 +35,7 @@ public class ClassM8Application extends Application{
 		classes.add(SchoolclassResource.class);
 		classes.add(FileResource.class);
 		classes.add(ElectionResource.class);
+		classes.add(MultiPartFeature.class);
 		return classes;
 	}
 	
