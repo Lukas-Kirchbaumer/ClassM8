@@ -43,8 +43,8 @@
             <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
             <TextBox x:Name="txtSchool" Grid.Column="1" Grid.Row="2" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
             <TextBox x:Name="txtRoom" Grid.Column="1" Grid.Row="3" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
-            <ComboBox x:Name="cbPres" Grid.Column="1" Grid.Row="4" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26" />
-            <ComboBox x:Name="cbPresDep" Grid.Column="1" Grid.Row="5" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></ComboBox>
+            <TextBlock x:Name="txtPres" Grid.Column="1" Grid.Row="4" Margin="8,16,8,0" VerticalAlignment="Center"  Height="26"></TextBlock>
+            <TextBlock x:Name="txtPresDep" Grid.Column="1" Grid.Row="5" Margin="8,16,8,0" VerticalAlignment="Center"  Height="26"></TextBlock>
 
             <Label x:Name="errorMsg" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Visibility="Hidden" Content="Klassensprecher und Stellvertreter &#xD;&#xA;dürfen nicht die selbe Person sein" FontSize="10" Foreground="White" HorizontalAlignment="Left" Height="48" Margin="10" VerticalAlignment="Top" Width="167"/>
             <TextBlock x:Name="txtInfo" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>

@@ -72,10 +72,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddM8Window.xaml.cs">
+      <DependentUpon>AddM8Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Data\File.cs" />
     <Compile Include="Data\LoginResult.cs" />
     <Compile Include="Data\M8.cs" />
+    <Compile Include="Data\M8Result.cs" />
     <Compile Include="Data\Result.cs" />
     <Compile Include="Data\Schoolclass.cs" />
     <Compile Include="Data\SchoolclassResult.cs" />
@@ -97,6 +101,10 @@
     <Compile Include="VoteWindow.xaml.cs">
       <DependentUpon>VoteWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddM8Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditClassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

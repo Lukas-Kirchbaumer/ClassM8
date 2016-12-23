@@ -12,11 +12,13 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         ResizeMode="CanMinimize"
-        Title="Downloadable Files" Height="300" Width="300">
+        Title="Downloadable Files" Height="400" Width="500">
     <Grid>
-        <materialDesign:Card Margin="10,29,10,0">
-            <ListBox x:Name="lbDownloadableFiles" HorizontalAlignment="Left" Height="205" Margin="0,0,0,0" VerticalAlignment="Top" Width="253" Selected="lbDownloadableFiles_Selected"/>
+        <materialDesign:Card Margin="10,10,10,0" Height="304">
+            <ListBox x:Name="lbDownloadableFiles" HorizontalAlignment="Left" Height="294" VerticalAlignment="Top" SelectionChanged="lbDownloadableFiles_SelectionChanged" Width="453"/>
         </materialDesign:Card>
+        <Button x:Name="btnDownload" Content="Download" HorizontalAlignment="Right" Margin="0,325,50,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="0.32,0.5" Height="28" Click="btnDownload_Click"/>
+        <Button x:Name="btnUpload" Content="Upload" HorizontalAlignment="Left" Margin="50,325,0,0" VerticalAlignment="Top" Height="28" Width="100" Click="btnUpload_Click"/>
 
     </Grid>
 </Window>

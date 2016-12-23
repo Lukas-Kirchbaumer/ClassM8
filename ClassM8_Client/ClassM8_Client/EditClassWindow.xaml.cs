@@ -30,20 +30,15 @@ namespace ClassM8_Client
             txtName.Text = currClass.getName();
             txtSchool.Text = currClass.getSchool();
             txtRoom.Text = currClass.getRoom();
-
-
-            foreach(M8 m in currClass.getClassMembers()){
-                cbPres.Items.Add(m.getFirstname() + " " + m.getLastname());
-                cbPresDep.Items.Add(m.getFirstname() + " " + m.getLastname());
+            try
+            {
+                txtPres.Text = currClass.getPresident().getFirstname() + " " + currClass.getPresident().getLastname();
+                txtPresDep.Text = currClass.getPresidentDeputy().getFirstname() + " " + currClass.getPresidentDeputy().getLastname();
+            }catch(Exception ex)
+            {
+                txtPres.Text = "Noch niemand";
+                txtPresDep.Text = "Noch niemand";
             }
-            if (Database.Instance.currSchoolclass.getPresident() != null) {
-                cbPres.SelectedValue = currClass.getPresident().getFirstname() + " " + currClass.getPresident().getLastname();        
-            }
-            if (Database.Instance.currSchoolclass.getPresidentDeputy() != null) {
-                cbPresDep.SelectedValue = currClass.getPresidentDeputy().getFirstname() + " " + currClass.getPresident().getLastname();
-            }
-
-
         }
 
         private void btnCancle_Click(object sender, RoutedEventArgs e)
@@ -53,7 +48,7 @@ namespace ClassM8_Client
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (/* cbPres.SelectedItem.Equals(cbPresDep.SelectedItem) || txtName.Text != "" || txtRoom.Text != "" || txtSchool.Text != ""*/ 1 == 2)
+            if (txtName.Text != "" && txtRoom.Text != "" && txtSchool.Text != "" )
             {
                 errorMsg.Visibility = Visibility.Visible;
             }
@@ -78,6 +73,7 @@ namespace ClassM8_Client
             sc.setClassMembers(Database.Instance.currSchoolclass.getClassMembers());                                           
             sc.setPresident(Database.Instance.currSchoolclass.getPresident());
             sc.setPresidentDeputy(Database.Instance.currSchoolclass.getPresidentDeputy());
+            sc.setClassFiles(Database.Instance.currSchoolclass.getClassFiles());
 
             Database.Instance.currSchoolclass = sc;
             MemoryStream stream1 = new MemoryStream();

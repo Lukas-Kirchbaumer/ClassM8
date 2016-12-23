@@ -8,7 +8,7 @@
     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="900" MaxWidth="1920" MinHeight="500" MaxHeight="1080">
 
 
-    <materialDesign:Card Margin="10" Height="Auto" MinWidth="900" MaxWidth="1920" MinHeight="500" VerticalAlignment="Center" Background="{DynamicResource MaterialDesignPaper}">
+    <materialDesign:Card Margin="10" MinWidth="900" MaxWidth="1800" MinHeight="500" MaxHeight="1000" VerticalAlignment="Center" Background="{DynamicResource MaterialDesignPaper}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -43,11 +43,16 @@
                     <materialDesign:MaterialDateDisplay Grid.Row="0" Grid.Column="2" Height="Auto" HorizontalAlignment="Right" Width="Auto" Margin="10"></materialDesign:MaterialDateDisplay>
                 </Grid>
             </materialDesign:ColorZone>
-            
-        <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="0" Content="Neue Klasse erstellen" FontSize="14" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
-        <Button x:Name="btnSettings" Grid.Row="1" Grid.Column="2" Content="Options" HorizontalAlignment="Right" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
-            <Button x:Name="btnEditClass" Grid.Row="2" Grid.Column="0" Content="Klasse bearbeiten" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="103"/>
-           
-    </Grid>
+
+            <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="0" Content="Neue Klasse erstellen" FontSize="14" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnSettings" Grid.Row="1" Grid.Column="2" Content="Options" HorizontalAlignment="Right" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnEditClass" Grid.Row="1" Grid.Column="0" Content="Klasse bearbeiten" HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" VerticalAlignment="Top" Width="167"/>
+            <Button x:Name="btnVote" Grid.Row="3" Grid.Column="2" Content="Vote" HorizontalAlignment="Right" Height="40" Margin="0,20,10,0" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnFiles" Content="Files" Grid.Column="2" HorizontalAlignment="Right" Margin="0,10,10,0" Grid.Row="2" Height="40" VerticalAlignment="Top" Width="75"/>
+            <ListBox x:Name="lbAllM8s" HorizontalAlignment="Left" BorderBrush="OrangeRed" BorderThickness="1" Height="131" Margin="10,42,0,0" Grid.RowSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="167"/>
+            <TextBlock x:Name="tbAllM8s" HorizontalAlignment="Left" FontSize="17" Margin="10,16,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Your M8s" VerticalAlignment="Top" Width="89"/>
+            <Button x:Name="btnAddM8" Content="M8 hinzufügen" HorizontalAlignment="Left" Margin="10,131,0,0" Grid.Row="3" VerticalAlignment="Top" Width="167"/>
+
+        </Grid>
     </materialDesign:Card>
 </Page> 

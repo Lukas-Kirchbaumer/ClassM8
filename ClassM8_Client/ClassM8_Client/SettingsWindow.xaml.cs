@@ -79,6 +79,7 @@ namespace ClassM8_Client
             mate.setFirstname(firstname.Text);
             mate.setLastname(lastname.Text);
             mate.setPassword(password.Text);
+            mate.setSchoolclass(Database.Instance.currM8.getSchoolclass());
 
             Database.Instance.currM8 = mate;
             MemoryStream stream1 = new MemoryStream();

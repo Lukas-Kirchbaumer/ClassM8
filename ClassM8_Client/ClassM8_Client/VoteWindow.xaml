@@ -34,7 +34,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="btnVote" Content="Ok" Grid.Column="0" Grid.Row="0" Width="100" Margin="10 8 10 8" Click="btnUpdate_Click"/>
+                    <Button x:Name="btnVote" Content="Ok" Grid.Column="0" Grid.Row="0" Width="100" Margin="10 8 10 8" Click="btnVote_Click"/>
                     <Button x:Name="btnCancle" Content="Abbrechen" Grid.Column="2" Grid.Row="0" Width="100" Margin="10 8 10 8" Click="btnCancle_Click"/>
                 </Grid>
             </Grid>

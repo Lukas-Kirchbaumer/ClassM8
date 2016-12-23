@@ -16,7 +16,7 @@ namespace ClassM8_Client.Data
         [DataMember]
         private List<M8> classMembers = new List<M8>();
         [DataMember]
-        private List<File> classFiles = new List<File>();
+        private List<File> files = new List<File>();
         [DataMember]
         private String name;
         [DataMember]
@@ -39,14 +39,18 @@ namespace ClassM8_Client.Data
         {
             this.id = id;
         }
+        public void setClassFiles(List<File> fs)
+        {
+            this.files = fs;
+        }
 
         public List<File> getClassFiles()
         {
-            return classFiles;
+            return files;
         }
 
         public void addFile(File f) {
-            classFiles.Add(f);
+            files.Add(f);
         }
 
         public List<M8> getClassMembers()
@@ -117,7 +121,7 @@ namespace ClassM8_Client.Data
             this.president = sc.president;
             this.presidentDeputy = sc.presidentDeputy;
             this.school = sc.school;
-            this.classFiles = sc.classFiles;
+            this.files = sc.files;
         }
 
     

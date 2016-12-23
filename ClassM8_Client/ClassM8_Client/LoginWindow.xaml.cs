@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,8 @@ namespace ClassM8_Client
         Button btnEditClass;
         Button btnVote;
         Button btnFiles;
+        ListBox lbAllM8s;
+        Button btnAddM8;
         static HttpClient client = new HttpClient();
 
         public LoginWindow()
@@ -124,16 +127,22 @@ namespace ClassM8_Client
             btnEditClass = LogicalTreeHelper.FindLogicalNode(rootObject, "btnEditClass") as Button;
             btnVote = LogicalTreeHelper.FindLogicalNode(rootObject, "btnVote") as Button;
             btnFiles = LogicalTreeHelper.FindLogicalNode(rootObject, "btnFiles") as Button;
+            lbAllM8s = LogicalTreeHelper.FindLogicalNode(rootObject, "lbAllM8s") as ListBox;
+            btnAddM8 = LogicalTreeHelper.FindLogicalNode(rootObject, "btnAddM8") as Button;
             btnNewClass.Click += new RoutedEventHandler(addNewClass);
             btnSettings.Click += new RoutedEventHandler(openSettings);
             btnEditClass.Click += new RoutedEventHandler(openEditClass);
             btnVote.Click += new RoutedEventHandler(openVote);
             btnFiles.Click += new RoutedEventHandler(openFilesWindow);
+            btnAddM8.Click += new RoutedEventHandler(openAddM8);
             btnNewClass.Visibility = Visibility.Hidden;
             
 
             getCurrUser();
             getUserClass();
+
+            lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
+
             if (Database.Instance.currM8.isHasVoted()) {
                 btnVote.Visibility = Visibility.Hidden;
             }
@@ -157,8 +166,19 @@ namespace ClassM8_Client
             }
         }
 
-        private void openFilesWindow(object sender, RoutedEventArgs e) {
+        private void openAddM8(object sender, RoutedEventArgs e)
+        {
+            AddM8Window addM8w = new AddM8Window();
+            addM8w.ShowDialog();
 
+            lbAllM8s.ItemsSource = null;
+            lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
+
+        }
+
+        private void openFilesWindow(object sender, RoutedEventArgs e) {
+            FilesWindow fw = new FilesWindow();
+            fw.Show();
         }
 
         private void openSettings(object sender, RoutedEventArgs e)
@@ -215,14 +235,30 @@ namespace ClassM8_Client
 
                     SchoolclassResult obj = Activator.CreateInstance<SchoolclassResult>();
                     MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
+                    {
+                        DateTimeFormat = new DateTimeFormat("yyyy-MM-dd")
+                    });
                     obj = (SchoolclassResult)serializer.ReadObject(ms);
                     ms.Close();
 
+
                     Database.Instance.currSchoolclass = obj.getSchoolclasses().ElementAt(0);
-                    myCurrClass.Text = obj.getSchoolclasses().ElementAt(0).getName();
-                    classSchool.Text = obj.getSchoolclasses().ElementAt(0).getSchool();
-                    classRoom.Text = obj.getSchoolclasses().ElementAt(0).getRoom();
+                    Console.WriteLine("Files in class: " + Database.Instance.currSchoolclass.getClassFiles().Count);
+
+                    if (Database.Instance.currSchoolclass != null) {
+
+                        myCurrClass.Text = obj.getSchoolclasses().ElementAt(0).getName();
+                        classSchool.Text = obj.getSchoolclasses().ElementAt(0).getSchool();
+                        classRoom.Text = obj.getSchoolclasses().ElementAt(0).getRoom();
+                    }
+                    else
+                    {
+                        myCurrClass.Text = "";
+                        classSchool.Text = "";
+                        classRoom.Text = "";
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -240,7 +276,7 @@ namespace ClassM8_Client
             string url = "http://localhost:8080/ClassM8Web/services/user/" + Database.Instance.currUserId;
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            //httpWebRequest.ContentType = "application/json; charset=utf-8";
+            httpWebRequest.ContentType = "application/json; charset=utf-8";
             httpWebRequest.Accept = "application/json";
             httpWebRequest.Method = "GET";
 
@@ -250,16 +286,18 @@ namespace ClassM8_Client
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                result = result.Split('[')[1];
-                result = result.Split(']')[0];
                 Console.WriteLine("CurrM8 " + result);
 
-                M8 obj = Activator.CreateInstance<M8>();
+                M8Result obj = Activator.CreateInstance<M8Result>();
                 MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-                obj = (M8)serializer.ReadObject(ms);
+                obj = (M8Result)serializer.ReadObject(ms);
                 ms.Close();
-                Database.Instance.currM8 = obj;
+         
+                Console.WriteLine("m8s: " + obj.getM8s().Count);
+
+                Database.Instance.currM8 = obj.getM8s().ElementAt(0);
+
             }
         }
 

@@ -13,15 +13,16 @@ namespace ClassM8_Client.Data
         [DataMember]
         private long id;
         [DataMember]
-        private string fileName;
+        private String fileName;
         [DataMember]
         private DateTime uploadDate;
         [DataMember]
         private long contentSize;
         [DataMember]
-        private string contentType;
+        private String contentType;
 
-    private Schoolclass referencedSchoolclass;
+
+        private Schoolclass referencedSchoolclass;
 
         public File() { }
 
@@ -85,10 +86,10 @@ namespace ClassM8_Client.Data
             this.referencedSchoolclass = referencedSchoolclass;
         }
 
-
-        public String toString()
+        override
+        public String ToString()
         {
-            return fileName + "." + contentType;
+            return fileName + " | " + contentType;
         }
     }
 }

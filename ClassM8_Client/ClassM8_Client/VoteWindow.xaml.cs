@@ -61,7 +61,9 @@ namespace ClassM8_Client
         {
 
             List<M8> data = Database.Instance.currSchoolclass.getClassMembers();
-      
+
+            Console.WriteLine(data.Count);
+
             cbVoteCandidate.ItemsSource = data;
 
             cbVoteCandidate.SelectedIndex = 0;

@@ -25,6 +25,8 @@ namespace ClassM8_Client.Data
         private bool hasVoted;
         [DataMember]
         private int votes;
+        [DataMember]
+        private Schoolclass schoolclass;
 
         public M8() { }
 
@@ -36,6 +38,16 @@ namespace ClassM8_Client.Data
         public void setId(long id)
         {
             this.id = id;
+        }
+
+        public Schoolclass getSchoolclass()
+        {
+            return schoolclass;
+        }
+
+        public void setSchoolclass(Schoolclass sc)
+        {
+            this.schoolclass = sc;
         }
 
         public String getFirstname()
@@ -125,8 +137,8 @@ namespace ClassM8_Client.Data
             return result;
         }
 
-
-        public String toString()
+        override
+        public String ToString()
         {
             return firstname + " " + lastname;
         }
