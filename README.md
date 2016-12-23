@@ -8,4 +8,6 @@ BSD Project (Haider, Kirchbaumer, Kramer, Laubreiter)
   android: Android Client
   
   frontend: WPF Client
+  
+# Release:
 
