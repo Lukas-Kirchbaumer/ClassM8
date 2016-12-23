@@ -12,10 +12,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/HTL/BSD/5. Klasse/Glassfish/glassfish4/glassfish/domains/cm8/lib/jersey-core-1.19.jar"/>
-	<classpathentry kind="lib" path="E:/HTL/BSD/5. Klasse/Glassfish/glassfish4/glassfish/domains/cm8/lib/jersey-media-multipart-2.17.jar"/>
-	<classpathentry kind="lib" path="E:/HTL/BSD/5. Klasse/Glassfish/glassfish4/glassfish/domains/cm8/lib/mimepull-1.9.3.jar"/>
-	<classpathentry kind="lib" path="E:/HTL/BSD/5. Klasse/Glassfish/glassfish4/glassfish/domains/cm8/lib/ojdbc6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Aphrodite"/>
 	<classpathentry kind="output" path="build/classes"/>

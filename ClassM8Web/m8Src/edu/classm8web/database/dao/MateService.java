@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import edu.classm8web.database.dao.common.BaseDBService;
 import edu.classm8web.database.dto.M8;
+import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.exception.DatabaseException;
 
 public class MateService implements BaseDBService<Long, M8> {
@@ -140,6 +141,16 @@ public class MateService implements BaseDBService<Long, M8> {
 
 		return list;
 		
+	}
+
+	public List<M8> findBySchoolclass(Schoolclass sc) {
+		Query query = em.createQuery("SELECT u from " + M8.class.getSimpleName() + " u where u.schoolclass=:arg1");
+		query.setParameter("arg1", sc);
+
+		List<M8> list = new ArrayList<M8>();
+		list.addAll((List<M8>)query.getResultList());
+
+		return list;
 	}
 
 }

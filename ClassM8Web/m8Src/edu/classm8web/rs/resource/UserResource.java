@@ -18,7 +18,9 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import edu.classm8web.database.dao.MateService;
+import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.M8;
+import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.mapper.objects.MappedM8;
 import edu.classm8web.rs.result.M8Result;
@@ -121,6 +123,31 @@ public class UserResource extends AbstractResource {
 		try {
 			result.getContent().add(ObjectMapper.map(MateService.getInstance().findById(Long.parseLong(id))));
 			result.setSuccess(true);
+
+		} catch (Exception e) {
+			handelAndThrowError(e, result);
+		}
+
+		return Response.status(Response.Status.ACCEPTED).entity(result).build();
+	}
+	
+	@GET
+	@Path("byschoolclass/{id}")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getBySchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@PathParam("id") String scid) {
+
+		workaround();
+		
+		M8Result result = new M8Result();
+
+		try {
+			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(scid));
+			if(sc != null){
+				result.getContent().addAll(ObjectMapper.mapM8s(MateService.getInstance().findBySchoolclass(sc)));
+				result.setSuccess(true);
+			}
+
 
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
