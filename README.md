@@ -1,7 +1,8 @@
-# ClassM8
+# ClassM8(Team):
 BSD Project (Haider, Kirchbaumer, Kramer, Laubreiter)
 
-Branches:
+# Branches:
+
   integration - branch: Java EE Backend
   
   android: Android Client
