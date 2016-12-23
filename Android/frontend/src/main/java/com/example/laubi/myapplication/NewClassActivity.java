@@ -28,11 +28,7 @@ public class NewClassActivity extends Activity {
         btnNewClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dr.createNewClass(txtNewClassName.getText().toString(), txtNewClassSchool.getText().toString(), txtNewClassRoom.getText().toString());
-                Schoolclass sc = new Schoolclass();
-                sc.setName(txtNewClassName.getText().toString());
-                sc.setRoom(txtNewClassRoom.getText().toString());
-                sc.setSchool(txtNewClassSchool.getText().toString());
+                Schoolclass sc = dr.createNewClass(txtNewClassName.getText().toString(), txtNewClassSchool.getText().toString(), txtNewClassRoom.getText().toString());
                 Database.getInstance().setCurrentSchoolclass(sc);
                 finish();
             }

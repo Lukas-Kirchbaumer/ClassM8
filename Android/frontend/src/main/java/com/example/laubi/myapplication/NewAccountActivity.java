@@ -1,13 +1,13 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.support.v7.appcompat.*;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.backend.Dto.M8;
+import com.example.backend.Services.UserServices;
 
 public class NewAccountActivity extends Activity {
 
@@ -32,6 +32,7 @@ public class NewAccountActivity extends Activity {
                 m8.setPassword(txtNewAccPw.getText().toString());
 
                 System.out.println(m8.toString());
+                UserServices.getInstance().createNewUser(m8);
                 finish();
             }
         });

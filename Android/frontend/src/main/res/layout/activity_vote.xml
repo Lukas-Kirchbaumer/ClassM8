@@ -32,7 +32,10 @@
         android:layout_height="20dp"
         android:id="@+id/tvVoteDeputy"
         tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/spPresidentChoice"
+        app:layout_constraintBottom_toTopOf="@+id/spPresidentChoice" />
+    />
 
     <Button
         android:text="Vote"

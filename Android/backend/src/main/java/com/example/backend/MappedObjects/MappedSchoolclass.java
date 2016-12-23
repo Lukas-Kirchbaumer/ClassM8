@@ -11,20 +11,21 @@ public class MappedSchoolclass {
 	private long id;
 
 	private Vector<MappedM8> classMembers = new Vector<MappedM8>();
-	
+
 	private String name;
-	
+
 	private String room;
-	
+
 	private MappedM8 president;
-	
+
 	private MappedM8 presidentDeputy;
-	
+
 	private String school;
-	
+
 	private Vector<MappedFile> files = new Vector<MappedFile>();
-	
-	public MappedSchoolclass() {}
+
+	public MappedSchoolclass() {
+	}
 
 	public long getId() {
 		return id;
@@ -81,8 +82,8 @@ public class MappedSchoolclass {
 	public void setSchool(String school) {
 		this.school = school;
 	}
-	
-	public void setNewClass(MappedSchoolclass sc){
+
+	public void setNewClass(MappedSchoolclass sc) {
 		this.classMembers = sc.classMembers;
 		this.name = sc.name;
 		this.room = sc.room;
@@ -90,8 +91,8 @@ public class MappedSchoolclass {
 		this.presidentDeputy = sc.presidentDeputy;
 		this.school = sc.school;
 	}
-	
-	public void setNewClassNoM8(MappedSchoolclass sc){
+
+	public void setNewClassNoM8(MappedSchoolclass sc) {
 		this.classMembers = null;
 		this.name = sc.name;
 		this.room = sc.room;
@@ -110,16 +111,28 @@ public class MappedSchoolclass {
 
 	public Schoolclass toSchoolClass() {
 		Schoolclass s = new Schoolclass();
+		s.setId(this.getId());
 		s.setName(this.getName());
 		s.setRoom(this.getRoom());
 		s.setSchool(this.getSchool());
-
-		for(MappedFile f : this.files){
-			s.getFiles().add(f.toFile());
+		try {
+			for (MappedFile f : this.files) {
+				s.getFiles().add(f.toFile());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			s.setPresident(this.president.toM8());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			s.setPresidentDeputy(this.presidentDeputy.toM8());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		s.setPresident(this.president.toM8());
-		s.setPresidentDeputy(this.presidentDeputy.toM8());
 		return s;
 	}
 }

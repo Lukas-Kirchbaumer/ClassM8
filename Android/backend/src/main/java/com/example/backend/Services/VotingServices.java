@@ -6,6 +6,7 @@ import com.example.backend.Interfaces.DataReader;
 import com.example.backend.Results.LoginResult;
 import com.example.backend.Results.M8Result;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
@@ -18,7 +19,7 @@ import java.net.URL;
 public class VotingServices {
 
     private Executer executer = new Executer();;
-    private Gson gson = new Gson();
+    private Gson gson  = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     private JsonParser parser = new JsonParser();
     private static VotingServices instance = null;
 
@@ -30,8 +31,9 @@ public class VotingServices {
     }
 
     public void placeVoteForPresident(M8 user, M8 votedMate) {
+        Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
+            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
 
             executer.setMethod("@PUT");
             executer.setData("");
@@ -50,7 +52,7 @@ public class VotingServices {
 
   /*  public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
         try {
-            URL serverURL = new URL("http://localhost:8080/ClassM8Web/services/president/Deputy/" + user.getId());
+            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/president/Deputy/" + user.getId());
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(votedMate, M8.class));

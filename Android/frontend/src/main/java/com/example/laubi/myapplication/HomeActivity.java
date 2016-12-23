@@ -2,6 +2,7 @@ package com.example.laubi.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SyncAdapterType;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class HomeActivity extends Activity {
 
         M8 m8 = Database.getInstance().getCurrentMate();
 
+        System.out.println(m8);
         getCurrClass(m8);
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){

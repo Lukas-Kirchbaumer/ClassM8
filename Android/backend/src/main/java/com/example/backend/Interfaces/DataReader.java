@@ -36,7 +36,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         M8 user = new M8();
         user.setEmail(email);
         user.setPassword(password);
-
+        System.out.println(user);
         user = UserServices.getInstance().login(user);
 
         return user;
@@ -79,6 +79,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     @Override
     public void updateClass(Schoolclass schoolClass) {
+        System.out.println(schoolClass);
         SchoolclassServices.getInstance().updateClass(schoolClass);
     }
 

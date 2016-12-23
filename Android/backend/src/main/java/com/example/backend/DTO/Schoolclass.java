@@ -105,5 +105,18 @@ public class Schoolclass implements Serializable{
 	public void setFiles(List<File> files) {
 		this.files = files;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Schoolclass{" +
+				"id=" + id +
+				", classMembers=" + classMembers +
+				", files=" + files +
+				", name='" + name + '\'' +
+				", room='" + room + '\'' +
+				", president=" + president +
+				", presidentDeputy=" + presidentDeputy +
+				", school='" + school + '\'' +
+				'}';
+	}
 }

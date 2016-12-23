@@ -83,7 +83,11 @@ public class MappedFile {
 		f.setContentType(this.contentType);
 		f.setFileName(this.fileName);
 		f.setId(this.getId());
-		f.setReferencedSchoolclass(this.getReferencedSchoolclass().toSchoolClass());
+		try {
+			f.setReferencedSchoolclass(this.getReferencedSchoolclass().toSchoolClass());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		f.setUploadDate(this.uploadDate);
 		return f;
 	}

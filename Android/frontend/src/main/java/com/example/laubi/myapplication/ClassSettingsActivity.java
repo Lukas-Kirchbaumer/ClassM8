@@ -41,15 +41,16 @@ public class ClassSettingsActivity extends Activity {
         txtNewRoom.setText(Database.getInstance().getCurrentSchoolclass().getRoom());
         txtNewSchool.setText(Database.getInstance().getCurrentSchoolclass().getSchool());
 
-        //ArrayList<M8> m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+        ArrayList<M8> m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
 
-        ArrayList<M8> m8s = new ArrayList<M8> ();
+        /*ArrayList<M8> m8s = new ArrayList<M8> ();
 
         m8s.add(new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass()));
         m8s.add(new M8(1,"dsf","asdf","asdf","asfd",false, 2, new Schoolclass()));
         m8s.add(new M8(1,"123","asdf","asdf","asfd",false, 2, new Schoolclass()));
         m8s.add(new M8(1,"1234","asdf","asdf","asfd",false, 2, new Schoolclass()));
         m8s.add(new M8(1,"bv","asdf","asdf","asfd",false, 2, new Schoolclass()));
+        */
 
         ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, m8s);
@@ -72,7 +73,7 @@ public class ClassSettingsActivity extends Activity {
             public void onClick(View v) {
 
                 if(txtClassName.getText().length() != 0 && txtNewRoom.getText().length() != 0 && txtNewSchool.getText().length() != 0) {
-                    Schoolclass sc = new Schoolclass();
+                    Schoolclass sc = Database.getInstance().getCurrentSchoolclass();
                     sc.setName(txtClassName.getText().toString());
                     sc.setRoom(txtNewRoom.getText().toString());
                     sc.setSchool(txtNewSchool.getText().toString());

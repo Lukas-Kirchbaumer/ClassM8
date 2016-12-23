@@ -13,6 +13,7 @@ import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.DataReader;
 
 import java.util.ArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 public class VoteActivity extends Activity {
 
@@ -29,7 +30,7 @@ public class VoteActivity extends Activity {
 
 
         ArrayList<com.example.backend.Dto.M8> m8s;
-
+        System.out.print(Database.getInstance().getCurrentSchoolclass());
         m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
 
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(this,

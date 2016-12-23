@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.backend.Database;
 import com.example.backend.Dto.M8;
+import com.example.backend.Interfaces.DataReader;
 
 public class UserSettingsActivity extends Activity {
 
@@ -39,7 +40,7 @@ public class UserSettingsActivity extends Activity {
                 String ln = (txtSettingsLastname.getText().toString());
                 String email = (txtSettingsEmail.getText().toString());
                 String pw = (txtSettingsPw.getText().toString());
-                M8 m8 = new M8();
+                M8 m8 = Database.getInstance().getCurrentMate();
 
                 if(fn != "" && ln != "" && email != "" && pw != ""){
                     m8.setId(m8.getId());
@@ -47,11 +48,11 @@ public class UserSettingsActivity extends Activity {
                     m8.setLastname(ln);
                     m8.setEmail(email);
                     m8.setPassword(pw);
+                    DataReader.getInstance().updateUser(m8);
                 }else{
                     tvUserSettingsError.setText("Alle Felder ausfüllen");
                 }
                 Database.getInstance().setCurrentMate(m8);
-                finish();
             }
         });
     }

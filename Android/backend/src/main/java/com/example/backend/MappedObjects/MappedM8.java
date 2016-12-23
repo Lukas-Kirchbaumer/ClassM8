@@ -113,13 +113,18 @@ public class MappedM8 {
 
 	public M8 toM8() {
 		M8 mate = new M8();
+
 		mate.setId(this.getId());
 		mate.setFirstname(this.firstname);
 		mate.setLastname(this.lastname);
 		mate.setVotes(this.votes);
 		mate.setPassword(this.password);
 		mate.setEmail(this.email);
-		mate.setSchoolclass(this.schoolclass.toSchoolClass());
+		try {
+			mate.setSchoolclass(this.schoolclass.toSchoolClass());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		mate.setHasVoted(this.hasVoted);
 
 		return mate;
