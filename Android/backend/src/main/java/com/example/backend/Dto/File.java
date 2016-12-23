@@ -5,9 +5,6 @@ import java.sql.Date;
 
 public class File implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2622564174991058878L;
 
 	private long id;

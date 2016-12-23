@@ -2,8 +2,12 @@ package com.example.backend;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Debug;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.backend.Services.MultipartUtility;
+import com.google.common.net.MediaType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,27 +32,32 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by laubi on 12/7/2016.
  */
 
 public class FileExecuter extends AsyncTask<URL, File, File> {
-    @Override
-    protected File doInBackground(URL... params) {
-        return null;
-    }
-/*
+
     private File content;
+    String method = "";
     File data;
+
+
 
     public File getData() {
         return data;
     }
 
-    public void setData(File data) {
+    public void setData(java.io.File data) {
         this.data = data;
     }
 
@@ -60,68 +69,27 @@ public class FileExecuter extends AsyncTask<URL, File, File> {
         this.method = method;
     }
 
-    String method = "";
+
+
 
     protected File doInBackground(URL... urls) {
 
         HttpURLConnection urlConnection = null;
 
-        try {
-            urlConnection = (HttpURLConnection) urls[0].openConnection();
-            System.out.println("opened Connection");
-            urlConnection.setRequestMethod(method);
-
-            if(method =="GET"){
-                urlConnection.setRequestProperty("Content-Type", "application/octet_stream;charset=utf-8");
-                urlConnection.setRequestProperty("Accept", "application/octet_stream");
-            }else{
-                urlConnection.setRequestProperty("Content-Type", "multipart/form_data;charset=utf-8");
-                urlConnection.setRequestProperty("Accept", "multipart/form_data");
-            }
-
-            System.out.println("set Properties");
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setAllowUserInteraction(false);
-
-            DataOutputStream dstream = new DataOutputStream(urlConnection.getOutputStream());
-
-            // The POST line
-            dstream.writeBytes(s);
-            dstream.close();
-
-            // Read Response
-            InputStream in = urlConnection.getInputStream();
-            int x;
-            while ( (x = in.read()) != -1)
-            {
-                System.out.write(x);
-            }
-            in.close();
-
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-            StringBuffer buf = new StringBuffer();
-            String line;
-
-            while ((line = r.readLine())!=null) {
-                buf.append(line);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            urlConnection.disconnect();
+        if(method == "POST"){
+            uploadFile(data);
         }
 
-        return content;
+        if(method == "GET"){
+
+        }
+
+        return null;
     }
+
+
+
+    /*
 
     private void readStream(InputStream in) throws Exception {
         FileInputStream file = new FileInputStream(data);
@@ -140,21 +108,31 @@ public class FileExecuter extends AsyncTask<URL, File, File> {
             responseStream.close();
         }
     }
+*/
 
+    public void uploadFile(File file) {
+        try {
 
-    public void uploadFile(){
-    String strId = txtid.getText();
+            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/fileshare/");
 
-        File fileToUpload = new File(txtimage.getText());
-        FormDataMultiPart multiPart = new FormDataMultiPart();
-        multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
-        multiPart.bodyPart(new FileDataBodyPart("file", fileToUpload,
-                MediaType.APPLICATION_OCTET_STREAM_TYPE));
+            String charset = "UTF-8";
 
-        WebResource directTarget = target.path("upload/" + strId);
-        directTarget.accept(MediaType.MULTIPART_FORM_DATA_TYPE).post(multiPart);
+            MultipartUtility multipart = new MultipartUtility(serverURL.getPath(), charset);
+
+            multipart.addFilePart(file.getName(), file);
+
+            List<String> response = multipart.finish();
+
+            for (String line : response) {
+                String responsemy = line;
+                System.out.println(line);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
+    }
+/*
         public void downloadFile(){
 
     try {
@@ -165,7 +143,6 @@ public class FileExecuter extends AsyncTask<URL, File, File> {
         } catch (Exception ex) {
             lblMessages.setText("Something went wrong");
         }
-        }
-
-*/
+       }
+       */
 }
