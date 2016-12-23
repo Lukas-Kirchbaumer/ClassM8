@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import edu.classm8web.database.dto.M8;
 import edu.classm8web.mapper.objects.MappedM8;
 
 @XmlRootElement

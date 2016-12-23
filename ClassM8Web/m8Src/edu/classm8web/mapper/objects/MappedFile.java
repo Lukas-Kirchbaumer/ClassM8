@@ -3,8 +3,6 @@ package edu.classm8web.mapper.objects;
 import java.sql.Date;
 
 import edu.classm8web.database.dto.File;
-import edu.classm8web.database.dto.M8;
-import edu.classm8web.database.dto.Schoolclass;
 
 public class MappedFile {
 

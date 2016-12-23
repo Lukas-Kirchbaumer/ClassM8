@@ -2,8 +2,6 @@ package edu.classm8web.mapper.objects;
 
 import java.util.Vector;
 
-import edu.classm8web.database.dto.M8;
-
 public class MappedSchoolclass {
 
 	private long id;
