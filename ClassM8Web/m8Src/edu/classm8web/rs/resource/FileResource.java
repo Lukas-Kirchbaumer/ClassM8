@@ -30,7 +30,7 @@ import edu.classm8web.rs.result.Result;
 @Path("file")
 public class FileResource extends AbstractResource {
 
-	private static final String DATA_PATH = "E:\\HTL\\BSD\\5. Klasse\\Glassfish\\glassfish4\\glassfish\\domains\\cm8\\generated\\data";
+	private static final String DATA_PATH = "E:\\HTL\\BSD\\5. Klasse\\Glassfish\\glassfish4\\glassfish\\domains\\cm8\\generated\\data\\";
 	
 	
 	@GET
