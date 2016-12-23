@@ -48,6 +48,7 @@ public class ElectionResource extends AbstractResource {
 
 						@Override
 						public int compare(M8 o1, M8 o2) {
+							//TODO: @kirche/max
 							return o1.getVotes() - o2.getVotes();
 						}
 			        });
