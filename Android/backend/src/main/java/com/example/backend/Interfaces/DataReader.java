@@ -138,7 +138,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     }
 
     public void uploadFile(File f) {
-        FileServices.getInstance().uploadFile(f);
+        // TODO FileServices.getInstance().uploadFile(f);
     }
 
     public void placeVoteForPresident(M8 user, M8 votedMate) {

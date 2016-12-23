@@ -68,6 +68,11 @@ public class File implements Serializable{
 	public void setReferencedSchoolclass(Schoolclass referencedSchoolclass) {
 		this.referencedSchoolclass = referencedSchoolclass;
 	}
+
+	@Override
+	public String toString(){
+		return fileName;
+	}
 	
 	
 }
