@@ -1,6 +1,6 @@
 package edu.classm8web.junit;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

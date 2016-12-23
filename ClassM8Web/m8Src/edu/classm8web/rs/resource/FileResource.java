@@ -25,12 +25,13 @@ import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.rs.result.LoginResult;
 import edu.classm8web.rs.result.Result;
 
 @Path("file")
 public class FileResource extends AbstractResource {
 
-	private static final String DATA_PATH = "D:\\servers\\glassfish4\\glassfish\\domains\\cm8\\generated\\data\\";
+	private static final String DATA_PATH = "E:\\HTL\\BSD\\5. Klasse\\Glassfish\\glassfish4\\glassfish\\domains\\cm8\\generated\\data\\";
 	
 	
 	@GET
@@ -42,17 +43,20 @@ public class FileResource extends AbstractResource {
 
 		ResponseBuilder builder = null;
 
+		System.out.println(fileid);
 		try {
 			File file = FileService.getInstance().findById(Long.valueOf(fileid));
-
-			java.io.File f = new java.io.File(
-					DATA_PATH + file.getFileName());
-
-			InputStream is = new FileInputStream(f);
-
-			builder = Response.status(Status.ACCEPTED).entity(is);
-			builder.type(file.getContentType());
-			builder.header("Content-Disposition", "attachment; filename=\"" + file.getFileName() + "\"");
+			if(file != null){
+				java.io.File f = new java.io.File(
+						DATA_PATH + file.getFileName());
+	
+				InputStream is = new FileInputStream(f);
+	
+				builder = Response.status(Status.ACCEPTED).entity(is);
+				builder.type(file.getContentType());
+				builder.header("Content-Disposition", "attachment; filename=\"" + file.getFileName() + "\"");
+				r.setSuccess(true);
+			}
 
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
@@ -95,7 +99,7 @@ public class FileResource extends AbstractResource {
 	@Consumes("application/json")
 	public Response createFileMetaDataInGroup(@QueryParam("schoolclassid") String schoolclassid, final File input) {
 
-		Result r = new Result();
+		LoginResult r = new LoginResult();
 
 		try {
 			Schoolclass s = SchoolclassService.getInstance().findById(Long.valueOf(schoolclassid));
@@ -110,6 +114,7 @@ public class FileResource extends AbstractResource {
 				SchoolclassService.getInstance().update(s);
 				FileService.getInstance().update(input);
 
+				r.setId(input.getId());
 				r.setSuccess(true);
 
 			} else {
