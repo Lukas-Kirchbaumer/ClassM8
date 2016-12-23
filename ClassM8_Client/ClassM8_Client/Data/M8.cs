@@ -128,8 +128,7 @@ namespace ClassM8_Client.Data
 
         public String toString()
         {
-            return "M8 [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-                    + ", password=" + password + ", hasVoted=" + hasVoted + ", votes=" + votes + "]";
+            return firstname + " " + lastname;
         }
 
 

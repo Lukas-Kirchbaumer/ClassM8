@@ -16,6 +16,8 @@ namespace ClassM8_Client.Data
         [DataMember]
         private List<M8> classMembers = new List<M8>();
         [DataMember]
+        private List<File> classFiles = new List<File>();
+        [DataMember]
         private String name;
         [DataMember]
         private String room;
@@ -36,6 +38,15 @@ namespace ClassM8_Client.Data
         public void setId(long id)
         {
             this.id = id;
+        }
+
+        public List<File> getClassFiles()
+        {
+            return classFiles;
+        }
+
+        public void addFile(File f) {
+            classFiles.Add(f);
         }
 
         public List<M8> getClassMembers()
@@ -106,6 +117,7 @@ namespace ClassM8_Client.Data
             this.president = sc.president;
             this.presidentDeputy = sc.presidentDeputy;
             this.school = sc.school;
+            this.classFiles = sc.classFiles;
         }
 
     

@@ -51,3 +51,33 @@ E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\Ma
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\App.baml
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\LoginWindow.g.cs
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\LoginWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.exe.config
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.exe
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.exe
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignColors.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialIcons.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.csprojResolveAssemblyReference.cache
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Home.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\EditClassWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\NewAccountWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\NewClassWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\SettingsWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\LoginWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\App.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client_MarkupCompile.cache
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client_MarkupCompile.lref
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\App.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\EditClassWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\NewAccountWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\NewClassWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\SettingsWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\LoginWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.g.resources
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.Properties.Resources.resources
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.csproj.GenerateResource.Cache

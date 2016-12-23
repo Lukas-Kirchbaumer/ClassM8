@@ -65,7 +65,9 @@ namespace ClassM8_Client
             
             }
             txtInfo.Text = "Benutzer gelöscht";
+            Database.Instance.currM8 = null;
 
+            //TODO: go back to initial Login
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
@@ -78,6 +80,7 @@ namespace ClassM8_Client
             mate.setLastname(lastname.Text);
             mate.setPassword(password.Text);
 
+            Database.Instance.currM8 = mate;
             MemoryStream stream1 = new MemoryStream();
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(M8));
             ser.WriteObject(stream1, mate);
@@ -108,8 +111,8 @@ namespace ClassM8_Client
                 Console.WriteLine(result);
             }
 
-                Database.Instance.currM8 = mate;
-                txtInfo.Text = "Benutzer bearbeitet";
+            txtInfo.Text = "Benutzer bearbeitet";
+            this.Close();
         }
     }
 }

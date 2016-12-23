@@ -34,6 +34,8 @@ namespace ClassM8_Client
         Button btnNewClass;
         Button btnSettings;
         Button btnEditClass;
+        Button btnVote;
+        Button btnFiles;
         static HttpClient client = new HttpClient();
 
         public LoginWindow()
@@ -120,34 +122,76 @@ namespace ClassM8_Client
             btnNewClass = LogicalTreeHelper.FindLogicalNode(rootObject, "btnNewClass") as Button;
             btnSettings = LogicalTreeHelper.FindLogicalNode(rootObject, "btnSettings") as Button;
             btnEditClass = LogicalTreeHelper.FindLogicalNode(rootObject, "btnEditClass") as Button;
+            btnVote = LogicalTreeHelper.FindLogicalNode(rootObject, "btnVote") as Button;
+            btnFiles = LogicalTreeHelper.FindLogicalNode(rootObject, "btnFiles") as Button;
             btnNewClass.Click += new RoutedEventHandler(addNewClass);
             btnSettings.Click += new RoutedEventHandler(openSettings);
             btnEditClass.Click += new RoutedEventHandler(openEditClass);
+            btnVote.Click += new RoutedEventHandler(openVote);
+            btnFiles.Click += new RoutedEventHandler(openFilesWindow);
             btnNewClass.Visibility = Visibility.Hidden;
+            
 
             getCurrUser();
             getUserClass();
+            if (Database.Instance.currM8.isHasVoted()) {
+                btnVote.Visibility = Visibility.Hidden;
+            }
 
             if (Database.Instance.currSchoolclass.getId() == -1)
             {
                 btnNewClass.Visibility = Visibility.Visible;
+                btnEditClass.Visibility = Visibility.Hidden;
             }
 
 
             this.Title = "Grüßgott, " + Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
         }
 
+        private void openVote(object sender, RoutedEventArgs e)
+        {
+            VoteWindow vw = new VoteWindow();
+            vw.ShowDialog();
+            if (Database.Instance.currM8.isHasVoted()) {
+                btnVote.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void openFilesWindow(object sender, RoutedEventArgs e) {
+
+        }
+
         private void openSettings(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow(Database.Instance.currUserId, Database.Instance.currM8);
-            sw.Visibility = Visibility.Visible;
+            sw.ShowDialog();
+            if (Database.Instance.currM8 == null)
+            {
+                LoginWindow newLoginWindow = new LoginWindow();
+                newLoginWindow.Show();
+                this.Close();
+            }
+            else
+            {
+                this.Title = "Grüßgott, " + Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
+            }
         }
 
         private void openEditClass(object sender, RoutedEventArgs e)
         {
             EditClassWindow ecw = new EditClassWindow(Database.Instance.currSchoolclass);
-            ecw.Show();
-            Console.WriteLine("Klasse bearbeitet");
+            ecw.ShowDialog();
+            Schoolclass sc = Database.Instance.currSchoolclass;
+            if (sc != null)
+            {
+                myCurrClass.Text = sc.getName();
+                classSchool.Text = sc.getSchool();
+                classRoom.Text = sc.getRoom();
+            }
+            else {
+                btnEditClass.Visibility = Visibility.Hidden;
+                btnNewClass.Visibility = Visibility.Visible;
+            }
         }
 
         public void getUserClass()
@@ -223,7 +267,12 @@ namespace ClassM8_Client
         private void addNewClass(object sender, RoutedEventArgs e)
         {
             NewClassWindow ncw = new NewClassWindow();
-            ncw.Show();
+            ncw.ShowDialog();
+            Schoolclass sc = Database.Instance.currSchoolclass;
+            myCurrClass.Text = sc.getName();
+            classSchool.Text = sc.getSchool();
+            classRoom.Text = sc.getRoom();
+
             Console.WriteLine("Neue Klasse erstellen");
         }
 

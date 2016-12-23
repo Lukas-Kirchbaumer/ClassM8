@@ -61,6 +61,7 @@ namespace ClassM8_Client
             {
                 errorMsg.Visibility = Visibility.Hidden;
                 updateClass();
+                this.Close();
             }
         }
 
@@ -74,34 +75,11 @@ namespace ClassM8_Client
             sc.setName(txtName.Text);
             sc.setSchool(txtSchool.Text);
             sc.setRoom(txtRoom.Text);
-            sc.setClassMembers(Database.Instance.currSchoolclass.getClassMembers());
+            sc.setClassMembers(Database.Instance.currSchoolclass.getClassMembers());                                           
+            sc.setPresident(Database.Instance.currSchoolclass.getPresident());
+            sc.setPresidentDeputy(Database.Instance.currSchoolclass.getPresidentDeputy());
 
-            M8 pres = null;
-            M8 deputy = null;
-
-            string presFN = cbPres.SelectedItem.ToString().Split(' ')[0];
-            string presNN = cbPres.SelectedItem.ToString().Split(' ')[1];
-            string depFN = cbPresDep.SelectedItem.ToString().Split(' ')[0];
-            string depNN = cbPresDep.SelectedItem.ToString().Split(' ')[1];
-
-
-            foreach(M8 m in Database.Instance.currSchoolclass.getClassMembers()) {
-
-                if (m.getFirstname().Equals(presFN) && m.getLastname().Equals(presNN))
-                {
-                    pres = m;
-                }
-                if (m.getFirstname().Equals(depFN) && m.getLastname().Equals(depNN))
-                {
-                    deputy = m;
-                }
-
-            }
-                                           
-            sc.setPresident(pres);
-            sc.setPresidentDeputy(deputy);
-
-
+            Database.Instance.currSchoolclass = sc;
             MemoryStream stream1 = new MemoryStream();
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Schoolclass));
             ser.WriteObject(stream1, sc);
@@ -124,15 +102,13 @@ namespace ClassM8_Client
                 streamWriter.Flush();
             }
 
-
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
                 Console.WriteLine(result);
             }
-
-            Database.Instance.currSchoolclass = sc;
+   
             txtInfo.Text = "Klasse bearbeitet";
         }
 
@@ -147,14 +123,15 @@ namespace ClassM8_Client
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 
+            Database.Instance.currSchoolclass = null;
 
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
                 Console.WriteLine("Res: " + result);
-
             }
             txtInfo.Text = "Klasse gelöscht";
+            this.Close();
         }
     }
 }

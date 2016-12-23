@@ -49,6 +49,8 @@ namespace ClassM8_Client
             sc.setPresident(null);
             sc.setPresidentDeputy(null);
 
+            Database.Instance.currSchoolclass = sc;
+
             MemoryStream stream1 = new MemoryStream();
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Schoolclass));
             ser.WriteObject(stream1, sc);

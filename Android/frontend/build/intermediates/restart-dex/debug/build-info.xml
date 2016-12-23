@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86"
+    api-level="24"
+    density="hdpi"
+    format="8"
+    plugin-version="2.2.3"
+    timestamp="185437227389068"
+    token="-2824923036974889438"
+    verifier="COLD_SWAP_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="283" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="16" />
+    <task
+        name="verifier"
+        duration="2" />
+
+    <artifact
+        location="C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\Android\frontend\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+        type="DEX" />
+
+    <build
+        timestamp="184385089728265"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\Android\frontend\build\outputs\apk\frontend-debug.apk"
+            type="MAIN" />
+    </build>
+    <build
+        timestamp="185349423299088"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\Android\frontend\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
+            type="RESOURCES" />
+    </build>
+    <build
+        timestamp="185437227389068"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\Android\frontend\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+    </build>
+
+</instant-run>

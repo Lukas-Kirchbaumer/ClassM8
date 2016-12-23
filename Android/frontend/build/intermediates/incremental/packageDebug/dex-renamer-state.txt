@@ -1,0 +1,7 @@
+#Thu Dec 22 22:32:35 CET 2016
+base.0=C\:\\Users\\Anwender\\Desktop\\HTL\\5BHIFS\\BSD\\GitRep\\ClassM8\\Android\\frontend\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_b46e4bf7666ab28f200152d6ea3461cebcb8eb5d
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\Anwender\\Desktop\\HTL\\5BHIFS\\BSD\\GitRep\\ClassM8\\Android\\frontend\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_ad1a5adeb11eb0ba5d681551e917a75ea9ff529d\\classes.dex
+base.1=C\:\\Users\\Anwender\\Desktop\\HTL\\5BHIFS\\BSD\\GitRep\\ClassM8\\Android\\frontend\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_ad1a5adeb11eb0ba5d681551e917a75ea9ff529d
+file.0=C\:\\Users\\Anwender\\Desktop\\HTL\\5BHIFS\\BSD\\GitRep\\ClassM8\\Android\\frontend\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_b46e4bf7666ab28f200152d6ea3461cebcb8eb5d\\classes.dex

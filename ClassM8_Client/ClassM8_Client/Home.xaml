@@ -43,11 +43,13 @@
                     <materialDesign:MaterialDateDisplay Grid.Row="0" Grid.Column="2" Height="Auto" HorizontalAlignment="Right" Width="Auto" Margin="10"></materialDesign:MaterialDateDisplay>
                 </Grid>
             </materialDesign:ColorZone>
-            
-        <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="0" Content="Neue Klasse erstellen" FontSize="14" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
-        <Button x:Name="btnSettings" Grid.Row="1" Grid.Column="2" Content="Options" HorizontalAlignment="Right" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
-            <Button x:Name="btnEditClass" Grid.Row="2" Grid.Column="0" Content="Klasse bearbeiten" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="103"/>
-           
-    </Grid>
+
+            <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="0" Content="Neue Klasse erstellen" FontSize="14" HorizontalAlignment="Left" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnSettings" Grid.Row="1" Grid.Column="2" Content="Options" HorizontalAlignment="Right" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnEditClass" Grid.Row="2" Grid.Column="0" Content="Klasse bearbeiten" HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" VerticalAlignment="Top" Width="167"/>
+            <Button x:Name="btnVote" Grid.Row="2" Grid.Column="2" Content="Vote" HorizontalAlignment="Right" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+            <Button x:Name="btnFiles" Content="Files" Grid.Column="2" HorizontalAlignment="Left" Margin="208,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="75"/>
+
+        </Grid>
     </materialDesign:Card>
 </Page> 
