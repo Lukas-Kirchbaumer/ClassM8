@@ -155,5 +155,30 @@ public class UserResource extends AbstractResource {
 
 		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}
+	
+	@GET
+	@Path("byemail/{email}")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getByEmail(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@PathParam("email") String email) {
+
+		workaround();
+		
+		M8Result result = new M8Result();
+
+		try {
+			M8 m8 = MateService.getInstance().findByEmail(email).get(0);
+			if(m8 != null){
+				result.getContent().add(ObjectMapper.map(m8));
+				result.setSuccess(true);
+			}
+
+
+		} catch (Exception e) {
+			handelAndThrowError(e, result);
+		}
+
+		return Response.status(Response.Status.ACCEPTED).entity(result).build();
+	}
 
 }

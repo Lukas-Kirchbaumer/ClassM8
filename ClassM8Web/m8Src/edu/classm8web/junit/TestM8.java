@@ -13,6 +13,8 @@ import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.M8;
+import edu.classm8web.rs.resource.ElectionResource;
+import edu.classm8web.rs.resource.SecurityResource;
 import edu.classm8web.rs.resource.UserResource;
 import edu.classm8web.rs.result.M8Result;
 import edu.classm8web.rs.result.Result;
@@ -25,7 +27,9 @@ import org.junit.Test;
 public class TestM8 {
 
 	private static UserResource ur;
+	private static SecurityResource sr;
 	private static M8 m8;
+	private static M8 m8dos;
 	private static final String PERSISTENCE_UNIT = "ClassM8Web";
 	private static EntityManagerFactory emf;
 	private EntityManager em;
@@ -35,6 +39,8 @@ public class TestM8 {
         System.out.println("creating entity manager factory");
 		ur = new UserResource();
 		m8 = new M8();
+		m8dos = new M8();
+		sr = new SecurityResource();
 		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 	}
 
@@ -81,7 +87,7 @@ public class TestM8 {
 	
 
 	@Test
-	public void test1Insert() {
+	public void test1A_Insert() {
 		m8.setFirstname("firstname");
 		m8.setLastname("lastname");
 		m8.setEmail("testingEmail1212121212121212121212121212121212121212121212121212121212121");
@@ -92,14 +98,54 @@ public class TestM8 {
 	}
 	
 	@Test
-	public void test2Get(){
+	public void test1B_InsertFail() {
+		m8dos.setFirstname("firstname");
+		m8dos.setLastname("lastname");
+		m8dos.setEmail("testingEmail1212121212121212121212121212121212121212121212121212121212121");
+		m8dos.setPassword("password123");
+		Response res = ur.create(m8dos);
+		M8Result result = (M8Result) res.getEntity();
+		assertFalse(result.isSuccess());
+	}
+	
+	@Test
+	public void test2A_Get(){
 		Response res = ur.get(null, null, m8.getId() + "");
 		M8Result result = (M8Result) res.getEntity();
 		assertTrue(result.isSuccess());
 	}
+	
+	@Test
+	public void test2B_GetFail(){
+		Response res = ur.get(null, null, -1 + "");
+		M8Result result = (M8Result) res.getEntity();
+		assertFalse(result.isSuccess());
+	}
+	
+	@Test
+	public void test3GetAll(){
+		Response res = ur.getUsers(null, null);
+		M8Result result = (M8Result) res.getEntity();
+		assertTrue(result.isSuccess());
+	}
+	
+	
+	@Test
+	public void test4A_Login() {
+		Response res = sr.login(m8);
+		Result result = (Result) res.getEntity();
+		assertTrue(result.isSuccess());
+	}
+	
+	@Test
+	public void test4B_LoginFail() {
+		Response res = sr.login(new M8());
+		Result result = (Result) res.getEntity();
+		assertFalse(result.isSuccess());
+	}
 
 	@Test
-	public void test3Update() {
+	public void test5A_Update() {
 		m8.setFirstname("updated");
 		Response res = ur.update(null, null, m8.getId() + "", m8);
 		Result result = (Result) res.getEntity();
@@ -107,10 +153,25 @@ public class TestM8 {
 	}
 	
 	@Test
-	public void test4Delete() {
+	public void test5B_UpdateFail() {
+		m8.setFirstname("updated");
+		Response res = ur.update(null, null, -1 + "", m8);
+		Result result = (Result) res.getEntity();
+		assertFalse(result.isSuccess());
+	}
+	
+	@Test
+	public void test6A_Delete() {
 		Response res = ur.delete(null, null, m8.getId() + "");
 		Result result = (Result) res.getEntity();
 		assertTrue(result.isSuccess());
+	}
+	
+	@Test
+	public void test6B_DeleteFail() {
+		Response res = ur.delete(null, null, -1 + "");
+		Result result = (Result) res.getEntity();
+		assertFalse(result.isSuccess());
 	}
 
 }
