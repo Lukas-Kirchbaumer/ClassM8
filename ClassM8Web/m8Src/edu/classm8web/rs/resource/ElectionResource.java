@@ -4,24 +4,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
-import edu.classm8web.mapper.ObjectMapper;
-import edu.classm8web.rs.result.M8Result;
 import edu.classm8web.rs.result.Result;
 
 @Path("election")
@@ -55,6 +48,7 @@ public class ElectionResource extends AbstractResource {
 
 						@Override
 						public int compare(M8 o1, M8 o2) {
+							//TODO: @kirche/max
 							return o1.getVotes() - o2.getVotes();
 						}
 			        });

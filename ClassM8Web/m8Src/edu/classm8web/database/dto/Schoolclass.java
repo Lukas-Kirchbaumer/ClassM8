@@ -1,7 +1,6 @@
 package edu.classm8web.database.dto;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 
 @Entity

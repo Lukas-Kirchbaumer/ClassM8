@@ -1,13 +1,19 @@
 package edu.classm8web.junit;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Response;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
@@ -18,10 +24,6 @@ import edu.classm8web.rs.resource.SecurityResource;
 import edu.classm8web.rs.resource.UserResource;
 import edu.classm8web.rs.result.M8Result;
 import edu.classm8web.rs.result.Result;
-import org.junit.runners.MethodSorters;
-
-import org.junit.FixMethodOrder;
-import org.junit.Test;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestM8 {
