@@ -36,6 +36,10 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class FileExecuter extends AsyncTask<URL, File, File> {
+    @Override
+    protected File doInBackground(URL... params) {
+        return null;
+    }
 /*
     private File content;
     File data;
@@ -136,5 +140,32 @@ public class FileExecuter extends AsyncTask<URL, File, File> {
             responseStream.close();
         }
     }
+
+
+    public void uploadFile(){
+    String strId = txtid.getText();
+
+        File fileToUpload = new File(txtimage.getText());
+        FormDataMultiPart multiPart = new FormDataMultiPart();
+        multiPart.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
+        multiPart.bodyPart(new FileDataBodyPart("file", fileToUpload,
+                MediaType.APPLICATION_OCTET_STREAM_TYPE));
+
+        WebResource directTarget = target.path("upload/" + strId);
+        directTarget.accept(MediaType.MULTIPART_FORM_DATA_TYPE).post(multiPart);
+        }
+
+        public void downloadFile(){
+
+    try {
+            URL website = new URL(target.path("") + "BookService/download/" + strId);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(DEFAULT_IMAGENAME);
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        } catch (Exception ex) {
+            lblMessages.setText("Something went wrong");
+        }
+        }
+
 */
 }
