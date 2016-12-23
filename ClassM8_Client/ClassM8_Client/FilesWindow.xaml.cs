@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace ClassM8_Client
     /// </summary>
     public partial class FilesWindow : Window
     {
+        String tempFile = "";
+
         public FilesWindow()
         {
             InitializeComponent();
@@ -152,6 +155,7 @@ namespace ClassM8_Client
             {
                 // Open document 
                 string filename = dlg.FileName;
+                tempFile = dlg.FileName;
                 FileInfo oFileInfo = new FileInfo(filename);
 
                 if (filename != null || filename.Length == 0)
@@ -174,6 +178,39 @@ namespace ClassM8_Client
 
             }
         }
+
+        private void UploadFile(int id, Data.File file)
+        {
+            Console.WriteLine("1337 Über Haxxor ");
+            FileStream objfilestream = new FileStream(tempFile, FileMode.Open, FileAccess.Read);
+            int len = (int)objfilestream.Length;
+            Byte[] mybytearray = new Byte[len];
+            objfilestream.Read(mybytearray, 0, len);
+            string url = "http://localhost:8080/ClassM8Web/services/file/content/" + id;
+            objfilestream.Close();
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json; charset=utf-8";
+            httpWebRequest.MediaType = "multipart/data";
+            httpWebRequest.Method = "POST";
+            
+           
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(mybytearray);
+                streamWriter.Flush();
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var result = streamReader.ReadToEnd();
+                Console.WriteLine(result);
+            }
+
+        }
+
 
         private void createMetaData(Data.File file) {
             string url = "http://localhost:8080/ClassM8Web/services/file/?schoolclassid=" + Database.Instance.currSchoolclass.getId();
@@ -205,10 +242,27 @@ namespace ClassM8_Client
                 {
                     var result = streamReader.ReadToEnd();
                     Console.WriteLine("Result for File: " + result);
+
+                    LoginResult obj = Activator.CreateInstance<LoginResult>();
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                    obj = (LoginResult)serializer.ReadObject(ms);
+                    ms.Close();
+
+
+                    UploadFile((int)obj.getId(), file);
                 }
-            } catch (Exception ex)
+            } catch (WebException ex)
             {
+                Console.WriteLine(ex.Response);
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine(ex.Message);
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(ex.Data);
+                Console.WriteLine();
+                Console.WriteLine();
             }
             
         }

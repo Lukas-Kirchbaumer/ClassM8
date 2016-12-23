@@ -87,3 +87,9 @@ C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_C
 C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\VoteWindow.baml
 C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\AddM8Window.g.cs
 C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\GitRep\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\AddM8Window.baml
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\AddM8Window.g.cs
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\FilesWindow.g.cs
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\VoteWindow.g.cs
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\AddM8Window.baml
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\FilesWindow.baml
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\VoteWindow.baml
