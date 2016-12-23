@@ -20,7 +20,9 @@
         <activity android:name=".UserSettingsActivity" />
         <activity android:name=".VoteActivity" />
         <activity android:name=".ClassSettingsActivity" />
-        <activity android:name=".NewClassActivity"></activity>
+        <activity android:name=".NewClassActivity" />
+        <activity android:name=".FileShareActivity" />
+        <activity android:name=".AddM8Activity"></activity>
     </application>
 
 </manifest>

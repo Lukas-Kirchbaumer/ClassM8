@@ -35,7 +35,7 @@ public class UserServices {
     public M8 login(M8 user) {
         try {
             Executer executer = new Executer();
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/login");
+            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/login");
             System.out.println("serverUrl");
             executer.setMethod("POST");
             executer.setData(gson.toJson(user, M8.class));
@@ -53,7 +53,7 @@ public class UserServices {
             if (r.getId() == -1)
                 throw new Exception("no valid user");
 
-            serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/user/" + r.getId());
+            serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user/" + r.getId());
 
             executer = new Executer();
             executer.setMethod("GET");
@@ -83,7 +83,7 @@ public class UserServices {
     public M8 createNewUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/user");
+            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user");
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(user, M8.class));
@@ -106,7 +106,7 @@ public class UserServices {
     public void deleteUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/user/?id="+user.getId());
+            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user/?id="+user.getId());
 
             executer.setMethod("DELETE");
             executer.setData(gson.toJson(user, Schoolclass.class));
@@ -126,7 +126,7 @@ public class UserServices {
     public void updateUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/user/?id=" + user.getId());
+            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user/?id=" + user.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(user, M8.class));
@@ -146,7 +146,7 @@ public class UserServices {
     public M8 updateUser(M8 newUser, M8 OldUser) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/user/" + OldUser.getId());
+            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user/" + OldUser.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(newUser, M8.class));

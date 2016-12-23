@@ -35,27 +35,11 @@ public class ClassSettingsActivity extends Activity {
         final Button btnUpdateClass = (Button) findViewById(R.id.btnUpdateClass);
         final Button btnDeleteClass = (Button) findViewById(R.id.btnDeleteClass);
         final TextView tvClassSettingsError = (TextView) findViewById(R.id.tvClassSettingsError);
-        final ListView lvClassM8s = (ListView) findViewById(R.id.lvClassM8s);
+
 
         txtClassName.setText(Database.getInstance().getCurrentSchoolclass().getName());
         txtNewRoom.setText(Database.getInstance().getCurrentSchoolclass().getRoom());
         txtNewSchool.setText(Database.getInstance().getCurrentSchoolclass().getSchool());
-
-        ArrayList<M8> m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
-
-        /*ArrayList<M8> m8s = new ArrayList<M8> ();
-
-        m8s.add(new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass()));
-        m8s.add(new M8(1,"dsf","asdf","asdf","asfd",false, 2, new Schoolclass()));
-        m8s.add(new M8(1,"123","asdf","asdf","asfd",false, 2, new Schoolclass()));
-        m8s.add(new M8(1,"1234","asdf","asdf","asfd",false, 2, new Schoolclass()));
-        m8s.add(new M8(1,"bv","asdf","asdf","asfd",false, 2, new Schoolclass()));
-        */
-
-        ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, m8s);
-
-        lvClassM8s.setAdapter(listViewArrayAdapter);
 
         btnDeleteClass.setOnClickListener(new View.OnClickListener() {
             @Override
