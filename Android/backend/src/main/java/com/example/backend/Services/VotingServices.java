@@ -12,11 +12,11 @@ import com.google.gson.JsonParser;
 
 import java.net.URL;
 
-/**
- * Created by laubi on 12/22/2016.
- */
+    /**
+     * Created by laubi on 12/22/2016.
+     */
 
-public class VotingServices {
+    public class VotingServices {
 
     private Executer executer = new Executer();;
     private Gson gson  = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
@@ -33,7 +33,7 @@ public class VotingServices {
     public void placeVoteForPresident(M8 user, M8 votedMate) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
 
             executer.setMethod("@PUT");
             executer.setData("");

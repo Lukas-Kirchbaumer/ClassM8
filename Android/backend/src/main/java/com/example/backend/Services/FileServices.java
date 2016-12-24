@@ -35,7 +35,7 @@ public class FileServices {
     public void createFileMetaDataInGroup(Schoolclass schoolclass,File file) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.9:8080/ClassM8Web/services/fileshare/?schoolclassid="+ schoolclass.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+":8080/ClassM8Web/services/fileshare/?schoolclassid="+ schoolclass.getId());
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(file, File.class));
@@ -60,16 +60,12 @@ public class FileServices {
             executer.setMethod("POST");
             executer.setData(f);
             executer.execute();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-
-
-/*
     private String encode(byte[] fileData) {
         StringBuilder sb = new StringBuilder();
         for (byte b:fileData) {
@@ -78,5 +74,5 @@ public class FileServices {
         return sb.toString();
 
     }
-    */
+
 }

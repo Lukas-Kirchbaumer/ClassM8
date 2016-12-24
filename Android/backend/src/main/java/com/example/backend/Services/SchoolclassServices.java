@@ -42,7 +42,7 @@ public class SchoolclassServices {
 
         try {
             Executer executer = new Executer();
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/schoolclass/"+ user.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/"+ user.getId());
 
             executer.setMethod("GET");
             executer.execute(serverURL);
@@ -61,7 +61,7 @@ public class SchoolclassServices {
 
             executer = new Executer();
 
-            serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/user/byschoolclass/"+ schoolclass.getId());
+            serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/user/byschoolclass/"+ schoolclass.getId());
 
             executer.setMethod("GET");
             executer.execute(serverURL);
@@ -91,7 +91,7 @@ public class SchoolclassServices {
     public Schoolclass createNewClass(Schoolclass s) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/schoolclass");
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass");
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(s, Schoolclass.class));
@@ -114,7 +114,7 @@ public class SchoolclassServices {
     public Schoolclass updateClass(Schoolclass newSchoolclass, Schoolclass oldSchoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/schoolclass/?id=" + oldSchoolClass.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id=" + oldSchoolClass.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(newSchoolclass, Schoolclass.class));
@@ -136,7 +136,7 @@ public class SchoolclassServices {
     public void updateClass(Schoolclass schoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(schoolClass, Schoolclass.class));
@@ -156,7 +156,7 @@ public class SchoolclassServices {
     public void deleteClass(Schoolclass schoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://10.0.0.3:8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
 
             executer.setMethod("DELETE");
             executer.setData(gson.toJson(schoolClass, Schoolclass.class));
