@@ -11,5 +11,4 @@ BSD Project (Haider, Kirchbaumer, Kramer, Laubreiter)
   
 # Release:
 
-[https://github.com/Lukas-Kirchbaumer/ClassM8/issues/10](url)
-
+  -> Issues (Sprint #)
