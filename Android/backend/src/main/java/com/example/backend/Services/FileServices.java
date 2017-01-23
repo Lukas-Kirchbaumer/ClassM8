@@ -78,10 +78,6 @@ public class FileServices {
         }
     }
 
-
-
-
-
     private String encode(byte[] fileData) {
         StringBuilder sb = new StringBuilder();
         for (byte b:fileData) {

@@ -1,7 +1,7 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,7 +53,9 @@ public class FileShareActivity extends Activity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               File selFile = (File)lvDownloads.getSelectedItem();
 
+                //Todo: download File
             }
         });
 
