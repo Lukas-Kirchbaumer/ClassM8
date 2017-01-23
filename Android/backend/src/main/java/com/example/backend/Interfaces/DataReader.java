@@ -16,6 +16,7 @@ import java.io.File;
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     private static DataReader instance = null;
+    public static String IP = "10.0.0.9";
 
     public static DataReader getInstance(){
         if(instance == null){

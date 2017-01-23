@@ -3,6 +3,7 @@ package com.example.backend.MappedObjects;
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.Schoolclass;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -115,6 +116,8 @@ public class MappedSchoolclass {
 		s.setName(this.getName());
 		s.setRoom(this.getRoom());
 		s.setSchool(this.getSchool());
+		s.setFiles(new ArrayList<File>());
+
 		try {
 			for (MappedFile f : this.files) {
 				s.getFiles().add(f.toFile());
@@ -122,6 +125,7 @@ public class MappedSchoolclass {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		try {
 			s.setPresident(this.president.toM8());
 		} catch (Exception e) {
