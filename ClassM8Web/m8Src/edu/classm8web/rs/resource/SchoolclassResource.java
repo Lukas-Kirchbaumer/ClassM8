@@ -294,7 +294,7 @@ public class SchoolclassResource extends AbstractResource {
 				m.setContent(message);
 				
 				Date now = new Date();
-				m.setDateTime(new java.sql.Date(now.getTime()));
+				m.setDateTime(now);
 				
 				schoolclass.getSchoolclassChat().getMessages().add(m);
 				SchoolclassService.getInstance().update(schoolclass);

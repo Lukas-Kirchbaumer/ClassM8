@@ -1,8 +1,10 @@
 package edu.classm8web.database.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class Message {
@@ -11,6 +13,7 @@ public class Message {
 	
 	private String sender;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateTime;
 	
 	public Message() {}
