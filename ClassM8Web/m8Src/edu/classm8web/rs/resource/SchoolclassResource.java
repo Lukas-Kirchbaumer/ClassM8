@@ -1,5 +1,8 @@
 package edu.classm8web.rs.resource;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +19,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
+import edu.classm8web.database.dto.Chat;
 import edu.classm8web.database.dto.M8;
+import edu.classm8web.database.dto.Message;
 import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
+import edu.classm8web.rs.result.ChatResult;
 import edu.classm8web.rs.result.Result;
 import edu.classm8web.rs.result.SchoolclassResult;
 
@@ -84,6 +91,16 @@ public class SchoolclassResource extends AbstractResource {
 				
 				MateService.getInstance().update(m8);
 				SchoolclassService.getInstance().update(input);
+				
+				Chat c = new Chat();
+				List<Message> message = new ArrayList<>();
+				
+				c.setMessages(message);
+				
+				input.setSchoolclassChat(c);
+				SchoolclassService.getInstance().update(input);
+				
+				
 				r.setSuccess(true);
 			}
 			else{
@@ -220,4 +237,78 @@ public class SchoolclassResource extends AbstractResource {
 
 		return Response.status(Response.Status.ACCEPTED).entity(r).build();
 	}
+	
+	@GET
+	@Path("chat")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getChatFromSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@QueryParam("scid") String id) {
+		
+		ChatResult result = new ChatResult();
+
+		
+		try {
+			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(id));
+			
+			if(sc != null){
+				Chat c = sc.getSchoolclassChat();
+				
+				if(c != null){
+					result.setSuccess(true);
+					result.setSchoolclassChat(c);
+				} else {
+					throw new Exception("No chat");
+				}
+				
+			} else {
+				throw new Exception("Schoolclass not found");
+			}
+			
+		} catch (Exception e) {
+			handelAndThrowError(e, result);
+		}
+		
+		
+		return Response.status(Status.ACCEPTED).entity(result).build();
+	}
+	
+	@POST
+	@Path("chat")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response pushMessage(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@QueryParam("scid") String scid, @QueryParam("m8id") String m8id, final String message){
+		
+		Result r = new Result();
+		
+		try {
+			Long mid = Long.parseLong(m8id);
+			Long sid = Long.parseLong(scid);
+			
+			M8 mate = MateService.getInstance().findById(mid);
+			Schoolclass schoolclass = SchoolclassService.getInstance().findById(sid);
+			
+			if(mate != null && schoolclass != null){
+				Message m = new Message();
+				m.setSender(mate.getFirstname() + " " + mate.getLastname());
+				m.setContent(message);
+				
+				Date now = new Date();
+				m.setDateTime(new java.sql.Date(now.getTime()));
+				
+				schoolclass.getSchoolclassChat().getMessages().add(m);
+				SchoolclassService.getInstance().update(schoolclass);
+				
+				r.setSuccess(true);
+				
+			} else {
+				throw new Exception("Mate or schoolclass does not exist");
+			}
+		} catch (Exception e) {
+			handelAndThrowError(e, r);
+		}
+		
+		return Response.status(Status.CREATED).entity(r).build();
+	}
 }
+

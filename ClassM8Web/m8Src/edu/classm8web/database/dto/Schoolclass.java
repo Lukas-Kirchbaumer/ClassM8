@@ -46,6 +46,10 @@ public class Schoolclass implements Serializable{
 	
 	private String school;
 	
+	@OneToOne
+	@JoinColumn(name="chatid")
+	private Chat schoolclassChat;
+	
 	public Schoolclass() {}
 
 	public long getId() {
@@ -120,6 +124,14 @@ public class Schoolclass implements Serializable{
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	public Chat getSchoolclassChat() {
+		return schoolclassChat;
+	}
+
+	public void setSchoolclassChat(Chat schoolclassChat) {
+		this.schoolclassChat = schoolclassChat;
 	}
 	
 }
