@@ -40,10 +40,12 @@ namespace ClassM8_Client
         ListBox lbAllM8s;
         Button btnAddM8;
         static HttpClient client = new HttpClient();
+        DataReader dr;
 
         public LoginWindow()
         {
             InitializeComponent();
+            dr = DataReader.Instance;
         }
 
 
@@ -52,48 +54,11 @@ namespace ClassM8_Client
             try
             {
 
-                string url = "http://localhost:8080/ClassM8Web/services/login";
-
                 M8 mate = new M8();
                 mate.setEmail(email.Text);
                 mate.setPassword(password.Password);
 
-                MemoryStream stream1 = new MemoryStream();
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(M8));
-                ser.WriteObject(stream1, mate);
-                stream1.Position = 0;
-                StreamReader sr = new StreamReader(stream1);
-                Console.Write("JSON form of M8 object: ");
-                string jsonContent = sr.ReadToEnd();
-
-                Console.WriteLine(jsonContent);
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = "POST";
-
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    streamWriter.Write(jsonContent);
-                    streamWriter.Flush();
-                }
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine("Result for M8: " + result);
-
-                    LoginResult obj = Activator.CreateInstance<LoginResult>();
-                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-                    obj = (LoginResult)serializer.ReadObject(ms);
-                    ms.Close();
-
-                    Database.Instance.currUserId = (int)obj.getId();
-                    Console.WriteLine("CurrUserId: " + Database.Instance.currUserId);
-                }
+                dr.loginM8(mate);
 
                 if (Database.Instance.currUserId > 0)
                 {
@@ -109,6 +74,11 @@ namespace ClassM8_Client
             {
                 Console.WriteLine("Login error: " + ex.Message.ToString());
             }
+        }
+
+        private void loginDenied()
+        {
+            txtErrorMsg.Text = "Username oder Password falsch";
         }
 
 
@@ -136,10 +106,11 @@ namespace ClassM8_Client
             btnFiles.Click += new RoutedEventHandler(openFilesWindow);
             btnAddM8.Click += new RoutedEventHandler(openAddM8);
             btnNewClass.Visibility = Visibility.Hidden;
+           
             
-
-            getCurrUser();
-            getUserClass();
+            dr.getM8();
+            dr.getM8Class();
+            showM8Class();
 
             lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
 
@@ -155,6 +126,24 @@ namespace ClassM8_Client
 
 
             this.Title = "Grüßgott, " + Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
+        }
+
+
+        private void showM8Class() {
+
+            if (Database.Instance.currSchoolclass != null)
+            {
+                Schoolclass sc = Database.Instance.currSchoolclass;
+                myCurrClass.Text = sc.getName();
+                classSchool.Text = sc.getSchool();
+                classRoom.Text = sc.getRoom();
+            }
+            else
+            {
+                myCurrClass.Text = "";
+                classSchool.Text = "";
+                classRoom.Text = "";
+            }
         }
 
         private void openVote(object sender, RoutedEventArgs e)
@@ -211,96 +200,12 @@ namespace ClassM8_Client
             else {
                 btnEditClass.Visibility = Visibility.Hidden;
                 btnNewClass.Visibility = Visibility.Visible;
+
+                myCurrClass.Text = "";
+                classSchool.Text = "";
+                classRoom.Text = "";
             }
         }
-
-        public void getUserClass()
-        {
-            try
-            {
-                string url = "http://localhost:8080/ClassM8Web/services/schoolclass/" + Database.Instance.currUserId;
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = "GET";
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
-
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine(url + "  Res: " + result);
-
-                    SchoolclassResult obj = Activator.CreateInstance<SchoolclassResult>();
-                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType(), new DataContractJsonSerializerSettings
-                    {
-                        DateTimeFormat = new DateTimeFormat("yyyy-MM-dd")
-                    });
-                    obj = (SchoolclassResult)serializer.ReadObject(ms);
-                    ms.Close();
-
-
-                    Database.Instance.currSchoolclass = obj.getSchoolclasses().ElementAt(0);
-                    Console.WriteLine("Files in class: " + Database.Instance.currSchoolclass.getClassFiles().Count);
-
-                    if (Database.Instance.currSchoolclass != null) {
-
-                        myCurrClass.Text = obj.getSchoolclasses().ElementAt(0).getName();
-                        classSchool.Text = obj.getSchoolclasses().ElementAt(0).getSchool();
-                        classRoom.Text = obj.getSchoolclasses().ElementAt(0).getRoom();
-                    }
-                    else
-                    {
-                        myCurrClass.Text = "";
-                        classSchool.Text = "";
-                        classRoom.Text = "";
-                    }
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("GetUserClass " + ex.Message);
-                Schoolclass sc = new Schoolclass();
-                sc.setId(-1);
-                Database.Instance.currSchoolclass = sc;
-            }
-        }
-
-        public void getCurrUser()
-        {
-
-            string url = "http://localhost:8080/ClassM8Web/services/user/" + Database.Instance.currUserId;
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json; charset=utf-8";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "GET";
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
-
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine("CurrM8 " + result);
-
-                M8Result obj = Activator.CreateInstance<M8Result>();
-                MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-                obj = (M8Result)serializer.ReadObject(ms);
-                ms.Close();
-         
-                Console.WriteLine("m8s: " + obj.getM8s().Count);
-
-                Database.Instance.currM8 = obj.getM8s().ElementAt(0);
-
-            }
-        }
-
 
         private void addNewClass(object sender, RoutedEventArgs e)
         {
@@ -314,16 +219,13 @@ namespace ClassM8_Client
             Console.WriteLine("Neue Klasse erstellen");
         }
 
-        private void loginDenied()
-        {
-            txtErrorMsg.Text = "Username oder Password falsch";
-        }
-
         private void btnNewAcc_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Register...");
             NewAccountWindow nac = new NewAccountWindow();
             nac.Visibility = Visibility.Visible;
         }
+
+
     }
 }

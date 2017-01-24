@@ -33,24 +33,10 @@ namespace ClassM8_Client
         {
             try
             {
-                M8 voted = cbVoteCandidate.SelectedItem as M8;
-                Console.WriteLine(voted);
+                M8 selected = cbVoteCandidate.SelectedItem as M8;
+                Console.WriteLine("Chosen one: " + selected);
 
-                string url = "http://localhost:8080/ClassM8Web/services/election/?voterid=" + Database.Instance.currM8.getId() + "&votedid=" + voted.getId();
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = "PUT";
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine(result);
-                }
-
-                Database.Instance.currM8.setHasVoted(true);
+                DataReader.Instance.vote(selected);
             }
             catch (Exception ex) {
                 lblVoteError.Content = "No Connection";

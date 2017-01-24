@@ -61,10 +61,7 @@ namespace ClassM8_Client
         }
 
         private void updateClass()
-        {
-
-            string url = "http://localhost:8080/ClassM8Web/services/schoolclass/?id=" + Database.Instance.currSchoolclass.getId();
-
+        {    
             Schoolclass sc = new Schoolclass();
             sc.setId(Database.Instance.currSchoolclass.getId());
             sc.setName(txtName.Text);
@@ -76,56 +73,13 @@ namespace ClassM8_Client
             sc.setClassFiles(Database.Instance.currSchoolclass.getClassFiles());
 
             Database.Instance.currSchoolclass = sc;
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Schoolclass));
-            ser.WriteObject(stream1, sc);
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            Console.Write("JSON form of Schoolclass object: ");
-            string jsonContent = sr.ReadToEnd();
-
-            Console.WriteLine(jsonContent);
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "PUT";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-                streamWriter.Write(jsonContent);
-                streamWriter.Flush();
-            }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine(result);
-            }
-   
+            DataReader.Instance.updateSchoolclass(sc);   
             txtInfo.Text = "Klasse bearbeitet";
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:8080/ClassM8Web/services/schoolclass/?id=" + Database.Instance.currSchoolclass.getId();
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json; charset=utf-8";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "DELETE";
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
-            Database.Instance.currSchoolclass = null;
-
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine("Res: " + result);
-            }
+            DataReader.Instance.deleteSchoolclass();
             txtInfo.Text = "Klasse gelöscht";
             this.Close();
         }

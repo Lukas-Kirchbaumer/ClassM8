@@ -39,8 +39,7 @@ namespace ClassM8_Client
         }
 
         private void createNewClass() {
-            string url = "http://localhost:8080/ClassM8Web/services/schoolclass/?m8id=" + Database.Instance.currM8.getId();
-
+           
             Schoolclass sc = new Schoolclass();
             sc.setName(txtClassname.Text);
             sc.setSchool(txtSchool.Text);
@@ -50,35 +49,8 @@ namespace ClassM8_Client
             sc.setPresidentDeputy(null);
 
             Database.Instance.currSchoolclass = sc;
+            DataReader.Instance.createNewSchoolclass(sc);
 
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Schoolclass));
-            ser.WriteObject(stream1, sc);
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            Console.Write("JSON form of M8 object: ");
-            string jsonContent = sr.ReadToEnd();
-
-            Console.WriteLine(jsonContent);
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(jsonContent);
-                streamWriter.Flush();
-            }
-
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine(result);
-            }
         }
     }
 }

@@ -48,31 +48,15 @@ namespace ClassM8_Client
 
         private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:8080/ClassM8Web/services/user/?id=" + Database.Instance.currUserId;
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json; charset=utf-8";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "DELETE";
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
-
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine("Res: " + result);
-            
-            }
+            DataReader.Instance.deleteUser();
             txtInfo.Text = "Benutzer gelöscht";
-            Database.Instance.currM8 = null;
 
             //TODO: go back to initial Login
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:8080/ClassM8Web/services/user/?id=" + Database.Instance.currUserId;
 
             M8 mate = new M8();
             mate.setEmail(email.Text);
@@ -82,36 +66,9 @@ namespace ClassM8_Client
             mate.setSchoolclass(Database.Instance.currM8.getSchoolclass());
 
             Database.Instance.currM8 = mate;
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(M8));
-            ser.WriteObject(stream1, mate);
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            Console.Write("JSON form of M8 object: ");
-            string jsonContent = sr.ReadToEnd();
 
-            Console.WriteLine(jsonContent);
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "PUT";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-                streamWriter.Write(jsonContent);
-                streamWriter.Flush();
-            }
-
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine(result);
-            }
-
+            DataReader.Instance.updateUser(mate);
+           
             txtInfo.Text = "Benutzer bearbeitet";
             this.Close();
         }

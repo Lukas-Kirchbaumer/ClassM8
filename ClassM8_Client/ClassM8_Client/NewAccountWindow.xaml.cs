@@ -30,6 +30,7 @@ namespace ClassM8_Client
 
         private void btnNewAccCancle_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
         }
 
         private void btnNewAccCreate_Click(object sender, RoutedEventArgs e)
@@ -51,45 +52,14 @@ namespace ClassM8_Client
 
         public void createNewUser()
         {
-            string url = "http://localhost:8080/ClassM8Web/services/user";
-
             M8 mate = new M8();
             mate.setEmail(email.Text);
             mate.setFirstname(firstname.Text);
             mate.setLastname(lastname.Text);
             mate.setPassword(password.Password);
 
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(M8));
-            ser.WriteObject(stream1, mate);
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            Console.Write("JSON form of M8 object: ");
-            string jsonContent = sr.ReadToEnd();
-
-            Console.WriteLine(jsonContent);
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Accept = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-                streamWriter.Write(jsonContent);
-                streamWriter.Flush();
-            }
-
-           
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                Console.WriteLine(result);
-            }
-            
-
+            DataReader.Instance.createNewUser(mate);
         }
+
     }
 }
