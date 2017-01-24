@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace ClassM8_Client
     /// </summary>
     public partial class FilesWindow : Window
     {
+        String tempFile = "";
+
         public FilesWindow()
         {
             InitializeComponent();
@@ -63,49 +66,22 @@ namespace ClassM8_Client
                 // Buffer to read bytes in chunk size specified above
                 byte[] buffer = new Byte[bytesToRead];
                 // The number of bytes read
-                string url = "http://localhost:8080/classm8web/services/file/content/" + file.getId();
+                string url = "http://localhost:8080/ClassM8Web/services/file/content/" + file.getId();
                 try
                 {
-                    //Create a WebRequest to get the file
                     HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(url);
-                    //Create a response for this request
                     HttpWebResponse fileResp = (HttpWebResponse)fileReq.GetResponse();
                     if (fileReq.ContentLength > 0)
                         fileResp.ContentLength = fileReq.ContentLength;
-                    //Get the Stream returned from the response
                     stream = fileResp.GetResponseStream();
-                    // prepare the response to the client. resp is the client Response
-                    var resp = HttpContext.Current.Response;
-                    //Indicate the type of data being sent
-                    resp.ContentType = "application/octet-stream";
-                    //Name the file 
-                    resp.AddHeader("Content-Disposition", "attachment; filename=\"" + file.getFileName() + "\"");
-                    resp.AddHeader("Content-Length", fileResp.ContentLength.ToString());
+                    Console.WriteLine(stream);
 
-                    int length;
-                    do
+
+
+                    using (var fileStream = new FileStream("C:\\Users\\mhaid\\Downloads\\deving\\"+ file.getFileName(), FileMode.Create, FileAccess.Write))
                     {
-                        // Verify that the client is connected.
-                        if (resp.IsClientConnected)
-                        {
-                            // Read data into the buffer.
-                            length = stream.Read(buffer, 0, bytesToRead);
-                            // and write it out to the response's output stream
-                            resp.OutputStream.Write(buffer, 0, length);
-                            // Flush the data
-                            resp.Flush();
-                            //Clear the buffer
-                            buffer = new Byte[bytesToRead];
-                        }
-                        else
-                        {
-                            // cancel the download if client has disconnected
-                            length = -1;
-                        }
-                    } while (length > 0); //Repeat until no data is read
-                    string currDir = Directory.GetCurrentDirectory();
-                    string newFile = currDir + "\\" + file.getFileName();
-                    System.IO.File.WriteAllBytes(newFile, buffer);
+                        stream.CopyTo(fileStream);
+                    }
                 }
                 catch (Exception ex) {
                     Console.WriteLine(ex.Message);
@@ -140,7 +116,7 @@ namespace ClassM8_Client
 
             // Set filter for file extension and default file extension 
             dlg.DefaultExt = ".png";
-            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            //dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
 
 
             // Display OpenFileDialog by calling ShowDialog method 
@@ -152,6 +128,7 @@ namespace ClassM8_Client
             {
                 // Open document 
                 string filename = dlg.FileName;
+                tempFile = dlg.FileName;
                 FileInfo oFileInfo = new FileInfo(filename);
 
                 if (filename != null || filename.Length == 0)
@@ -174,6 +151,67 @@ namespace ClassM8_Client
 
             }
         }
+
+        public static void HttpUploadFile(string url, string file, string paramName, string contentType)
+        {
+
+
+            Console.WriteLine(string.Format("Uploading {0} to {1}", file, url));
+            string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+            byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+
+            HttpWebRequest wr = (HttpWebRequest)WebRequest.Create(url);
+            wr.ContentType = "multipart/form-data; boundary=" + boundary;
+            wr.Method = "POST";
+            wr.KeepAlive = true;
+
+            Stream rs = wr.GetRequestStream();
+
+            string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+            rs.Write(boundarybytes, 0, boundarybytes.Length);
+            rs.Write(boundarybytes, 0, boundarybytes.Length);
+
+            string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+            string header = string.Format(headerTemplate, paramName, file, contentType);
+            byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+            rs.Write(headerbytes, 0, headerbytes.Length);
+
+            FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read);
+            byte[] buffer = new byte[4096];
+            int bytesRead = 0;
+            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+            {
+                rs.Write(buffer, 0, bytesRead);
+            }
+            fileStream.Close();
+
+            byte[] trailer = System.Text.Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+            rs.Write(trailer, 0, trailer.Length);
+            rs.Close();
+
+            WebResponse wresp = null;
+            try
+            {
+                wresp = wr.GetResponse();
+                Stream stream2 = wresp.GetResponseStream();
+                StreamReader reader2 = new StreamReader(stream2);
+                Console.WriteLine(string.Format("File uploaded, server response is: {0}", reader2.ReadToEnd()));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error uploading file", ex);
+                if (wresp != null)
+                {
+                    wresp.Close();
+                    wresp = null;
+                }
+            }
+            finally
+            {
+                wr = null;
+            }
+        }
+
 
         private void createMetaData(Data.File file) {
             string url = "http://localhost:8080/ClassM8Web/services/file/?schoolclassid=" + Database.Instance.currSchoolclass.getId();
@@ -205,10 +243,28 @@ namespace ClassM8_Client
                 {
                     var result = streamReader.ReadToEnd();
                     Console.WriteLine("Result for File: " + result);
+
+                    LoginResult obj = Activator.CreateInstance<LoginResult>();
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                    obj = (LoginResult)serializer.ReadObject(ms);
+                    ms.Close();
+
+                    HttpUploadFile("http://localhost:8080/ClassM8Web/services/file/content/" + (int)obj.getId(),
+                        tempFile, "file", file.getContentType());
+                    //UploadFile((int)obj.getId(), file);
                 }
-            } catch (Exception ex)
+            } catch (WebException ex)
             {
+                Console.WriteLine(ex.Response);
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine(ex.Message);
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(ex.Data);
+                Console.WriteLine();
+                Console.WriteLine();
             }
             
         }

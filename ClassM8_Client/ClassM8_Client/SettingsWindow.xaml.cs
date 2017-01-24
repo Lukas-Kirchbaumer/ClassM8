@@ -51,8 +51,7 @@ namespace ClassM8_Client
 
             DataReader.Instance.deleteUser();
             txtInfo.Text = "Benutzer gelöscht";
-
-            //TODO: go back to initial Login
+            this.Close();
         }
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)

@@ -44,6 +44,7 @@ namespace ClassM8_Client
                 Console.WriteLine("User: " + firstname.Text + " " + lastname.Text);
                 txtError.Text = "";
                 createNewUser();
+                this.Close();
             }
             else {
                 txtError.Text = "Passwörter stimme  nicht überein";
@@ -57,7 +58,7 @@ namespace ClassM8_Client
             mate.setFirstname(firstname.Text);
             mate.setLastname(lastname.Text);
             mate.setPassword(password.Password);
-
+            Database.Instance.currM8 = mate;
             DataReader.Instance.createNewUser(mate);
         }
 

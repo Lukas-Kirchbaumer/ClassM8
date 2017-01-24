@@ -48,16 +48,27 @@ namespace ClassM8_Client
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (txtName.Text != "" && txtRoom.Text != "" && txtSchool.Text != "" )
+            if (txtName.Text != "" || txtRoom.Text != "" || txtSchool.Text != "")
             {
-                errorMsg.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                errorMsg.Visibility = Visibility.Hidden;
                 updateClass();
                 this.Close();
             }
+            else
+            {
+                if (String.IsNullOrEmpty(txtName.Text)) {
+                    txtName.Text = "Bitte ausfüllen";
+                }
+                if (String.IsNullOrEmpty(txtSchool.Text))
+                {
+                    txtSchool.Text = "Bitte ausfüllen";
+                }
+                if (String.IsNullOrEmpty(txtRoom.Text))
+                {
+                    txtRoom.Text = "Bitte ausfüllen";
+                }
+
+            }
+            
         }
 
         private void updateClass()

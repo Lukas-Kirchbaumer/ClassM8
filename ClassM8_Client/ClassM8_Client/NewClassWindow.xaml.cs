@@ -36,6 +36,7 @@ namespace ClassM8_Client
         private void btnNewClass_Click(object sender, RoutedEventArgs e)
         {
             createNewClass();
+            this.Close();
         }
 
         private void createNewClass() {

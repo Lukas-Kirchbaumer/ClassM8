@@ -32,6 +32,7 @@ namespace ClassM8_Client
         TextBlock myCurrClass;
         TextBlock classSchool;
         TextBlock classRoom;
+        TextBlock tbAllM8s;
         Button btnNewClass;
         Button btnSettings;
         Button btnEditClass;
@@ -40,12 +41,11 @@ namespace ClassM8_Client
         ListBox lbAllM8s;
         Button btnAddM8;
         static HttpClient client = new HttpClient();
-        DataReader dr;
 
         public LoginWindow()
         {
             InitializeComponent();
-            dr = DataReader.Instance;
+            
         }
 
 
@@ -53,12 +53,11 @@ namespace ClassM8_Client
         {
             try
             {
-
                 M8 mate = new M8();
                 mate.setEmail(email.Text);
                 mate.setPassword(password.Password);
 
-                dr.loginM8(mate);
+                DataReader.Instance.loginM8(mate);
 
                 if (Database.Instance.currUserId > 0)
                 {
@@ -92,6 +91,7 @@ namespace ClassM8_Client
             myCurrClass = LogicalTreeHelper.FindLogicalNode(rootObject, "myClass") as TextBlock;
             classSchool = LogicalTreeHelper.FindLogicalNode(rootObject, "classSchool") as TextBlock;
             classRoom = LogicalTreeHelper.FindLogicalNode(rootObject, "classRoom") as TextBlock;
+            tbAllM8s = LogicalTreeHelper.FindLogicalNode(rootObject, "tbAllM8s") as TextBlock;
             btnNewClass = LogicalTreeHelper.FindLogicalNode(rootObject, "btnNewClass") as Button;
             btnSettings = LogicalTreeHelper.FindLogicalNode(rootObject, "btnSettings") as Button;
             btnEditClass = LogicalTreeHelper.FindLogicalNode(rootObject, "btnEditClass") as Button;
@@ -108,8 +108,8 @@ namespace ClassM8_Client
             btnNewClass.Visibility = Visibility.Hidden;
            
             
-            dr.getM8();
-            dr.getM8Class();
+            DataReader.Instance.getM8();
+            DataReader.Instance.getM8Class();
             showM8Class();
 
             lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
@@ -121,7 +121,11 @@ namespace ClassM8_Client
             if (Database.Instance.currSchoolclass.getId() == -1)
             {
                 btnNewClass.Visibility = Visibility.Visible;
+                btnVote.Visibility = Visibility.Hidden;
+                btnAddM8.Visibility = Visibility.Hidden;
+                lbAllM8s.Visibility = Visibility.Hidden;
                 btnEditClass.Visibility = Visibility.Hidden;
+                tbAllM8s.Visibility = Visibility.Hidden;
             }
 
 
@@ -174,6 +178,8 @@ namespace ClassM8_Client
         {
             SettingsWindow sw = new SettingsWindow(Database.Instance.currUserId, Database.Instance.currM8);
             sw.ShowDialog();
+
+            //Go back to login
             if (Database.Instance.currM8 == null)
             {
                 LoginWindow newLoginWindow = new LoginWindow();
@@ -200,7 +206,10 @@ namespace ClassM8_Client
             else {
                 btnEditClass.Visibility = Visibility.Hidden;
                 btnNewClass.Visibility = Visibility.Visible;
-
+                btnAddM8.Visibility = Visibility.Hidden;
+                lbAllM8s.Visibility = Visibility.Hidden;
+                btnEditClass.Visibility = Visibility.Hidden;
+                tbAllM8s.Visibility = Visibility.Hidden;
                 myCurrClass.Text = "";
                 classSchool.Text = "";
                 classRoom.Text = "";
@@ -211,19 +220,25 @@ namespace ClassM8_Client
         {
             NewClassWindow ncw = new NewClassWindow();
             ncw.ShowDialog();
-            Schoolclass sc = Database.Instance.currSchoolclass;
-            myCurrClass.Text = sc.getName();
-            classSchool.Text = sc.getSchool();
-            classRoom.Text = sc.getRoom();
-
-            Console.WriteLine("Neue Klasse erstellen");
+            showM8Class();
+            btnNewClass.Visibility = Visibility.Hidden;
+            btnAddM8.Visibility = Visibility.Visible;
+            lbAllM8s.Visibility = Visibility.Visible;
+            btnEditClass.Visibility = Visibility.Visible;
+            tbAllM8s.Visibility = Visibility.Visible;
+            Console.WriteLine("Neue Klasse erstellt");
         }
 
         private void btnNewAcc_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Register...");
             NewAccountWindow nac = new NewAccountWindow();
-            nac.Visibility = Visibility.Visible;
+            nac.ShowDialog();
+
+            if (Database.Instance.currM8 != null) {
+                email.Text = Database.Instance.currM8.getEmail();
+            }
+
         }
 
 
