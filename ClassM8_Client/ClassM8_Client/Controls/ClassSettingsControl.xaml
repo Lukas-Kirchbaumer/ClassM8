@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="ClassM8_Client.Controls.ClassSettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClassM8_Client.Controls"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             Height="400" Width="500">
+    <Grid>
+        <materialDesign:Card Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
+                    <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Class Settings</TextBlock>
+                </materialDesign:ColorZone>
+
+                <TextBlock x:Name="name" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Name</TextBlock>
+                <TextBlock x:Name="school" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">School</TextBlock>
+                <TextBlock x:Name="room" Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">Room</TextBlock>
+                <TextBlock x:Name="president" Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">President</TextBlock>
+                <TextBlock x:Name="presDep" Grid.Column="0" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20 8 20 8">President Deputy</TextBlock>
+
+                <TextBox x:Name="txtName" Grid.Column="1" Grid.Row="1" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+                <TextBox x:Name="txtSchool" Grid.Column="1" Grid.Row="2" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+                <TextBox x:Name="txtRoom" Grid.Column="1" Grid.Row="3" Margin="8 20 8 0" VerticalAlignment="Center"  Height="26"></TextBox>
+                <TextBlock x:Name="txtPres" Grid.Column="1" Grid.Row="4" Margin="8,16,8,0" VerticalAlignment="Center"  Height="26"></TextBlock>
+                <TextBlock x:Name="txtPresDep" Grid.Column="1" Grid.Row="5" Margin="8,16,8,0" VerticalAlignment="Center"  Height="26"></TextBlock>
+
+                <TextBlock x:Name="txtInfo" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" FontSize="11" Foreground="White" HorizontalAlignment="Left" Margin="10" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+
+                <Grid Name="innerGrid" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="20 8 20 8" Height="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnUpdate" Content="Ok" Grid.Column="0" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnUpdate_Click"/>
+                    <Button x:Name="btnCancle" Content="Cancel" Grid.Column="2" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnCancle_Click"/>
+                    <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnDelete_Click"/>
+                </Grid>
+
+            </Grid>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
