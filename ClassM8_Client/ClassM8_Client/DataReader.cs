@@ -510,5 +510,9 @@ namespace ClassM8_Client
             }
         }
 
+        public void loadChat(Schoolclass sc) {
+
+        }
+
     }
 }

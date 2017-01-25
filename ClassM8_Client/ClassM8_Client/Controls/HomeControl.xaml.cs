@@ -25,7 +25,10 @@ namespace ClassM8_Client
         public HomeControl()
         {
             InitializeComponent();
+            loadChat();
         }
+
+
 
         private void btnEditClass_Click(object sender, RoutedEventArgs e)
         {
@@ -48,6 +51,16 @@ namespace ClassM8_Client
         {
             AddM8Dialog amd = new AddM8Dialog();
             amd.ShowDialog();
+        }
+
+        private void btnChat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void loadChat()
+        {
+
         }
     }
 }

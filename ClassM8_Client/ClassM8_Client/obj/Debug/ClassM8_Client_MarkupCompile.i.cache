@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\HTL\BSD\5. Klasse\Frontend 2\ClassM8_Client\ClassM8_Client\obj\Debug\
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\
 ClassM8_Client
 none
 false
 DEBUG;TRACE
-E:\HTL\BSD\5. Klasse\Frontend 2\ClassM8_Client\ClassM8_Client\App.xaml
+E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\App.xaml
 10442487108
 
 31885837768
-24399590922
+24-333615163
 Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NoFriendsControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
 
 False
