@@ -55,6 +55,8 @@ public class FileShareActivity extends Activity {
                File selFile = (File)lvDownloads.getSelectedItem();
 
                 //Todo: download File
+
+
             }
         });
 

@@ -6,7 +6,6 @@ import android.os.Debug;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.backend.Services.MultipartUtility;
 import com.google.common.net.MediaType;
 
 import org.json.JSONArray;
