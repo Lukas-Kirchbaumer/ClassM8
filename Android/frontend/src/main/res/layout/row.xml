@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8sp"
-        android:paddingLeft="5dp"
-        android:textColor="@color/material_blue_grey_800">
+        android:paddingLeft="3dp"
+        android:textColor="@color/material_deep_teal_200">
     </TextView>
 
     <TextView
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
         android:textSize="12sp"
-        android:paddingLeft="5dp"
-        android:textColor="@color/colorPrimaryDark"
+        android:paddingLeft="3dp"
+        android:textColor="@color/material_blue_grey_950"
         >
     </TextView>
 
