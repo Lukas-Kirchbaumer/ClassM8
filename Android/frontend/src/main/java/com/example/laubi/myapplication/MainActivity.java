@@ -11,10 +11,13 @@ import android.widget.TextView;
 
 import com.example.backend.Database;
 import com.example.backend.Dto.*;
+import com.example.backend.Dto.File;
 import com.example.backend.Interfaces.*;
 import com.example.backend.Services.FileServices;
 import com.example.backend.Services.SchoolclassServices;
 import com.example.backend.Services.UserServices;
+
+import java.io.*;
 
 public class MainActivity extends Activity {
 
@@ -49,38 +52,34 @@ public class MainActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Boolean correct = true;
-                if(txtEmail.getText().length() == 0){
+                if (txtEmail.getText().length() == 0) {
                     tvLoginEmailError.setText("Keine Email");
                     correct = false;
-                }
-                else{
+                } else {
                     tvLoginEmailError.setText("");
                 }
-                if(txtPassword.getText().length() == 0){
+                if (txtPassword.getText().length() == 0) {
                     tvLoginPasswordError.setText("Kein Passwort");
                     correct = false;
-                }
-                else {
+                } else {
                     tvLoginPasswordError.setText("");
                 }
                 System.out.println(txtEmail.getText() + "  " + txtPassword.getText());
-                if(correct){
+                if (correct) {
                     System.out.println("correct");
                     M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
-                  //  M8 currM8 = new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass());
-                  //  Database.getInstance().setCurrentMate(currM8);
+                    //  M8 currM8 = new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass());
+                    //  Database.getInstance().setCurrentMate(currM8);
 
 
-
-                    if(currM8 != null) {
+                    if (currM8 != null) {
                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
                         //Falls er wegen Theme.AppCompat theme blablba weint
                         //android:theme="@style/Theme.AppCompat.Light"
                         //im Manifest bei der Activity einfügen
                         startActivity(intent);
-                    }
-                    else{
+                    } else {
                         tvLoginPasswordError.setText("M8 nicht bekannt");
                     }
 
@@ -88,6 +87,7 @@ public class MainActivity extends Activity {
 
             }
         });
+
 
     }
 }

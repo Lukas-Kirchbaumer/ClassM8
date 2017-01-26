@@ -17,7 +17,6 @@ public class Database {
 
     private Schoolclass currentSchoolclass;
 
-
     private Database() {
     }
 

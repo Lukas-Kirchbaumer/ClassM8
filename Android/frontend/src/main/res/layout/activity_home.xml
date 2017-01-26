@@ -60,8 +60,9 @@
         android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/homeHeadline"
         style="@android:style/Widget.Holo.Button"
-        android:background="@android:drawable/stat_sys_download"
-        android:backgroundTint="@color/abc_input_method_navigation_guard" />
+        android:background="@android:drawable/stat_sys_download"/>
+      <!--  android:backgroundTint="@color/abc_input_method_navigation_guard" -->
+
 
     <ListView
         android:layout_width="200dp"
