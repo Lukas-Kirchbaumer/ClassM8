@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.backend.Database;
-import com.google.common.reflect.Parameter;
+import com.example.backend.Dto.Message;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by Anwender on 25.01.2017.
  */
 
-public class AsyncPolling extends AsyncTask<Context, ArrayList<String>, Void> {
+public class AsyncPolling extends AsyncTask<Context, ArrayList<Message>, Void> {
 
 
     WeakReference<Activity> mWeakActivity;
@@ -36,7 +36,7 @@ public class AsyncPolling extends AsyncTask<Context, ArrayList<String>, Void> {
                 if (isNetworkAvailable(params[0])) {
                     //Todo get new messages
 
-                    ArrayList<String> al = new ArrayList<String>();
+                    ArrayList<Message> al = new ArrayList<Message>();
 
                     publishProgress(al);
 
@@ -48,7 +48,7 @@ public class AsyncPolling extends AsyncTask<Context, ArrayList<String>, Void> {
     }
 
     @Override
-    protected void onProgressUpdate(ArrayList<String>... values){
+    protected void onProgressUpdate(ArrayList<Message>... values){
 
         Activity ac = mWeakActivity.get();
 

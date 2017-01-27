@@ -22,6 +22,7 @@ import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HomeActivity extends Activity{
     static final int UPDATE_DELETE_CLASS = 1;
@@ -61,11 +62,13 @@ public class HomeActivity extends Activity{
         lvClassM8s.setAdapter(listViewArrayAdapter);
 
 
-        /* Todo
-        ArrayList<Message> msgs = getMessages
+        //Todo getMessages
+        ArrayList<Message> msgs = null;
+        //Sample
+        msgs.add(new Message(1, Database.getInstance().getCurrentMate(), "Hallo", new Date()));
         ChatArrayAdapter adapter = new ChatArrayAdapter(this, msgs);
         lvMessages.setAdapter(adapter);
-        */
+
 
         new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
 

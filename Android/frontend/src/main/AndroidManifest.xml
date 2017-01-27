@@ -23,7 +23,7 @@
         <activity android:name=".ClassSettingsActivity" />
         <activity android:name=".NewClassActivity" />
         <activity android:name=".FileShareActivity" />
-        <activity android:name=".AddM8Activity"></activity>
+        <activity android:name=".AddM8Activity" />
     </application>
 
 </manifest>

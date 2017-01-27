@@ -1,7 +1,7 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+//import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

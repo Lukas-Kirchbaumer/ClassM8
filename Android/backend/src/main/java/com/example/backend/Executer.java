@@ -53,18 +53,13 @@ public class Executer extends AsyncTask<URL, String, String> {
     }
 
     String method = "";
-/*
-    protected void onPreExecute() {
 
-        try{
-            // Set Request parameter
-            data +="&" + URLEncoder.encode("data", "UTF-8");
+    String mediaType =  "application/json";
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
-*/
+
     protected String doInBackground(URL... urls) {
 
         HttpURLConnection urlConnection = null;
@@ -74,7 +69,7 @@ public class Executer extends AsyncTask<URL, String, String> {
             System.out.println("opened Connection");
             urlConnection.setRequestMethod(method);
             urlConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("Accept", mediaType);
             System.out.println("set Properties");
         } catch (ProtocolException e) {
             e.printStackTrace();
