@@ -13,6 +13,10 @@ import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
+import com.github.angads25.filepicker.controller.DialogSelectionListener;
+import com.github.angads25.filepicker.model.DialogConfigs;
+import com.github.angads25.filepicker.model.DialogProperties;
+import com.github.angads25.filepicker.view.FilePickerDialog;
 
 import java.util.ArrayList;
 
@@ -22,6 +26,8 @@ public class FileShareActivity extends Activity {
     private Button btnUpload;
     private Button btnDownload;
     private DataReader dr = new DataReader();
+    private File currentSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,15 +50,25 @@ public class FileShareActivity extends Activity {
             files.add(f);
         }
 
-        ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
+        ArrayAdapter<File> listViewArrayAdapter = new ArrayAdapter<File>(this,
                 android.R.layout.simple_list_item_1, files);
 
         lvDownloads.setAdapter(listViewArrayAdapter);
 
+        lvDownloads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                setCurrentSelected((File)lvDownloads.getItemAtPosition(position));
+            }
+        });
+
+
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                System.out.println("in");
+                System.out.println((lvDownloads.getSelectedItemPosition()));
+                DataReader.getInstance().downloadFile(currentSelected, FileShareActivity.this);
             }
         });
 
@@ -60,24 +76,29 @@ public class FileShareActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                SimpleFileDialog fileOpenDialog =  new SimpleFileDialog(
-                        FileShareActivity.this,
-                        "FileOpen..",
-                        new SimpleFileDialog.SimpleFileDialogListener()
-                        {
-                            @Override
-                            public void onChosenDir(String chosenDir)
-                            {
-                                // The code in this function will be executed when the dialog OK button is pushed
-                                System.out.println(chosenDir);
-                                java.io.File f = new java.io.File(chosenDir);
+                DialogProperties properties=new DialogProperties();
 
-                                dr.uploadFile(f);
+                properties.selection_mode= DialogConfigs.SINGLE_MODE;
+                properties.selection_type=DialogConfigs.FILE_SELECT;
+
+                properties.extensions=null;
+
+                        FilePickerDialog dialog = new FilePickerDialog(FileShareActivity.this,properties);
+                dialog.setTitle("Select a File");
+
+                        dialog.setDialogSelectionListener(new DialogSelectionListener() {
+                            @Override
+                            public void onSelectedFilePaths(String[] files) {
+                                DataReader.getInstance().uploadFile(new java.io.File(files[0]));
                             }
-                        }
-                );
-                fileOpenDialog.chooseFile_or_Dir();
+                        });
+
+                dialog.show();
             }
         });
+    }
+
+    private void setCurrentSelected(File selectedItem) {
+        this.currentSelected = selectedItem;
     }
 }
