@@ -63,14 +63,14 @@ public class HomeActivity extends Activity{
 
 
         //Todo getMessages
-        ArrayList<Message> msgs = null;
+        ArrayList<Message> msgs = new ArrayList<Message>();
         //Sample
-        msgs.add(new Message(1, Database.getInstance().getCurrentMate(), "Hallo", new Date()));
+        msgs.add(new Message(1, Database.getInstance().getCurrentMate().getFirstname(), "Hallo", new Date()));
         ChatArrayAdapter adapter = new ChatArrayAdapter(this, msgs);
         lvMessages.setAdapter(adapter);
 
 
-        new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
+        //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
@@ -113,7 +113,6 @@ public class HomeActivity extends Activity{
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo Message obj bauen + senden
 
                 String s = String.valueOf(txtMessage.getText());
 
