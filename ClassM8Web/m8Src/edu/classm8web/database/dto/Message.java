@@ -1,5 +1,6 @@
 package edu.classm8web.database.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -13,8 +14,7 @@ public class Message {
 	
 	private String sender;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateTime;
+	private Timestamp dateTime;
 	
 	public Message() {}
 
@@ -34,11 +34,11 @@ public class Message {
 		this.sender = sender;
 	}
 
-	public Date getDateTime() {
+	public Timestamp getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Date dateTime) {
+	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
 	}
 	

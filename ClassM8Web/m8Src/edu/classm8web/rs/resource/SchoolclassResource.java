@@ -1,5 +1,6 @@
 package edu.classm8web.rs.resource;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -294,7 +295,8 @@ public class SchoolclassResource extends AbstractResource {
 				m.setContent(message);
 				
 				Date now = new Date();
-				m.setDateTime(now);
+				Timestamp t = new Timestamp(now.getTime());
+				m.setDateTime(t);
 				
 				schoolclass.getSchoolclassChat().getMessages().add(m);
 				SchoolclassService.getInstance().update(schoolclass);
