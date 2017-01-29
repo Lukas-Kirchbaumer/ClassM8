@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:focusableInTouchMode="false"
+
     >
 
     <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8sp"
+        android:textSize="11sp"
         android:paddingLeft="3dp"
         android:textColor="@color/material_deep_teal_200">
     </TextView>
@@ -18,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
-        android:textSize="12sp"
+        android:textSize="15sp"
         android:paddingLeft="3dp"
         android:textColor="@color/material_blue_grey_950"
         >

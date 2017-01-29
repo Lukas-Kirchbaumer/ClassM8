@@ -1,13 +1,15 @@
 package com.example.backend.Interfaces;
 
+import android.content.Context;
+
+import com.example.backend.Database;
+import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Services.FileServices;
 import com.example.backend.Services.SchoolclassServices;
 import com.example.backend.Services.UserServices;
 import com.example.backend.Services.VotingServices;
-
-import java.io.File;
 
 /**
  * Created by laubi on 12/2/2016.
@@ -16,7 +18,7 @@ import java.io.File;
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     private static DataReader instance = null;
-    public static String IP = "10.0.0.9";
+    public static String IP = "192.168.43.104";
 
     public static DataReader getInstance(){
         if(instance == null){
@@ -138,12 +140,20 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         return newUser;
     }
 
-    public void uploadFile(File f) {
-        // TODO FileServices.getInstance().uploadFile(f);
+    public void uploadFile(java.io.File f) {
+        File file = new File();
+        file.setContentType(f.getPath());
+        file.setFileName(f.getName());
+        file.setContentSize(f.length());
+        FileServices.getInstance().uploadFile(f,file);
     }
 
     public void placeVoteForPresident(M8 user, M8 votedMate) {
         VotingServices.getInstance().placeVoteForPresident(user, votedMate);
+    }
+
+    public void downloadFile(File file, Context context) {
+        FileServices.getInstance().downloadFile(file, context);
     }
 
    /* public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){

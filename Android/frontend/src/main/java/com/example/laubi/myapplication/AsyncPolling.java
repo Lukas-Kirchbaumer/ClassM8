@@ -9,10 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.backend.Database;
+import com.example.backend.Dto.Chat;
 import com.example.backend.Dto.Message;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Anwender on 25.01.2017.
@@ -29,18 +31,23 @@ public class AsyncPolling extends AsyncTask<Context, ArrayList<Message>, Void> {
 
     @Override
     protected Void doInBackground(Context... params) {
+        int i = 0;
         while(true){
             try {
                 Thread.sleep(5000);
 
-                if (isNetworkAvailable(params[0])) {
+                //if (isNetworkAvailable(params[0])) {
                     //Todo get new messages
 
-                    ArrayList<Message> al = new ArrayList<Message>();
+                    i++;
+                    System.out.println(i);
 
+                    ArrayList<Message> al = Chat.getInstance().getMessages();
+                    al.add(new Message("Lederjackenjhonny" + i, "Huso sohn gtfout", new Date()));
+                    Chat.getInstance().addMultipleMessages(al);
                     publishProgress(al);
 
-                }
+               // }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -52,11 +59,12 @@ public class AsyncPolling extends AsyncTask<Context, ArrayList<Message>, Void> {
 
         Activity ac = mWeakActivity.get();
 
+
         ListView lvMessages = (ListView) ac.findViewById(R.id.lvMessages);
-        lvMessages.setAdapter(null);
-        ArrayAdapter messagesArrayAdapter = new ArrayAdapter(mWeakActivity.get(),
-                android.R.layout.simple_list_item_1, values[0]);
-        lvMessages.setAdapter(messagesArrayAdapter);
+        ChatArrayAdapter caa = (ChatArrayAdapter) lvMessages.getAdapter();
+        caa.notifyDataSetChanged();
+        lvMessages.setSelection(caa.getCount() - 1);
+
     }
 
     private boolean isNetworkAvailable(Context context) {

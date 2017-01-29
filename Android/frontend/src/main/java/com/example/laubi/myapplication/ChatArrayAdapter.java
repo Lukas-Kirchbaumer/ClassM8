@@ -46,14 +46,14 @@ public class ChatArrayAdapter extends ArrayAdapter<Message> {
         TextView labelView = (TextView) rowView.findViewById(R.id.header);
         TextView valueView = (TextView) rowView.findViewById(R.id.content);
         String info = itemsArrayList.get(position).getSender() + "   " +
-                      format.format(itemsArrayList.get(position).getTimestamp());
+                      format.format(itemsArrayList.get(position).getDatetime());
         String currUser = Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname();
         if(itemsArrayList.get(position).getSender().equals(currUser)){
-            info =  "You   " + format.format(itemsArrayList.get(position).getTimestamp());
+            info =  "You   " + format.format(itemsArrayList.get(position).getDatetime());
         }
 
         labelView.setText(info);
-        valueView.setText(itemsArrayList.get(position).getMessage());
+        valueView.setText(itemsArrayList.get(position).getContent());
 
         // 5. retrn rowView
         return rowView;

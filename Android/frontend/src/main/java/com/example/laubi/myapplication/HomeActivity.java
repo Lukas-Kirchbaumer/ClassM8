@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,6 @@ public class HomeActivity extends Activity{
         setContentView(R.layout.activity_home);
         MainActivity.mainActivity.finish();
         final Button btnM8Settings = (Button) findViewById(R.id.btnM8Settings);
-        final Button btnOpenAddM8 = (Button) findViewById(R.id.btnOpenAddM8);
         btnStartVote = (Button) findViewById(R.id.btnStartVote);
         tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
         btnDownloads = (Button) findViewById(R.id.btnDownloads);
@@ -57,20 +57,28 @@ public class HomeActivity extends Activity{
         getCurrClass(m8);
 
         m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
-        ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, m8s);
+        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
+        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
+        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
+
+
+        final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
+                R.layout.m8row, m8s);
         lvClassM8s.setAdapter(listViewArrayAdapter);
 
 
         //Todo getMessages
         ArrayList<Message> msgs = new ArrayList<Message>();
         //Sample
-        msgs.add(new Message(1, Database.getInstance().getCurrentMate().getFirstname(), "Hallo", new Date()));
-        ChatArrayAdapter adapter = new ChatArrayAdapter(this, msgs);
-        lvMessages.setAdapter(adapter);
+        msgs.add(new Message(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname(), "Hallo", new Date()));
+        msgs.add(new Message("Lederjackenjhonny", "Huso sohn gtfout", new Date()));
+        Chat.getInstance().addMultipleMessages(msgs);
+        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, Chat.getInstance().getMessages());
+        lvMessages.setAdapter(chatAdapter);
 
 
-        //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
+
+        new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
@@ -94,14 +102,6 @@ public class HomeActivity extends Activity{
             }
         });
 
-        btnOpenAddM8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSettings = new Intent(HomeActivity.this, AddM8Activity.class);
-                startActivityForResult(intentSettings,ADDM8);
-            }
-        });
-
         btnStartVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,9 +114,26 @@ public class HomeActivity extends Activity{
             @Override
             public void onClick(View v) {
 
+                Message m = new Message();
                 String s = String.valueOf(txtMessage.getText());
+                m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
+                m.setDatetime(new Date());
+                m.setContent(s);
 
+                chatAdapter.add(m);
+                lvMessages.setSelection(chatAdapter.getCount() - 1);
 
+                //Todo send message
+            }
+
+        });
+
+        lvClassM8s.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentSettings = new Intent(HomeActivity.this, AddM8Activity.class);
+                startActivityForResult(intentSettings, ADDM8);
+                return true;
             }
         });
     }
