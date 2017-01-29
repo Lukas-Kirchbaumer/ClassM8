@@ -1,9 +1,11 @@
 ﻿using ClassM8_Client.Controls;
+using ClassM8_Client.Data;
 using ClassM8_Client.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClassM8_Client
 {
@@ -22,9 +25,11 @@ namespace ClassM8_Client
     /// </summary>
     public partial class HomeControl : UserControl
     {
+        private Thread chatPoller;
         public HomeControl()
         {
             InitializeComponent();
+
             loadChat();
         }
 
@@ -55,12 +60,47 @@ namespace ClassM8_Client
 
         private void btnChat_Click(object sender, RoutedEventArgs e)
         {
+            DataReader.Instance.sendMessage(txtMessage.Text);
+            txtMessage.Text = "";
+            List<Message> msgs = new List<Message>();
 
+            msgs = DataReader.Instance.loadChat();
+
+            if (msgs.Count > 0)
+            {
+                btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
+            }
         }
 
-        private void loadChat()
+        private void loadChat() 
         {
-
+            ThreadStart childref = new ThreadStart(poll);
+            Console.WriteLine("Creating the Polling Thread");
+            chatPoller = new Thread(childref);
+            chatPoller.Start();
         }
+
+        private void poll() {
+            while (true) {
+                Thread.Sleep(5000);
+                try
+                {
+                    List<Message> msgs = new List<Message>();
+
+                    msgs = DataReader.Instance.loadChat();
+
+                    if (msgs.Count > 0)
+                    {
+                        btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: poll - " + ex.Message);
+                }
+            }
+        }
+
     }
 }

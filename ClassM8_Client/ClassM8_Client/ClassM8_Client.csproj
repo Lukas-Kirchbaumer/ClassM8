@@ -86,6 +86,8 @@
     <Compile Include="Controls\UserSettingsControl.xaml.cs">
       <DependentUpon>UserSettingsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Chat.cs" />
+    <Compile Include="Data\ChatResult.cs" />
     <Compile Include="Dialogs\AddM8Dialog.xaml.cs">
       <DependentUpon>AddM8Dialog.xaml</DependentUpon>
     </Compile>

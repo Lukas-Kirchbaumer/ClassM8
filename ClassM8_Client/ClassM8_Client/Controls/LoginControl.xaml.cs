@@ -94,6 +94,7 @@ namespace ClassM8_Client
                 ControllerHolder.HomeControl.lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
                 ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
                 ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
+                
                 ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
             }
             

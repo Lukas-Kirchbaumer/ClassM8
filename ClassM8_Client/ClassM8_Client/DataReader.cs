@@ -169,92 +169,6 @@ namespace ClassM8_Client
             }
         }
 
-        public List<Message> getAllMessages()
-        {
-            List<Message> msgs = new List<Message>();
-
-            try
-            {
-                string url = AppSettings.ConnectionString + "messages/" + Database.Instance.currSchoolclass;
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json; charset=utf-8";
-                httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = "GET";
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
-
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine("AllMessages: " + result);
-
-                    List<Message> obj = Activator.CreateInstance<List<Message>>();
-                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
-                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-                    obj = (List<Message>)serializer.ReadObject(ms);
-                    ms.Close();
-
-                    Console.WriteLine("m8s: " + obj.Count);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: DataReader.getAllMessages - " + ex.Message);
-            }
-
-            return msgs;
-
-        }
-
-        public int sendMessage(Message m)
-        {
-            int ok = 0;
-
-            try
-            {
-                string url = AppSettings.ConnectionString + "messages";
-
-                MemoryStream stream1 = new MemoryStream();
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Message));
-                ser.WriteObject(stream1, m);
-                stream1.Position = 0;
-                StreamReader sr = new StreamReader(stream1);
-                Console.Write("JSON form of Message object: ");
-                string jsonContent = sr.ReadToEnd();
-
-                Console.WriteLine(jsonContent);
-
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Accept = "application/json";
-                httpWebRequest.Method = "POST";
-
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    streamWriter.Write(jsonContent);
-                    streamWriter.Flush();
-                }
-
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine("sendMessage result: " + result);
-                }
-                ok = 1;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: DataReader.sendMessage - " + ex.Message);
-                ok = 0;
-            }
-
-            return ok;
-        }
-
         public void createNewUser(M8 mate)
         {
             try
@@ -510,8 +424,92 @@ namespace ClassM8_Client
             }
         }
 
-        public void loadChat(Schoolclass sc) {
+        public int sendMessage(String m)
+        {
+            int ok = 0;
 
+            try
+            {
+                string url = AppSettings.ConnectionString + "schoolclass/chat?scid=" + Database.Instance.currSchoolclass.getId() + "&m8id=" + Database.Instance.currM8.getId();
+
+                MemoryStream stream1 = new MemoryStream();
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(String));
+
+                ser.WriteObject(stream1, m);
+                stream1.Position = 0;
+                StreamReader sr = new StreamReader(stream1);
+                Console.Write("JSON form of Message: ");
+                string jsonContent = sr.ReadToEnd();
+
+                Console.WriteLine(jsonContent);
+                
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(m);
+                    streamWriter.Flush();
+                }
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("sendMessage result: " + result);
+                }
+                ok = 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.sendMessage - " + ex.Message);
+                ok = 0;
+            }
+
+            return ok;
+        }
+
+        public List<Message> loadChat() {
+            List<Message> msgs = new List<Message>();
+            if (Database.Instance.currSchoolclass != null && Database.Instance.currSchoolclass.getId() != -1) {
+                try
+                {
+                    string url = AppSettings.ConnectionString + "schoolclass/chat?scid=" + Database.Instance.currSchoolclass.getId();
+
+                    var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                    httpWebRequest.ContentType = "application/json; charset=utf-8";
+                    httpWebRequest.Accept = "application/json";
+                    httpWebRequest.Method = "GET";
+
+                    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+
+                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    {
+                        var result = streamReader.ReadToEnd();
+                        Console.WriteLine("AllMessages: " + result);
+
+                        ChatResult  obj = Activator.CreateInstance<ChatResult>();
+                        MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                         
+                        obj = (ChatResult)serializer.ReadObject(ms);
+                        ms.Close();
+
+                        if (obj.isSuccess()) {
+                            msgs = obj.getSchoolclassChat().getMessages();
+                            Console.WriteLine("Messages count : " + obj.getSchoolclassChat().getMessages().Count);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: DataReader.loadChat - " + ex.Message);
+                }
+            }
+            return msgs;
         }
 
     }

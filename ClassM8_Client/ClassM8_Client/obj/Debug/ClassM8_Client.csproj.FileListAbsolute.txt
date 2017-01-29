@@ -135,3 +135,42 @@ E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Co
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\UserSettingsControl.baml
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\AddM8Dialog.baml
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\VoteDialog.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.exe.config
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.exe
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.exe
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\ClassM8_Client.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignColors.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialIcons.dll
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.csprojResolveAssemblyReference.cache
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\ClassSettingsControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\FileShareControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\HomeControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\LoginControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\NewAccountControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\NoFriendsControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\UserSettingsControl.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\AddM8Dialog.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\VoteDialog.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\MainWindow.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\App.g.cs
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client_MarkupCompile.cache
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client_MarkupCompile.lref
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\App.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\ClassSettingsControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\FileShareControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\HomeControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\LoginControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\NewAccountControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\NoFriendsControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\UserSettingsControl.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\AddM8Dialog.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Dialogs\VoteDialog.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\MainWindow.baml
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.g.resources
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.Properties.Resources.resources
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.csproj.GenerateResource.Cache
