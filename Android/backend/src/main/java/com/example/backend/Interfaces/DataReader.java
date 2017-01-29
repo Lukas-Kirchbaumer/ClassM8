@@ -5,11 +5,16 @@ import android.content.Context;
 import com.example.backend.Database;
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
+import com.example.backend.Dto.Message;
 import com.example.backend.Dto.Schoolclass;
+import com.example.backend.Services.ChatServices;
 import com.example.backend.Services.FileServices;
 import com.example.backend.Services.SchoolclassServices;
 import com.example.backend.Services.UserServices;
 import com.example.backend.Services.VotingServices;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by laubi on 12/2/2016.
@@ -154,6 +159,16 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     public void downloadFile(File file, Context context) {
         FileServices.getInstance().downloadFile(file, context);
+    }
+
+    public void sendMessage(String message){
+        ChatServices chatService = new ChatServices();
+        chatService.writeMessage(Database.getInstance().getCurrentMate(), message);
+    }
+
+    public ArrayList<Message> receiveMessage(){
+        ChatServices chatService = new ChatServices();
+        return new ArrayList<Message>(chatService.receiveMessages());
     }
 
    /* public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
