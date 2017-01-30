@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.example.backend.Database;
 import com.example.backend.Dto.Chat;
 import com.example.backend.Dto.Message;
+import com.example.backend.Interfaces.DataReader;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -31,21 +32,17 @@ public class AsyncPolling extends AsyncTask<Context, ArrayList<Message>, Void> {
 
     @Override
     protected Void doInBackground(Context... params) {
-        int i = 0;
         while(true){
             try {
                 Thread.sleep(5000);
 
                 //if (isNetworkAvailable(params[0])) {
-                    //Todo get new messages
 
-                    i++;
-                    System.out.println(i);
+                    //get new messages
 
-                    ArrayList<Message> al = Chat.getInstance().getMessages();
-                    al.add(new Message("Lederjackenjhonny" + i, "Huso sohn gtfout", new Date()));
-                    Chat.getInstance().addMultipleMessages(al);
-                    publishProgress(al);
+
+                    Chat.getInstance().addMultipleMessages(DataReader.getInstance().receiveMessage());
+                    publishProgress();
 
                // }
             } catch (InterruptedException e) {

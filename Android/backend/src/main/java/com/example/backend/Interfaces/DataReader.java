@@ -23,7 +23,7 @@ import java.util.Collection;
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     private static DataReader instance = null;
-    public static String IP = "192.168.43.104";
+    public static String IP = "10.0.0.8";
 
     public static DataReader getInstance(){
         if(instance == null){

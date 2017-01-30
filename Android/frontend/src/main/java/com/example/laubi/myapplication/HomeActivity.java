@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.backend.Database;
 import com.example.backend.Dto.*;
@@ -24,6 +25,8 @@ import com.example.backend.Interfaces.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javax.xml.datatype.Duration;
 
 public class HomeActivity extends Activity{
     static final int UPDATE_DELETE_CLASS = 1;
@@ -57,28 +60,24 @@ public class HomeActivity extends Activity{
         getCurrClass(m8);
 
         m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
-        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
-        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
-        m8s.add(new M8(1, "Thoams", "Leiter","email", "a", false, 2, Database.getInstance().getCurrentSchoolclass()));
-
 
         final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
                 R.layout.m8row, m8s);
         lvClassM8s.setAdapter(listViewArrayAdapter);
 
-
-        //Todo getMessages
         ArrayList<Message> msgs = new ArrayList<Message>();
-        //Sample
-        msgs.add(new Message(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname(), "Hallo", new Date()));
-        msgs.add(new Message("Lederjackenjhonny", "Huso sohn gtfout", new Date()));
+        try {
+            msgs = DataReader.getInstance().receiveMessage();
+        }catch(Exception ex){
+            System.out.println("---------err");
+        }
+        msgs.add(new Message("tom","sawyer",new Date()));
+        System.out.println("Total messages: " + msgs.size());
         Chat.getInstance().addMultipleMessages(msgs);
         final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, Chat.getInstance().getMessages());
         lvMessages.setAdapter(chatAdapter);
 
-
-
-        new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
+        //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
@@ -120,10 +119,14 @@ public class HomeActivity extends Activity{
                 m.setDatetime(new Date());
                 m.setContent(s);
 
-                chatAdapter.add(m);
-                lvMessages.setSelection(chatAdapter.getCount() - 1);
+                try {
+                    DataReader.getInstance().sendMessage(s);
+                    chatAdapter.add(m);
+                    lvMessages.setSelection(chatAdapter.getCount() - 1);
+                }catch(Exception ex){
+                    Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                }
 
-                //Todo send message
             }
 
         });
