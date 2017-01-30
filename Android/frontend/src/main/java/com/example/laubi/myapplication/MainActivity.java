@@ -3,21 +3,13 @@ package com.example.laubi.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.backend.Database;
 import com.example.backend.Dto.*;
-import com.example.backend.Dto.File;
 import com.example.backend.Interfaces.*;
-import com.example.backend.Services.FileServices;
-import com.example.backend.Services.SchoolclassServices;
-import com.example.backend.Services.UserServices;
-
-import java.io.*;
 
 public class MainActivity extends Activity {
 

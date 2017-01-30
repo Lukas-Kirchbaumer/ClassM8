@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
 

@@ -3,76 +3,77 @@ package com.example.backend.Dto;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class File implements Serializable{
+public class File implements Serializable {
 
-	private static final long serialVersionUID = 2622564174991058878L;
+    private static final long serialVersionUID = 2622564174991058878L;
 
-	private long id;
-	
-	private String fileName;
-	
-	private Date uploadDate;
-	
-	private long contentSize;
-	
-	private String contentType;
+    private long id;
 
-	private Schoolclass referencedSchoolclass;
-	
-	public File() {}
+    private String fileName;
 
-	public long getId() {
-		return id;
-	}
+    private Date uploadDate;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    private long contentSize;
 
-	public String getFileName() {
-		return fileName;
-	}
+    private String contentType;
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
+    private Schoolclass referencedSchoolclass;
 
-	public Date getUploadDate() {
-		return uploadDate;
-	}
+    public File() {
+    }
 
-	public void setUploadDate(Date uploadDate) {
-		this.uploadDate = uploadDate;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public long getContentSize() {
-		return contentSize;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setContentSize(long size) {
-		this.contentSize = size;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public String getContentType() {
-		return contentType;
-	}
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
+    public Date getUploadDate() {
+        return uploadDate;
+    }
 
-	public Schoolclass getReferencedSchoolclass() {
-		return referencedSchoolclass;
-	}
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
+    }
 
-	public void setReferencedSchoolclass(Schoolclass referencedSchoolclass) {
-		this.referencedSchoolclass = referencedSchoolclass;
-	}
+    public long getContentSize() {
+        return contentSize;
+    }
 
-	@Override
-	public String toString(){
-		return fileName;
-	}
-	
-	
+    public void setContentSize(long size) {
+        this.contentSize = size;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public Schoolclass getReferencedSchoolclass() {
+        return referencedSchoolclass;
+    }
+
+    public void setReferencedSchoolclass(Schoolclass referencedSchoolclass) {
+        this.referencedSchoolclass = referencedSchoolclass;
+    }
+
+    @Override
+    public String toString() {
+        return fileName;
+    }
+
+
 }

@@ -8,12 +8,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.DataReader;
 
 import java.util.ArrayList;
-import java.util.concurrent.SynchronousQueue;
 
 public class VoteActivity extends Activity {
 

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 

@@ -1,15 +1,13 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Interfaces.DataReader;
 

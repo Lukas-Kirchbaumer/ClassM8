@@ -1,13 +1,12 @@
 package com.example.backend.Services;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
-import com.example.backend.Executer;
+import com.example.backend.AsyncTasks.Executer;
 import com.example.backend.Interfaces.DataReader;
 import com.example.backend.MappedObjects.MappedM8;
 import com.example.backend.MappedObjects.MappedSchoolclass;
-import com.example.backend.Results.LoginResult;
 import com.example.backend.Results.M8Result;
 import com.example.backend.Results.Result;
 import com.example.backend.Results.SchoolclassResult;
@@ -18,7 +17,6 @@ import com.google.gson.JsonParser;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by laubi on 12/22/2016.

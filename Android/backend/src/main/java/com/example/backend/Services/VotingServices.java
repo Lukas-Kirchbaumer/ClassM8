@@ -1,9 +1,8 @@
 package com.example.backend.Services;
 
 import com.example.backend.Dto.M8;
-import com.example.backend.Executer;
+import com.example.backend.AsyncTasks.Executer;
 import com.example.backend.Interfaces.DataReader;
-import com.example.backend.Results.LoginResult;
 import com.example.backend.Results.M8Result;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,19 +11,19 @@ import com.google.gson.JsonParser;
 
 import java.net.URL;
 
-    /**
-     * Created by laubi on 12/22/2016.
-     */
+/**
+ * Created by laubi on 12/22/2016.
+ */
 
-    public class VotingServices {
+public class VotingServices {
 
-    private Executer executer = new Executer();;
-    private Gson gson  = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+    private Executer executer = new Executer();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     private JsonParser parser = new JsonParser();
     private static VotingServices instance = null;
 
-    public static VotingServices getInstance(){
-        if(instance == null){
+    public static VotingServices getInstance() {
+        if (instance == null) {
             instance = new VotingServices();
         }
         return instance;
@@ -33,7 +32,7 @@ import java.net.URL;
     public void placeVoteForPresident(M8 user, M8 votedMate) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/election/$voterId=" + user.getId()+"&votedid="+ votedMate.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/election/$voterId=" + user.getId() + "&votedid=" + votedMate.getId());
 
             executer.setMethod("@PUT");
             executer.setData("");

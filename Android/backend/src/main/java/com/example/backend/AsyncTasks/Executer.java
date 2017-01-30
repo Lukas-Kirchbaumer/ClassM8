@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.example.backend.AsyncTasks;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -34,7 +34,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class Executer extends AsyncTask<URL, String, String> {
 
     private String content;
-    String data ="";
+    String data = "";
 
     public String getData() {
         return data;
@@ -54,7 +54,7 @@ public class Executer extends AsyncTask<URL, String, String> {
 
     String method = "";
 
-    String mediaType =  "application/json";
+    String mediaType = "application/json";
 
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
@@ -73,12 +73,11 @@ public class Executer extends AsyncTask<URL, String, String> {
             System.out.println("set Properties");
         } catch (ProtocolException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            if(method != "GET" && method != "DELETE"){
+            if (method != "GET" && method != "DELETE") {
                 System.out.println("set output properties");
                 urlConnection.setDoOutput(true);
                 urlConnection.setChunkedStreamingMode(0);
@@ -108,15 +107,15 @@ public class Executer extends AsyncTask<URL, String, String> {
 
     private void readStream(InputStream in) throws Exception {
         StringBuilder sb = new StringBuilder();
-        BufferedReader r = new BufferedReader(new InputStreamReader(in),1000);
-        for (String line = r.readLine(); line != null; line =r.readLine()){
+        BufferedReader r = new BufferedReader(new InputStreamReader(in), 1000);
+        for (String line = r.readLine(); line != null; line = r.readLine()) {
             sb.append(line);
         }
         in.close();
         content = sb.toString();
     }
 
-    private void writeStream(OutputStream out) throws Exception{
+    private void writeStream(OutputStream out) throws Exception {
         out.write(data.getBytes());
         out.flush();
     }

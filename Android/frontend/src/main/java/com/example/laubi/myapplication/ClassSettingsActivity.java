@@ -1,24 +1,15 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.backend.Database;
-import com.example.backend.Dto.M8;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class ClassSettingsActivity extends Activity {
 

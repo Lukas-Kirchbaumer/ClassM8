@@ -15,6 +15,8 @@ android {
             exclude 'META-INF/jersey-module-version'
             exclude 'META-INF/LICENSE'
             exclude 'META-INF/ASL2.0'
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/NOTICE'
         }
 
     }
@@ -42,6 +44,5 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'com.sun.jersey.contribs:jersey-multipart:1.19.3'
-    compile 'com.sun.jersey:jersey-client:1.19.3'
+
 }

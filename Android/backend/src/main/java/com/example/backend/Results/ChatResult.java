@@ -10,7 +10,8 @@ import java.util.Vector;
 public class ChatResult {
     private Vector<Message> content = new Vector<>();
 
-    public ChatResult() {}
+    public ChatResult() {
+    }
 
     public Vector<Message> getContent() {
         return content;
@@ -19,5 +20,4 @@ public class ChatResult {
     public void setContent(Vector<Message> content) {
         this.content = content;
     }
-
 }

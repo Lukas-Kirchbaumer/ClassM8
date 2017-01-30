@@ -8,9 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.File;
-import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
@@ -31,7 +30,8 @@ public class FileShareActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_file_share);super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_file_share);
+        super.onCreate(savedInstanceState);
         lvDownloads = (ListView) findViewById(R.id.lvDownloads);
         btnDownload = (Button) findViewById(R.id.btnDownloadFile);
         btnUpload = (Button) findViewById(R.id.btnUploadFile);
@@ -40,13 +40,13 @@ public class FileShareActivity extends Activity {
 
         ArrayList<com.example.backend.Dto.File> files;
         System.out.print(Database.getInstance().getCurrentSchoolclass());
-        files = (ArrayList<File>)sc.getFiles();
+        files = (ArrayList<File>) sc.getFiles();
 
 
-        if(files == null || files.size() == 0) {
-                files = new ArrayList<File>();
-                File f = new File();
-                f.setFileName("Keine Inhalte");
+        if (files == null || files.size() == 0) {
+            files = new ArrayList<File>();
+            File f = new File();
+            f.setFileName("Keine Inhalte");
             files.add(f);
         }
 
@@ -58,7 +58,7 @@ public class FileShareActivity extends Activity {
         lvDownloads.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setCurrentSelected((File)lvDownloads.getItemAtPosition(position));
+                setCurrentSelected((File) lvDownloads.getItemAtPosition(position));
             }
         });
 
@@ -76,22 +76,23 @@ public class FileShareActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                DialogProperties properties=new DialogProperties();
+                DialogProperties properties = new DialogProperties();
 
-                properties.selection_mode= DialogConfigs.SINGLE_MODE;
-                properties.selection_type=DialogConfigs.FILE_SELECT;
+                properties.selection_mode = DialogConfigs.SINGLE_MODE;
+                properties.selection_type = DialogConfigs.FILE_SELECT;
 
-                properties.extensions=null;
+                properties.extensions = null;
 
-                        FilePickerDialog dialog = new FilePickerDialog(FileShareActivity.this,properties);
+                FilePickerDialog dialog = new FilePickerDialog(FileShareActivity.this, properties);
                 dialog.setTitle("Select a File");
 
-                        dialog.setDialogSelectionListener(new DialogSelectionListener() {
-                            @Override
-                            public void onSelectedFilePaths(String[] files) {
-                                DataReader.getInstance().uploadFile(new java.io.File(files[0]));
-                            }
-                        });
+                dialog.setDialogSelectionListener(new DialogSelectionListener() {
+                    @Override
+                    public void onSelectedFilePaths(String[] files) {
+                        System.out.println(files[0]);
+                        DataReader.getInstance().uploadFile(new java.io.File(files[0]));
+                    }
+                });
 
                 dialog.show();
             }

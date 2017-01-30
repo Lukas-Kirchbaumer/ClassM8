@@ -13,8 +13,9 @@ import java.util.List;
 public class Chat {
 
     private static Chat instance = null;
-    public static Chat getInstance(){
-        if(instance == null){
+
+    public static Chat getInstance() {
+        if (instance == null) {
             instance = new Chat();
         }
         return instance;
@@ -26,16 +27,17 @@ public class Chat {
         messages = new ObservableArrayList<>();
     }
 
-    public int addMultipleMessages(Collection<Message> messages){
+    public int addMultipleMessages(Collection<Message> messages) {
         int counter = 0;
-        for(Message m : messages){
-            if(!this.messages.contains(m)){
+        for (Message m : messages) {
+            if (!this.messages.contains(m)) {
                 this.messages.add(this.messages.size(), m);
                 counter++;
             }
         }
         return counter;
     }
+
     public ObservableArrayList<Message> getMessages() {
         return messages;
     }

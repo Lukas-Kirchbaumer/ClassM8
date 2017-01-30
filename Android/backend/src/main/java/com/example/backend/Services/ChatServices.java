@@ -1,23 +1,19 @@
 package com.example.backend.Services;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.Chat;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Message;
-import com.example.backend.Dto.Schoolclass;
-import com.example.backend.Executer;
+import com.example.backend.AsyncTasks.Executer;
 import com.example.backend.Interfaces.DataReader;
-import com.example.backend.MappedObjects.MappedSchoolclass;
 import com.example.backend.Results.ChatResult;
 import com.example.backend.Results.Result;
-import com.example.backend.Results.SchoolclassResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.net.URL;
 import java.util.Vector;
-import java.util.logging.Level;
 
 /**
  * Created by laubi on 1/18/2017.
@@ -30,7 +26,7 @@ public class ChatServices {
     public String writeMessage(M8 user, String s) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?m8id=" + user.getId()+ "&scid="+ Database.getInstance().getCurrentSchoolclass().getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?m8id=" + user.getId() + "&scid=" + Database.getInstance().getCurrentSchoolclass().getId());
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(s, String.class));
@@ -51,10 +47,9 @@ public class ChatServices {
 
     public Vector<Message> receiveMessages() {
         Vector<Message> messages;
-        try
-        {
+        try {
             Executer executer = new Executer();
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?scid="+ Database.getInstance().getCurrentSchoolclass().getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?scid=" + Database.getInstance().getCurrentSchoolclass().getId());
 
             executer.setMethod("GET");
             executer.execute(serverURL);
@@ -72,6 +67,6 @@ public class ChatServices {
             messages = null;
         }
 
-    return messages;
+        return messages;
     }
 }

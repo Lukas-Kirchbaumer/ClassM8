@@ -1,4 +1,4 @@
-package com.example.backend;
+package com.example.backend.Database;
 
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
@@ -14,7 +14,6 @@ public class Database {
     }
 
     private M8 currentMate;
-
     private Schoolclass currentSchoolclass;
 
     private Database() {

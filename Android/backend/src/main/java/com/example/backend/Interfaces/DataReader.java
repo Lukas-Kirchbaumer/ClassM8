@@ -2,7 +2,7 @@ package com.example.backend.Interfaces;
 
 import android.content.Context;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Message;
@@ -14,7 +14,6 @@ import com.example.backend.Services.UserServices;
 import com.example.backend.Services.VotingServices;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by laubi on 12/2/2016.
@@ -23,10 +22,10 @@ import java.util.Collection;
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     private static DataReader instance = null;
-    public static String IP = "10.0.0.7";
+    public static String IP = "172.16.146.1";
 
-    public static DataReader getInstance(){
-        if(instance == null){
+    public static DataReader getInstance() {
+        if (instance == null) {
             instance = new DataReader();
         }
         return instance;
@@ -35,7 +34,8 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     /**
      * Selfexplaining
      * Returns null if Authentification failed
-     * @param email The E-Mail to verify
+     *
+     * @param email    The E-Mail to verify
      * @param password The Password to verify
      * @return The Instance of the logged in User
      */
@@ -52,12 +52,13 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     /**
      * Method to get the Schoolclass of a specific User
+     *
      * @param user The logged in User
      * @return the Schoolclass of the User
      */
     @Override
     public Schoolclass getSchoolclassByUser(M8 user) {
-            Schoolclass schoolclass = SchoolclassServices.getInstance().getSchoolclassByUser(user);
+        Schoolclass schoolclass = SchoolclassServices.getInstance().getSchoolclassByUser(user);
         return schoolclass;
     }
 
@@ -99,7 +100,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     @Override
     public M8 createNewUser(String firstname, String lastname, String eMail, String password, String passwordConfirmation) {
         M8 user = null;
-        if(password == passwordConfirmation) {
+        if (password == passwordConfirmation) {
             user = new M8();
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -123,6 +124,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     /**
      * Replaces the Old User with a new one
+     *
      * @param firstname firstname of the newly generated
      * @param lastname
      * @param eMail
@@ -146,11 +148,7 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     }
 
     public void uploadFile(java.io.File f) {
-        File file = new File();
-        file.setContentType(f.getPath());
-        file.setFileName(f.getName());
-        file.setContentSize(f.length());
-        FileServices.getInstance().uploadFile(f,file);
+        FileServices.getInstance().uploadFile(f);
     }
 
     public void placeVoteForPresident(M8 user, M8 votedMate) {
@@ -161,17 +159,13 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         FileServices.getInstance().downloadFile(file, context);
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         ChatServices chatService = new ChatServices();
         chatService.writeMessage(Database.getInstance().getCurrentMate(), message);
     }
 
-    public ArrayList<Message> receiveMessage(){
+    public ArrayList<Message> receiveMessage() {
         ChatServices chatService = new ChatServices();
         return new ArrayList<Message>(chatService.receiveMessages());
     }
-
-   /* public void placeVoteForPresidentDeputy(M8 user, M8 votedMate){
-        VotingServices.getInstance().placeVoteForPresidentDeputy(user, votedMate);
-    }*/
 }

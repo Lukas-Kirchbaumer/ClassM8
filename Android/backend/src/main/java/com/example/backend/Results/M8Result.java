@@ -4,20 +4,18 @@ import com.example.backend.MappedObjects.MappedM8;
 
 import java.util.Vector;
 
+public class M8Result extends Result {
 
-public class M8Result extends Result{
-	
-	private Vector<MappedM8> content = new Vector<>();
-	
-	public M8Result() {}
+    private Vector<MappedM8> content = new Vector<>();
 
-	public Vector<MappedM8> getContent() {
-		return content;
-	}
+    public M8Result() {
+    }
 
-	public void setContent(Vector<MappedM8> content) {
-		this.content = content;
-	}
-	
+    public Vector<MappedM8> getContent() {
+        return content;
+    }
 
+    public void setContent(Vector<MappedM8> content) {
+        this.content = content;
+    }
 }

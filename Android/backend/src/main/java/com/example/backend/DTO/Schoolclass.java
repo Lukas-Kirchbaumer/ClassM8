@@ -5,118 +5,117 @@ import java.util.HashMap;
 import java.util.List;
 
 
+public class Schoolclass implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -69655466883930376L;
 
-public class Schoolclass implements Serializable{
+    private long id;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -69655466883930376L;
+    private List<M8> classMembers;
 
-	private long id;
+    private List<File> files;
 
-	private List<M8> classMembers;
+    private String name;
 
-	private List<File> files;
-	
-	private String name;
-	
-	private String room;
+    private String room;
 
-	private M8 president;
+    private M8 president;
 
-	private M8 presidentDeputy;
-	
-	private String school;
-	
-	public Schoolclass() {}
+    private M8 presidentDeputy;
 
-	public long getId() {
-		return id;
-	}
+    private String school;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public Schoolclass() {
+    }
 
-	public List<M8> getClassMembers() {
-		return classMembers;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setClassMembers(List<M8> classMembers) {
-		this.classMembers = classMembers;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public List<M8> getClassMembers() {
+        return classMembers;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setClassMembers(List<M8> classMembers) {
+        this.classMembers = classMembers;
+    }
 
-	public String getRoom() {
-		return room;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setRoom(String room) {
-		this.room = room;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public M8 getPresident() {
-		return president;
-	}
+    public String getRoom() {
+        return room;
+    }
 
-	public void setPresident(M8 president) {
-		this.president = president;
-	}
+    public void setRoom(String room) {
+        this.room = room;
+    }
 
-	public M8 getPresidentDeputy() {
-		return presidentDeputy;
-	}
+    public M8 getPresident() {
+        return president;
+    }
 
-	public void setPresidentDeputy(M8 presidentDeputy) {
-		this.presidentDeputy = presidentDeputy;
-	}
+    public void setPresident(M8 president) {
+        this.president = president;
+    }
 
-	public String getSchool() {
-		return school;
-	}
+    public M8 getPresidentDeputy() {
+        return presidentDeputy;
+    }
 
-	public void setSchool(String school) {
-		this.school = school;
-	}
-	
-	public void setNewClass(Schoolclass sc){
-		//TODO: @kirche check for null values!
-		this.classMembers = sc.classMembers;
-		this.name = sc.name;
-		this.room = sc.room;
-		this.president = sc.president;
-		this.presidentDeputy = sc.presidentDeputy;
-		this.school = sc.school;
-	}
+    public void setPresidentDeputy(M8 presidentDeputy) {
+        this.presidentDeputy = presidentDeputy;
+    }
 
-	public List<File> getFiles() {
-		return files;
-	}
+    public String getSchool() {
+        return school;
+    }
 
-	public void setFiles(List<File> files) {
-		this.files = files;
-	}
+    public void setSchool(String school) {
+        this.school = school;
+    }
 
-	@Override
-	public String toString() {
-		return "Schoolclass{" +
-				"id=" + id +
-				", classMembers=" + classMembers +
-				", files=" + files +
-				", name='" + name + '\'' +
-				", room='" + room + '\'' +
-				", president=" + president +
-				", presidentDeputy=" + presidentDeputy +
-				", school='" + school + '\'' +
-				'}';
-	}
+    public void setNewClass(Schoolclass sc) {
+        //TODO: @kirche check for null values!
+        this.classMembers = sc.classMembers;
+        this.name = sc.name;
+        this.room = sc.room;
+        this.president = sc.president;
+        this.presidentDeputy = sc.presidentDeputy;
+        this.school = sc.school;
+    }
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    @Override
+    public String toString() {
+        return "Schoolclass{" +
+                "id=" + id +
+                ", classMembers=" + classMembers +
+                ", files=" + files +
+                ", name='" + name + '\'' +
+                ", room='" + room + '\'' +
+                ", president=" + president +
+                ", presidentDeputy=" + presidentDeputy +
+                ", school='" + school + '\'' +
+                '}';
+    }
 }

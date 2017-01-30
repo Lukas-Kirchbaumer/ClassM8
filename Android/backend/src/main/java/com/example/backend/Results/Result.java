@@ -5,27 +5,26 @@ import java.lang.Error;
 
 public class Result {
 
-	private boolean success;
-	
-	private Error error;
-	
-	public Result() {}
+    private boolean success;
 
-	public boolean isSuccess() {
-		return success;
-	}
+    private Error error;
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public Result() {
+    }
 
-	public Error getError() {
-		return error;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-	public void setError(Error error) {
-		this.error = error;
-	}
-	
-	
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public Error getError() {
+        return error;
+    }
+
+    public void setError(Error error) {
+        this.error = error;
+    }
 }

@@ -3,122 +3,122 @@ package com.example.backend.Dto;
 import java.io.Serializable;
 
 
+public class M8 implements Serializable {
 
-public class M8 implements Serializable{
 
-	
-	private static final long serialVersionUID = 7576437934172296816L;
+    private static final long serialVersionUID = 7576437934172296816L;
 
-	private long id;
-	
-	private String firstname;
-	
-	private String lastname;
+    private long id;
 
-	private String email;
-	
-	private String password;
-	
-	private boolean hasVoted;
-	
-	private int votes;
+    private String firstname;
 
-	private Schoolclass schoolclass;
-	
-	
-	public M8() {}
-	
+    private String lastname;
 
-	public M8(long id, String firstname, String lastname, String email, String password, boolean hasVoted, int votes, Schoolclass schoolclass) {
-		super();
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.password = password;
-		this.hasVoted = hasVoted;
-		this.votes = votes;
-		this.schoolclass = schoolclass;
-	}
+    private String email;
 
-	public long getId() {
-		return id;
-	}
+    private String password;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    private boolean hasVoted;
 
-	public String getFirstname() {
-		return firstname;
-	}
+    private int votes;
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+    private Schoolclass schoolclass;
 
-	public String getLastname() {
-		return lastname;
-	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
+    public M8() {
+    }
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public M8(long id, String firstname, String lastname, String email, String password, boolean hasVoted, int votes, Schoolclass schoolclass) {
+        super();
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.hasVoted = hasVoted;
+        this.votes = votes;
+        this.schoolclass = schoolclass;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public boolean isHasVoted() {
-		return hasVoted;
-	}
+    public String getFirstname() {
+        return firstname;
+    }
 
-	public void setHasVoted(boolean hasVoted) {
-		this.hasVoted = hasVoted;
-	}
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-	public int getVotes() {
-		return votes;
-	}
+    public String getLastname() {
+        return lastname;
+    }
 
-	public void setVotes(int votes) {
-		this.votes = votes;
-	}
-	
-	public void setNewM8(M8 newm8){
-		this.firstname = newm8.firstname;
-		this.lastname = newm8.lastname;
-		this.email = newm8.email;
-		this.password = newm8.password;
-		this.hasVoted = newm8.hasVoted;
-		this.votes = newm8.votes;
-		this.schoolclass = newm8.schoolclass;
-	}
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-	@Override
-	public String toString() {
-		return firstname + " " + lastname;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Schoolclass getSchoolclass() {
-		return schoolclass;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setSchoolclass(Schoolclass schoolclass) {
-		this.schoolclass = schoolclass;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isHasVoted() {
+        return hasVoted;
+    }
+
+    public void setHasVoted(boolean hasVoted) {
+        this.hasVoted = hasVoted;
+    }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
+    public void setNewM8(M8 newm8) {
+        this.firstname = newm8.firstname;
+        this.lastname = newm8.lastname;
+        this.email = newm8.email;
+        this.password = newm8.password;
+        this.hasVoted = newm8.hasVoted;
+        this.votes = newm8.votes;
+        this.schoolclass = newm8.schoolclass;
+    }
+
+    @Override
+    public String toString() {
+        return firstname + " " + lastname;
+    }
+
+    public Schoolclass getSchoolclass() {
+        return schoolclass;
+
+    }
+
+    public void setSchoolclass(Schoolclass schoolclass) {
+        this.schoolclass = schoolclass;
+    }
 
 }
