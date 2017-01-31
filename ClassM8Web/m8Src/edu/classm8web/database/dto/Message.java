@@ -8,7 +8,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Embeddable
-public class Message {
+public class Message implements Comparable<Message>{
 
 	private String content;
 	
@@ -40,6 +40,11 @@ public class Message {
 
 	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	@Override
+	public int compareTo(Message m) {
+		return this.dateTime.compareTo(m.dateTime);
 	}
 	
 	
