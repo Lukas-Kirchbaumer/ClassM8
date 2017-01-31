@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by laubi on 1/18/2017.
  */
 public class Message {
+
     private String sender;
     private String content;
     private Date datetime;
@@ -16,8 +17,7 @@ public class Message {
         this.datetime = datetime;
     }
 
-    public Message() {
-    }
+    public Message() {}
 
     public String getSender() {
         return sender;
@@ -63,5 +63,6 @@ public class Message {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (datetime != null ? datetime.hashCode() : 0);
         return result;
+
     }
 }

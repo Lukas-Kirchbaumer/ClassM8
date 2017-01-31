@@ -66,9 +66,11 @@ public class FileShareActivity extends Activity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 System.out.println("in");
                 System.out.println((lvDownloads.getSelectedItemPosition()));
                 DataReader.getInstance().downloadFile(currentSelected, FileShareActivity.this);
+
             }
         });
 

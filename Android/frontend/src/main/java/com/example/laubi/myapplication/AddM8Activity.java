@@ -27,6 +27,7 @@ public class AddM8Activity extends Activity {
                 String email = txtNewM8Email.getText().toString();
 
                 //TODO get M8 by Id (webservice) add M8 with Id (WS)
+
             }
         });
 

@@ -29,7 +29,7 @@ public class ChatServices {
             URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?m8id=" + user.getId() + "&scid=" + Database.getInstance().getCurrentSchoolclass().getId());
 
             executer.setMethod("POST");
-            executer.setData(gson.toJson(s, String.class));
+            executer.setData(s);
             executer.execute(serverURL);
 
             String strFromWebService = executer.get();

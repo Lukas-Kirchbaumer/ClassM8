@@ -1,21 +1,34 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-public class HomeActivity extends Activity {
+import javax.xml.datatype.Duration;
+
+public class HomeActivity extends Activity{
     static final int UPDATE_DELETE_CLASS = 1;
     static final int VOTE = 2;
     static final int ADDM8 = 3;
@@ -23,6 +36,9 @@ public class HomeActivity extends Activity {
     private  ArrayList<M8> m8s;
     private Button btnStartVote;
     private Button btnDownloads;
+    private static ListView lvMessages;
+    private Button btnSendMessage;
+    private EditText txtMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +46,38 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
         MainActivity.mainActivity.finish();
         final Button btnM8Settings = (Button) findViewById(R.id.btnM8Settings);
-        final Button btnOpenAddM8 = (Button) findViewById(R.id.btnOpenAddM8);
         btnStartVote = (Button) findViewById(R.id.btnStartVote);
         tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
         btnDownloads = (Button) findViewById(R.id.btnDownloads);
         final ListView lvClassM8s = (ListView) findViewById(R.id.lvClassM8s);
+        lvMessages = (ListView) findViewById(R.id.lvMessages);
+        btnSendMessage = (Button) findViewById(R.id.btnSendMessage);
+        txtMessage = (EditText) findViewById(R.id.txtMessage);
 
         M8 m8 = Database.getInstance().getCurrentMate();
 
         System.out.println(m8);
         getCurrClass(m8);
 
-         m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+        m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
 
-        ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, m8s);
-
+        final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
+                R.layout.m8row, m8s);
         lvClassM8s.setAdapter(listViewArrayAdapter);
+
+        ArrayList<Message> msgs = new ArrayList<Message>();
+        try {
+            msgs = DataReader.getInstance().receiveMessage();
+        }catch(Exception ex){
+            System.out.println("---------err");
+        }
+        msgs.add(new Message("tom","sawyer",new Date()));
+        System.out.println("Total messages: " + msgs.size());
+        Chat.getInstance().addMultipleMessages(msgs);
+        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, Chat.getInstance().getMessages());
+        lvMessages.setAdapter(chatAdapter);
+
+        //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
@@ -70,19 +101,42 @@ public class HomeActivity extends Activity {
             }
         });
 
-        btnOpenAddM8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSettings = new Intent(HomeActivity.this, AddM8Activity.class);
-                startActivityForResult(intentSettings,ADDM8);
-            }
-        });
-
         btnStartVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentSettings = new Intent(HomeActivity.this, VoteActivity.class);
                 startActivityForResult(intentSettings,VOTE);
+            }
+        });
+
+        btnSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Message m = new Message();
+                String s = String.valueOf(txtMessage.getText());
+                m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
+                m.setDatetime(new Date());
+                m.setContent(s);
+
+                try {
+                    DataReader.getInstance().sendMessage(s);
+                    chatAdapter.add(m);
+                    lvMessages.setSelection(chatAdapter.getCount() - 1);
+                }catch(Exception ex){
+                    Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                }
+
+            }
+
+        });
+
+        lvClassM8s.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intentSettings = new Intent(HomeActivity.this, AddM8Activity.class);
+                startActivityForResult(intentSettings, ADDM8);
+                return true;
             }
         });
     }
@@ -122,7 +176,6 @@ public class HomeActivity extends Activity {
             }
         });
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
