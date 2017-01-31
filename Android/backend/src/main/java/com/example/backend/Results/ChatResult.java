@@ -1,23 +1,15 @@
 package com.example.backend.Results;
 
-import com.example.backend.Dto.Message;
+import com.example.backend.Dto.SchoolclassChat;
 
-import java.util.Vector;
+public final class ChatResult {
+    public final String type;
+    public final boolean success;
+    public final SchoolclassChat schoolclassChat;
 
-/**
- * Created by laubi on 1/18/2017.
- */
-public class ChatResult {
-    private Vector<Message> content = new Vector<>();
-
-    public ChatResult() {
-    }
-
-    public Vector<Message> getContent() {
-        return content;
-    }
-
-    public void setContent(Vector<Message> content) {
-        this.content = content;
+    public ChatResult(String type, boolean success, SchoolclassChat schoolclassChat){
+        this.type = type;
+        this.success = success;
+        this.schoolclassChat = schoolclassChat;
     }
 }

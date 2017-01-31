@@ -53,7 +53,11 @@ public class ClassSettingsActivity extends Activity {
                     sc.setRoom(txtNewRoom.getText().toString());
                     sc.setSchool(txtNewSchool.getText().toString());
 
-                    dr.updateClass(sc);
+                    if(sc.getId() != 0) {
+                        dr.updateClass(sc);
+                    }else{
+                        dr.createNewClass(sc.getName(), sc.getName(), sc.getRoom());
+                    }
 
                     Database.getInstance().setCurrentSchoolclass(sc);
 

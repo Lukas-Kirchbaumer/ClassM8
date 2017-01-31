@@ -52,9 +52,14 @@ public class SchoolclassServices {
             JsonElement o = parser.parse(strFromWebService);
             SchoolclassResult r = gson.fromJson(o, SchoolclassResult.class);
 
-            MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
+            try {
+                MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
+                schoolclass = mappedSchoolclass.toSchoolClass();
+            }catch (ArrayIndexOutOfBoundsException e){
+                schoolclass = new Schoolclass();
+                MappedSchoolclass mappedSchoolclass = new MappedSchoolclass();
+            }
 
-            schoolclass = mappedSchoolclass.toSchoolClass();
             System.out.println("loaded class " + schoolclass);
 
             executer = new Executer();
@@ -89,7 +94,7 @@ public class SchoolclassServices {
     public Schoolclass createNewClass(Schoolclass s) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass");
+            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?m8id=" + Database.getInstance().getCurrentMate().getId());
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(s, Schoolclass.class));

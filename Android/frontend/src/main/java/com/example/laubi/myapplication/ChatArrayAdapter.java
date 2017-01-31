@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.backend.Database;
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.Message;
 
 import java.text.SimpleDateFormat;
@@ -46,10 +46,10 @@ public class ChatArrayAdapter extends ArrayAdapter<Message> {
         TextView labelView = (TextView) rowView.findViewById(R.id.header);
         TextView valueView = (TextView) rowView.findViewById(R.id.content);
         String info = itemsArrayList.get(position).getSender() + "   " +
-                      format.format(itemsArrayList.get(position).getDatetime());
+                      (itemsArrayList.get(position).getDateTime());
         String currUser = Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname();
         if(itemsArrayList.get(position).getSender().equals(currUser)){
-            info =  "You   " + format.format(itemsArrayList.get(position).getDatetime());
+            info =  "You   " + format.format(itemsArrayList.get(position).getDateTime());
         }
 
         labelView.setText(info);

@@ -1,6 +1,7 @@
 package com.example.backend.Dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class Schoolclass implements Serializable {
     private String school;
 
     public Schoolclass() {
+        classMembers = new ArrayList<>();
     }
 
     public long getId() {
@@ -89,7 +91,13 @@ public class Schoolclass implements Serializable {
 
     public void setNewClass(Schoolclass sc) {
         //TODO: @kirche check for null values!
-        this.classMembers = sc.classMembers;
+        if(sc.classMembers == null){
+            this.classMembers=new ArrayList<>();
+        }
+        else{
+            this.classMembers = sc.classMembers;
+        }
+
         this.name = sc.name;
         this.room = sc.room;
         this.president = sc.president;

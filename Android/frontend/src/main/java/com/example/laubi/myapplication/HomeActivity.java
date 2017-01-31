@@ -1,21 +1,14 @@
 package com.example.laubi.myapplication;
 
 import android.app.Activity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +18,6 @@ import com.example.backend.Interfaces.*;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import javax.xml.datatype.Duration;
 
 public class HomeActivity extends Activity{
     static final int UPDATE_DELETE_CLASS = 1;
@@ -73,8 +64,8 @@ public class HomeActivity extends Activity{
         }
         msgs.add(new Message("tom","sawyer",new Date()));
         System.out.println("Total messages: " + msgs.size());
-        Chat.getInstance().addMultipleMessages(msgs);
-        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, Chat.getInstance().getMessages());
+        MappedChat.getInstance().addMultipleMessages(msgs);
+        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, MappedChat.getInstance().getMessages());
         lvMessages.setAdapter(chatAdapter);
 
         //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
@@ -116,7 +107,7 @@ public class HomeActivity extends Activity{
                 Message m = new Message();
                 String s = String.valueOf(txtMessage.getText());
                 m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
-                m.setDatetime(new Date());
+                m.setDateTime(new Date());
                 m.setContent(s);
 
                 try {
