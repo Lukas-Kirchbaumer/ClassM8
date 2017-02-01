@@ -129,12 +129,12 @@ public class MappedSchoolclass {
         try {
             s.setPresident(this.president.toM8());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("no President set");
         }
         try {
             s.setPresidentDeputy(this.presidentDeputy.toM8());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("no President Deputy set");
         }
 
         return s;

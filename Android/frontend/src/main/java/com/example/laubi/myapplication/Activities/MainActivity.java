@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
+import com.example.laubi.myapplication.R;
 
 public class MainActivity extends Activity {
 

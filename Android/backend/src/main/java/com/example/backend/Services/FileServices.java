@@ -39,7 +39,7 @@ public class FileServices {
         int id = -1;
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/file/?schoolclassid=" + schoolclass.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/file?schoolclassid=" + schoolclass.getId());
             System.out.println(serverURL.getQuery());
             executer.setMethod("POST");
             executer.setData(gson.toJson(file, File.class));
@@ -49,8 +49,7 @@ public class FileServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            LoginResult r = gson.fromJson(o, LoginResult.class);
+            LoginResult r = gson.fromJson(strFromWebService, LoginResult.class);
             id = (int) r.getId();
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 //import android.support.v7.app.ActionBarActivity;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.backend.Interfaces.DataReader;
+import com.example.laubi.myapplication.R;
 
 public class AddM8Activity extends Activity {
 

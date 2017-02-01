@@ -17,10 +17,10 @@ import java.net.URL;
 
 public class VotingServices {
 
+    private static VotingServices instance = null;
     private Executer executer = new Executer();
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     private JsonParser parser = new JsonParser();
-    private static VotingServices instance = null;
 
     public static VotingServices getInstance() {
         if (instance == null) {
@@ -32,9 +32,9 @@ public class VotingServices {
     public void placeVoteForPresident(M8 user, M8 votedMate) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/election/$voterId=" + user.getId() + "&votedid=" + votedMate.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/election/?voterId=" + user.getId() + "&votedid=" + votedMate.getId());
 
-            executer.setMethod("@PUT");
+            executer.setMethod("PUT");
             executer.setData("");
             executer.execute(serverURL);
 
@@ -42,8 +42,7 @@ public class VotingServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            M8Result r = gson.fromJson(o, M8Result.class);
+            M8Result r = gson.fromJson(strFromWebService, M8Result.class);
         } catch (Exception e) {
 
         }

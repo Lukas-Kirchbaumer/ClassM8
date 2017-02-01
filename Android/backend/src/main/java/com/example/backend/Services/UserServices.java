@@ -47,8 +47,7 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            LoginResult r = gson.fromJson(o, LoginResult.class);
+            LoginResult r = gson.fromJson(strFromWebService, LoginResult.class);
             System.out.println("returned string2: " + r.getId());
 
             if (r.getId() == -1)
@@ -66,11 +65,11 @@ public class UserServices {
 
             user = gson.fromJson(strFromWebService, M8.class);
 
-            o = parser.parse(strFromWebService);
-            M8Result m8r = gson.fromJson(o, M8Result.class);
+            M8Result m8r = gson.fromJson(strFromWebService, M8Result.class);
 
             System.out.println(m8r.getContent());
             System.out.println(m8r.getContent().get(0).toM8());
+
             user = m8r.getContent().get(0).toM8();
             Database.getInstance().setCurrentMate(user);
 
@@ -94,8 +93,7 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            M8Result r = gson.fromJson(o, M8Result.class);
+            M8Result r = gson.fromJson(strFromWebService, M8Result.class);
         } catch (Exception e) {
             user = null;
             e.printStackTrace();
@@ -107,7 +105,7 @@ public class UserServices {
     public void deleteUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/?id=" + user.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user?id=" + user.getId());
 
             executer.setMethod("DELETE");
             executer.setData(gson.toJson(user, Schoolclass.class));
@@ -117,8 +115,7 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +124,7 @@ public class UserServices {
     public void updateUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/?id=" + user.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user?id=" + user.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(user, M8.class));
@@ -137,8 +134,7 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,8 +153,7 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         } catch (Exception e) {
             newUser = null;
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Dialogs;
 
 // SimpleFileDialog.java
 
@@ -54,6 +54,7 @@ import android.widget.Toast;
 
 public class SimpleFileDialog
 {
+    public String Default_File_Name = "default.txt";
     private int FileOpen     = 0;
     private int FileSave     = 1;
     private int FolderChoose = 2;
@@ -62,7 +63,6 @@ public class SimpleFileDialog
     private Context m_context;
     private TextView m_titleView1;
     private TextView m_titleView;
-    public String Default_File_Name = "default.txt";
     private String Selected_File_Name = Default_File_Name;
     private EditText input_text;
 
@@ -70,14 +70,6 @@ public class SimpleFileDialog
     private List<String> m_subdirs = null;
     private SimpleFileDialogListener m_SimpleFileDialogListener = null;
     private ArrayAdapter<String> m_listAdapter = null;
-
-    //////////////////////////////////////////////////////
-    // Callback interface for selected directory
-    //////////////////////////////////////////////////////
-    public interface SimpleFileDialogListener
-    {
-        public void onChosenDir(String chosenDir);
-    }
 
     public SimpleFileDialog(Context context, String file_select_type, SimpleFileDialogListener SimpleFileDialogListener)
     {
@@ -379,5 +371,12 @@ public class SimpleFileDialog
                 return v;
             }
         };
+    }
+
+    //////////////////////////////////////////////////////
+    // Callback interface for selected directory
+    //////////////////////////////////////////////////////
+    public interface SimpleFileDialogListener {
+        void onChosenDir(String chosenDir);
     }
 }

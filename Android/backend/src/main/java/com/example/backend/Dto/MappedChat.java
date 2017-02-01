@@ -1,5 +1,6 @@
 package com.example.backend.Dto;
 
+import android.app.Activity;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
@@ -12,19 +13,19 @@ import java.util.List;
 
 public class MappedChat {
 
+    public static Activity mWeakActivity;
     private static MappedChat instance = null;
+    private ObservableArrayList<Message> messages;
+
+    public MappedChat() {
+        messages = new ObservableArrayList<>();
+    }
 
     public static MappedChat getInstance() {
         if (instance == null) {
             instance = new MappedChat();
         }
         return instance;
-    }
-
-    private ObservableArrayList<Message> messages;
-
-    public MappedChat() {
-        messages = new ObservableArrayList<>();
     }
 
     public int addMultipleMessages(Collection<Message> messages) {

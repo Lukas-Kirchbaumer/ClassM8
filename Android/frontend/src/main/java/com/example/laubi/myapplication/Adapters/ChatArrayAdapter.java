@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.Message;
+import com.example.laubi.myapplication.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

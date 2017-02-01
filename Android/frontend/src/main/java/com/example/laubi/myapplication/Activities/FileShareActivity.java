@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import com.example.backend.Database.Database;
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
+import com.example.laubi.myapplication.R;
 import com.github.angads25.filepicker.controller.DialogSelectionListener;
 import com.github.angads25.filepicker.model.DialogConfigs;
 import com.github.angads25.filepicker.model.DialogProperties;

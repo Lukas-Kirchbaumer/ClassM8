@@ -51,13 +51,13 @@ public class SchoolclassServices {
 
             JsonElement o = parser.parse(strFromWebService);
             SchoolclassResult r = gson.fromJson(o, SchoolclassResult.class);
-
+            if (!r.isSuccess())
+                throw new Exception("schoolclass not found");
             try {
                 MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
                 schoolclass = mappedSchoolclass.toSchoolClass();
             }catch (ArrayIndexOutOfBoundsException e){
-                schoolclass = new Schoolclass();
-                MappedSchoolclass mappedSchoolclass = new MappedSchoolclass();
+                throw new Exception("schoolclass not found");
             }
 
             System.out.println("loaded class " + schoolclass);
@@ -73,8 +73,7 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            o = parser.parse(strFromWebService);
-            M8Result m = gson.fromJson(o, M8Result.class);
+            M8Result m = gson.fromJson(strFromWebService, M8Result.class);
 
             for(MappedM8 mappedM8 : m.getContent()){
                 schoolclass.setClassMembers(new ArrayList<M8>());
@@ -86,7 +85,7 @@ public class SchoolclassServices {
 
         }catch (Exception e){
             schoolclass = null;
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return schoolclass;
     }
@@ -94,7 +93,7 @@ public class SchoolclassServices {
     public Schoolclass createNewClass(Schoolclass s) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?m8id=" + Database.getInstance().getCurrentMate().getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass?m8id=" + Database.getInstance().getCurrentMate().getId());
 
             executer.setMethod("POST");
             executer.setData(gson.toJson(s, Schoolclass.class));
@@ -104,8 +103,7 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         }catch (Exception e){
             s= null;
             e.printStackTrace();
@@ -117,7 +115,7 @@ public class SchoolclassServices {
     public Schoolclass updateClass(Schoolclass newSchoolclass, Schoolclass oldSchoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id=" + oldSchoolClass.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass?id=" + oldSchoolClass.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(newSchoolclass, Schoolclass.class));
@@ -127,8 +125,7 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         } catch (Exception e) {
             newSchoolclass = null;
             e.printStackTrace();
@@ -139,7 +136,7 @@ public class SchoolclassServices {
     public void updateClass(Schoolclass schoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass?id=" + schoolClass.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(schoolClass, Schoolclass.class));
@@ -149,8 +146,7 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -159,7 +155,7 @@ public class SchoolclassServices {
     public void deleteClass(Schoolclass schoolClass) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/schoolclass/?id="+schoolClass.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass?id=" + schoolClass.getId());
 
             executer.setMethod("DELETE");
             executer.setData(gson.toJson(schoolClass, Schoolclass.class));
@@ -169,8 +165,7 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            Result r = gson.fromJson(o, Result.class);
+            Result r = gson.fromJson(strFromWebService, Result.class);
         }catch (Exception e){
             e.printStackTrace();
         }

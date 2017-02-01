@@ -123,7 +123,7 @@ public class MappedM8 {
         try {
             mate.setSchoolclass(this.schoolclass.toSchoolClass());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("schoolclass not known yet");
         }
         mate.setHasVoted(this.hasVoted);
 

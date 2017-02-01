@@ -1,6 +1,10 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,19 +19,26 @@ import android.widget.Toast;
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
+import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
+import com.example.laubi.myapplication.Polling.AlarmListener;
+import com.example.laubi.myapplication.Polling.OnItemChangedListener;
+import com.example.laubi.myapplication.Polling.ReceiveMessageTask;
+import com.example.laubi.myapplication.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
 
 public class HomeActivity extends Activity{
     static final int UPDATE_DELETE_CLASS = 1;
     static final int VOTE = 2;
     static final int ADDM8 = 3;
+    private static ListView lvMessages;
     TextView tvCurrClass = null;
     private  ArrayList<M8> m8s;
     private Button btnStartVote;
     private Button btnDownloads;
-    private static ListView lvMessages;
     private Button btnSendMessage;
     private EditText txtMessage;
 
@@ -49,9 +60,12 @@ public class HomeActivity extends Activity{
 
         System.out.println(m8);
         getCurrClass(m8);
-
-        m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
-
+        try {
+            m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+        } catch (NullPointerException npe) {
+            System.out.println("schoolclass is null");
+            m8s = new ArrayList<M8>();
+        }
         final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
                 R.layout.m8row, m8s);
         lvClassM8s.setAdapter(listViewArrayAdapter);
@@ -62,24 +76,35 @@ public class HomeActivity extends Activity{
         }catch(Exception ex){
             System.out.println("---------err");
         }
-        msgs.add(new Message("tom","sawyer",new Date()));
+
         System.out.println("Total messages: " + msgs.size());
         MappedChat.getInstance().addMultipleMessages(msgs);
+
         final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, MappedChat.getInstance().getMessages());
+
         lvMessages.setAdapter(chatAdapter);
 
-        //new AsyncPolling(HomeActivity.this).execute(getApplicationContext());
+        MappedChat.getInstance().getMessages().addOnListChangedCallback(new OnItemChangedListener(new WeakReference<Activity>(this)));
 
         if(Database.getInstance().getCurrentMate().isHasVoted()){
             btnStartVote.setVisibility(View.GONE);
         }
 
+        if (Database.getInstance().getCurrentSchoolclass() != null) {
+            ReceiveMessageTask rmt = new ReceiveMessageTask();
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(rmt, 0, 5000);
+        }
+
         btnDownloads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentDownloads = new Intent(HomeActivity.this, FileShareActivity.class);
-
-                startActivity(intentDownloads);
+                if (Database.getInstance().getCurrentSchoolclass() != null) {
+                    Intent intentDownloads = new Intent(HomeActivity.this, FileShareActivity.class);
+                    startActivity(intentDownloads);
+                } else {
+                    System.out.println("No Schoolclass, so no files");
+                }
             }
         });
 
@@ -87,7 +112,6 @@ public class HomeActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent intentSettings = new Intent(HomeActivity.this, UserSettingsActivity.class);
-
                 startActivity(intentSettings);
             }
         });
@@ -95,8 +119,12 @@ public class HomeActivity extends Activity{
         btnStartVote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentSettings = new Intent(HomeActivity.this, VoteActivity.class);
-                startActivityForResult(intentSettings,VOTE);
+                if (Database.getInstance().getCurrentSchoolclass() != null) {
+                    Intent intentSettings = new Intent(HomeActivity.this, VoteActivity.class);
+                    startActivityForResult(intentSettings, VOTE);
+                } else {
+                    System.out.println("No Schoolclass, so no files");
+                }
             }
         });
 
@@ -104,18 +132,20 @@ public class HomeActivity extends Activity{
             @Override
             public void onClick(View v) {
 
-                Message m = new Message();
-                String s = String.valueOf(txtMessage.getText());
-                m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
-                m.setDateTime(new Date());
-                m.setContent(s);
+                if (Database.getInstance().getCurrentSchoolclass() != null) {
+                    Message m = new Message();
+                    String s = String.valueOf(txtMessage.getText());
+                    m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
+                    m.setDateTime(new Date());
+                    m.setContent(s);
 
-                try {
-                    DataReader.getInstance().sendMessage(s);
-                    chatAdapter.add(m);
-                    lvMessages.setSelection(chatAdapter.getCount() - 1);
-                }catch(Exception ex){
-                    Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                    try {
+                        DataReader.getInstance().sendMessage(s);
+                        chatAdapter.add(m);
+                        lvMessages.setSelection(chatAdapter.getCount() - 1);
+                    } catch (Exception ex) {
+                        Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                    }
                 }
 
             }

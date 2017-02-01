@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.DataReader;
+import com.example.laubi.myapplication.R;
 
 import java.util.ArrayList;
 

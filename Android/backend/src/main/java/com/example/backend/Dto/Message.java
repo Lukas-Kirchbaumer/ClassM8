@@ -41,4 +41,26 @@ public class Message {
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Message message = (Message) o;
+
+        if (content != null ? !content.equals(message.content) : message.content != null)
+            return false;
+        if (sender != null ? !sender.equals(message.sender) : message.sender != null) return false;
+        return dateTime != null ? dateTime.equals(message.dateTime) : message.dateTime == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = content != null ? content.hashCode() : 0;
+        result = 31 * result + (sender != null ? sender.hashCode() : 0);
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
+        return result;
+    }
 }

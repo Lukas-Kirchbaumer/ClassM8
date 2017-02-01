@@ -5,41 +5,41 @@
     android:id="@+id/activity_vote"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.laubi.myapplication.VoteActivity">
+    tools:context="com.example.laubi.myapplication.Activities.VoteActivity">
 
     <Spinner
-        android:layout_height="48dp"
         android:id="@+id/spPresidentChoice"
         android:layout_width="300dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:text="Klassensprecher"
+        android:id="@+id/tvVotePresident"
         android:layout_width="106dp"
         android:layout_height="20dp"
-        android:id="@+id/tvVotePresident"
-        app:layout_constraintLeft_toLeftOf="@+id/spPresidentChoice"
-        app:layout_constraintBottom_toTopOf="@+id/spPresidentChoice" /><![CDATA[
+        android:text="Klassensprecher"
+        app:layout_constraintBottom_toTopOf="@+id/spPresidentChoice"
+        app:layout_constraintLeft_toLeftOf="@+id/spPresidentChoice" /><![CDATA[
 
     />
 
     ]]>
 
     <Button
-        android:text="Vote"
-        android:layout_height="wrap_content"
         android:id="@+id/btnVote"
         style="@android:style/Widget.Material.Button"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
-        android:layout_width="150dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Vote"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

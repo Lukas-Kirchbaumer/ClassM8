@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
 
@@ -47,8 +48,8 @@ public class ChatServices {
         return s;
     }
 
-    public Vector<Message> receiveMessages() {
-        Vector<Message> messages;
+    public ArrayList<Message> receiveMessages() {
+        ArrayList<Message> messages = new ArrayList<>();
         try {
             Executer executer = new Executer();
             URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?scid=" + Database.getInstance().getCurrentSchoolclass().getId());
@@ -61,10 +62,9 @@ public class ChatServices {
             System.out.println("returned string: " + strFromWebService);
 
             ChatResult cr = gson.fromJson(strFromWebService, ChatResult.class);
-            messages=new Vector<>(cr.schoolclassChat.getMessages());
+            messages = new ArrayList<>(cr.schoolclassChat.getMessages());
         } catch (Exception e) {
             e.printStackTrace();
-            messages = null;
         }
 
         return messages;

@@ -1,4 +1,4 @@
-package com.example.laubi.myapplication;
+package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
+import com.example.laubi.myapplication.R;
 
 public class NewClassActivity extends Activity {
 
