@@ -57,16 +57,7 @@ namespace ClassM8_Client
 
         private void btnChat_Click(object sender, RoutedEventArgs e)
         {
-            DataReader.Instance.sendMessage(txtMessage.Text);
-            txtMessage.Text = "";
-            List<Message> msgs = new List<Message>();
-
-            msgs = DataReader.Instance.loadChat();
-
-            if (msgs.Count > 0)
-            {
-                btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
-            }
+            chat();
         }
 
         public void loadChat() 
@@ -111,5 +102,29 @@ namespace ClassM8_Client
         {
             Console.WriteLine(txtMessage.Text);
         }
+
+        private void txtMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
+                chat();
+            }
+        }
+
+        private void chat() {
+            DataReader.Instance.sendMessage(txtMessage.Text);
+            txtMessage.Text = "";
+            List<Message> msgs = new List<Message>();
+
+            msgs = DataReader.Instance.loadChat();
+
+            if (msgs.Count > 0)
+            {
+                btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
+            }
+        }
+
+
     }
 }

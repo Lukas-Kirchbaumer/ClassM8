@@ -512,5 +512,17 @@ namespace ClassM8_Client
             return msgs;
         }
 
+        public void getPresidents() {
+            string url = AppSettings.ConnectionString + "election?scid=" + Database.Instance.currSchoolclass.getId();
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json; charset=utf-8";
+            httpWebRequest.Accept = "application/json";
+            httpWebRequest.Method = "GET";
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            Console.WriteLine("hier");
+        }
+
     }
 }
