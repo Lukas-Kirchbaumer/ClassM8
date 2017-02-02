@@ -1,5 +1,7 @@
 package com.example.backend.Mapper;
 
+import android.widget.ArrayAdapter;
+
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
@@ -7,6 +9,7 @@ import com.example.backend.MappedObjects.MappedFile;
 import com.example.backend.MappedObjects.MappedM8;
 import com.example.backend.MappedObjects.MappedSchoolclass;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,7 +31,7 @@ public class ObjectMapper {
             msc.setPresidentDeputy(ObjectMapper.mapForSchoolClass(sc.getPresidentDeputy()));
         msc.setRoom(sc.getRoom());
         msc.setSchool(sc.getSchool());
-        Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
+        ArrayList<MappedM8> mscClassMembers = new ArrayList<MappedM8>();
         Vector<MappedFile> mscFiles = new Vector<MappedFile>();
 
         for (M8 m8 : sc.getClassMembers()) {

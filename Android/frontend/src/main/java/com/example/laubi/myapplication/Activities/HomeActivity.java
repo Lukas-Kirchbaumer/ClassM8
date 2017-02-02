@@ -62,7 +62,7 @@ public class HomeActivity extends Activity{
         System.out.println(m8);
         getCurrClass(m8);
         try {
-            m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
         } catch (NullPointerException npe) {
             System.out.println("schoolclass is null");
             m8s = new ArrayList<M8>();
@@ -165,8 +165,8 @@ public class HomeActivity extends Activity{
 
     public void getCurrClass(com.example.backend.Dto.M8 m8){
 
-        DataReader dr = new DataReader();
-        Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
+        // DataReader dr = new DataReader();
+        // Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
 
         if(Database.getInstance().getCurrentSchoolclass() != null) {
             showClass();
@@ -215,7 +215,7 @@ public class HomeActivity extends Activity{
             }
         }
         if(requestCode == ADDM8){
-           m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
         }
     }
 }

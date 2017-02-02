@@ -2,6 +2,7 @@ package com.example.laubi.myapplication.Polling;
 
 import com.example.backend.Dto.MappedChat;
 import com.example.backend.Interfaces.DataReader;
+import com.example.laubi.myapplication.Activities.TestHomeActivity;
 
 import java.util.TimerTask;
 
@@ -12,6 +13,12 @@ import java.util.TimerTask;
 public class ReceiveMessageTask extends TimerTask {
     @Override
     public void run() {
-        MappedChat.getInstance().addMultipleMessages(DataReader.getInstance().receiveMessage());
+        try {
+            TestHomeActivity.chatSema.acquire();
+            MappedChat.getInstance().addMultipleMessages(DataReader.getInstance().receiveMessage());
+            TestHomeActivity.chatSema.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

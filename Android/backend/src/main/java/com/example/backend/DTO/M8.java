@@ -121,4 +121,16 @@ public class M8 implements Serializable {
         this.schoolclass = schoolclass;
     }
 
+    public String detailedToString() {
+        return "M8{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", hasVoted=" + hasVoted +
+                ", votes=" + votes +
+                ", schoolclass=" + schoolclass +
+                '}';
+    }
 }

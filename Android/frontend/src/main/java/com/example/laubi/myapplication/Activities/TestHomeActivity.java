@@ -23,6 +23,7 @@ import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.MappedChat;
 import com.example.backend.Dto.Message;
+import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Interfaces.DataReader;
 import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
 import com.example.laubi.myapplication.Fragments.NavigationDrawerFragment;
@@ -34,22 +35,23 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
+import java.util.concurrent.Semaphore;
 
 public class TestHomeActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    static final int UPDATE_DELETE_CLASS = 1;
+    static final int ADDM8 = 3;
+    /**
+     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+     */
+    public static Semaphore chatSema = new Semaphore(1);
+    private static ListView lvMessages;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
-    static final int UPDATE_DELETE_CLASS = 1;
-    static final int ADDM8 = 3;
-    private static ListView lvMessages;
     private ListView lvClassM8s;
     private TextView tvCurrClass = null;
     private TextView tvYourM8s;
@@ -91,7 +93,7 @@ public class TestHomeActivity extends Activity
         System.out.println(m8);
         getCurrClass(m8);
         try {
-            m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
         } catch (NullPointerException npe) {
             System.out.println("schoolclass is null");
             m8s = new ArrayList<>();
@@ -119,7 +121,7 @@ public class TestHomeActivity extends Activity
         if (Database.getInstance().getCurrentSchoolclass() != null) {
             ReceiveMessageTask rmt = new ReceiveMessageTask();
             Timer timer = new Timer();
-            timer.scheduleAtFixedRate(rmt, 0, 5000);
+            timer.scheduleAtFixedRate(rmt, 0, 10000);
         }else{
             txtMessage.setVisibility(View.INVISIBLE);
             btnSendMessage.setVisibility(View.INVISIBLE);
@@ -131,25 +133,35 @@ public class TestHomeActivity extends Activity
             public void onClick(View v) {
 
                 if (Database.getInstance().getCurrentSchoolclass() != null) {
-                    Message m = new Message();
-                    String s = String.valueOf(txtMessage.getText());
+                    final Message m = new Message();
+                    final String s = String.valueOf(txtMessage.getText());
                     m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
                     m.setDateTime(new Date());
                     m.setContent(s);
-
-                    try {
-                        DataReader.getInstance().sendMessage(s);
-                        chatAdapter.add(m);
-                        lvMessages.setSelection(chatAdapter.getCount() - 1);
-                    } catch (Exception ex) {
-                        Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                    if (!s.equals("")) {
+                        TestHomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    chatSema.acquire();
+                                    DataReader.getInstance().sendMessage(s);
+                                    chatAdapter.add(m);
+                                    lvMessages.setSelection(chatAdapter.getCount() - 1);
+                                    txtMessage.setText("");
+                                    chatAdapter.notifyDataSetChanged();
+                                } catch (Exception ex) {
+                                    Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                                }
+                                chatSema.release();
+                            }
+                        });
                     }
+
                 }
 
             }
 
         });
-
 
         lvClassM8s.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -159,7 +171,6 @@ public class TestHomeActivity extends Activity
                 return true;
             }
         });
-
     }
 
     @Override
@@ -192,11 +203,10 @@ public class TestHomeActivity extends Activity
         actionBar.setTitle(mTitle);
     }
 
-
     public void getCurrClass(com.example.backend.Dto.M8 m8){
 
-        DataReader dr = new DataReader();
-        Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
+        // DataReader dr = new DataReader();
+        // Database.getInstance().setCurrentSchoolclass(dr.getSchoolclassByUser(m8));
 
         if(Database.getInstance().getCurrentSchoolclass() != null) {
             showClass();
@@ -241,12 +251,16 @@ public class TestHomeActivity extends Activity
                 createClass();
             }
         }
+        if (requestCode == ADDM8) {
+            this.updateMateList();
+        }
     }
 
     public void updateMateList(){
         try {
+            System.out.println("updateMateList");
             DataReader.getInstance().getSchoolclassByUser(Database.getInstance().getCurrentMate());
-            m8s = (ArrayList<M8>) Database.getInstance().getCurrentSchoolclass().getClassMembers();
+            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
         } catch (NullPointerException npe) {
             System.out.println("schoolclass is null");
             m8s = new ArrayList<>();
@@ -256,23 +270,14 @@ public class TestHomeActivity extends Activity
         lvClassM8s.setAdapter(null);
         lvClassM8s.setAdapter(listViewArrayAdapter);
     }
-    /**
-     * A placeholder fragment containing a simple view.
-     */
+
     public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
 
         public PlaceholderFragment() {
         }
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();

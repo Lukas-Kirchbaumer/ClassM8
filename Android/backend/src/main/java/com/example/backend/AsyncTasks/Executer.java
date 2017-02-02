@@ -33,8 +33,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Executer extends AsyncTask<URL, String, String> {
 
-    private String content;
     String data = "";
+    String method = "";
+    String mediaType = "application/json";
+    private String content;
 
     public String getData() {
         return data;
@@ -52,10 +54,6 @@ public class Executer extends AsyncTask<URL, String, String> {
         this.method = method;
     }
 
-    String method = "";
-
-    String mediaType = "application/json";
-
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
@@ -66,11 +64,9 @@ public class Executer extends AsyncTask<URL, String, String> {
 
         try {
             urlConnection = (HttpURLConnection) urls[0].openConnection();
-            System.out.println("opened Connection");
             urlConnection.setRequestMethod(method);
             urlConnection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             urlConnection.setRequestProperty("Accept", mediaType);
-            System.out.println("set Properties");
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -78,17 +74,13 @@ public class Executer extends AsyncTask<URL, String, String> {
         }
         try {
             if (method != "GET" && method != "DELETE") {
-                System.out.println("set output properties");
                 urlConnection.setDoOutput(true);
                 urlConnection.setChunkedStreamingMode(0);
                 urlConnection.setConnectTimeout(5000);
                 System.out.println("starting to write outputStream");
                 OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
                 writeStream(out);
-                System.out.println("wrote:" + out);
             }
-
-            System.out.println(method);
             int statusCode = urlConnection.getResponseCode();
             System.out.println(statusCode);
             System.out.println("starting to read inputStream");

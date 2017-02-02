@@ -1,5 +1,7 @@
 package com.example.backend.Services;
 
+import android.provider.ContactsContract;
+
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
@@ -71,8 +73,11 @@ public class UserServices {
             System.out.println(m8r.getContent().get(0).toM8());
 
             user = m8r.getContent().get(0).toM8();
-            Database.getInstance().setCurrentMate(user);
 
+            Database.getInstance().setCurrentMate(user);
+            System.out.println(user.detailedToString());
+            Database.getInstance().setCurrentSchoolclass(user.getSchoolclass());
+            System.out.println(Database.getInstance().getCurrentSchoolclass());
         } catch (Exception e) {
             user = null;
             e.printStackTrace();
@@ -82,7 +87,8 @@ public class UserServices {
     public M8 getUserByEMail(String eMail){
         M8 ret = null;
         try {
-            URL serverURL =serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/byemail/" + eMail);
+
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/byemail/" + eMail);
 
             Executer executer = new Executer();
             executer.setMethod("GET");
@@ -92,11 +98,10 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            M8 user = gson.fromJson(strFromWebService, M8.class);
-
             M8Result m8r = gson.fromJson(strFromWebService, M8Result.class);
 
             ret = m8r.getContent().get(0).toM8();
+
         }catch(Exception e){
             e.printStackTrace();
             ret = null;

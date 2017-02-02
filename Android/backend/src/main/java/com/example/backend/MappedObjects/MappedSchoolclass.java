@@ -1,6 +1,7 @@
 package com.example.backend.MappedObjects;
 
 import com.example.backend.Dto.File;
+import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class MappedSchoolclass {
 
     private long id;
 
-    private Vector<MappedM8> classMembers = new Vector<MappedM8>();
+    private ArrayList<MappedM8> classMembers = new ArrayList<>();
 
     private String name;
 
@@ -36,11 +37,11 @@ public class MappedSchoolclass {
         this.id = id;
     }
 
-    public Vector<MappedM8> getClassMembers() {
+    public ArrayList<MappedM8> getClassMembers() {
         return classMembers;
     }
 
-    public void setClassMembers(Vector<MappedM8> classMembers) {
+    public void setClassMembers(ArrayList<MappedM8> classMembers) {
         this.classMembers = classMembers;
     }
 
@@ -125,6 +126,8 @@ public class MappedSchoolclass {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        s.setClassMembers(new ArrayList<M8>());
 
         try {
             s.setPresident(this.president.toM8());

@@ -49,19 +49,22 @@ public class SchoolclassServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            JsonElement o = parser.parse(strFromWebService);
-            SchoolclassResult r = gson.fromJson(o, SchoolclassResult.class);
+            SchoolclassResult r = gson.fromJson(strFromWebService, SchoolclassResult.class);
+
             if (!r.isSuccess())
                 throw new Exception("schoolclass not found");
             try {
                 MappedSchoolclass mappedSchoolclass = r.getSchoolclasses().get(0);
                 schoolclass = mappedSchoolclass.toSchoolClass();
+                for (MappedM8 mate : mappedSchoolclass.getClassMembers()) {
+                    schoolclass.getClassMembers().add(mate.toM8());
+                }
             }catch (ArrayIndexOutOfBoundsException e){
                 throw new Exception("schoolclass not found");
             }
 
             System.out.println("loaded class " + schoolclass);
-
+/*
             executer = new Executer();
 
             serverURL = new URL("http://"+DataReader.IP+ ":8080/ClassM8Web/services/user/byschoolclass/"+ schoolclass.getId());
@@ -80,7 +83,7 @@ public class SchoolclassServices {
                 System.out.println(mappedM8);
                 schoolclass.getClassMembers().add(mappedM8.toM8());
             }
-
+*/
             Database.getInstance().setCurrentSchoolclass(schoolclass);
 
         }catch (Exception e){

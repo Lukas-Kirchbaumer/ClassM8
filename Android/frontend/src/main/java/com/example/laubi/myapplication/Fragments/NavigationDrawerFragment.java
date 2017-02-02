@@ -50,37 +50,32 @@ public class NavigationDrawerFragment extends Fragment {
      * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
+    static TestHomeActivity testHomeActivity;
     /**
      * A pointer to the current callbacks instance (the Activity).
      */
     private NavigationDrawerCallbacks mCallbacks;
-
     /**
      * Helper component that ties the action bar to the navigation drawer.
      */
     private ActionBarDrawerToggle mDrawerToggle;
-
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
     private int ADDEDM8 = 3;
+    private int mCurrentSelectedPosition = 0;
+    private boolean mFromSavedInstanceState;
+    private boolean mUserLearnedDrawer;
+
+    public NavigationDrawerFragment() {
+    }
 
     public TestHomeActivity getTestHomeActivity() {
         return testHomeActivity;
     }
 
     public void setTestHomeActivity(TestHomeActivity testHomeActivity) {
-        this.testHomeActivity = testHomeActivity;
-    }
-
-    static TestHomeActivity testHomeActivity;
-
-    private int mCurrentSelectedPosition = 0;
-    private boolean mFromSavedInstanceState;
-    private boolean mUserLearnedDrawer;
-
-    public NavigationDrawerFragment() {
+        NavigationDrawerFragment.testHomeActivity = testHomeActivity;
     }
 
     @Override
@@ -120,7 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        Database.getInstance().setCurrentSchoolclass(DataReader.getInstance().getSchoolclassByUser(Database.getInstance().getCurrentMate()));
+        //   Database.getInstance().setCurrentSchoolclass(DataReader.getInstance().getSchoolclassByUser(Database.getInstance().getCurrentMate()));
         System.out.println("---" + Database.getInstance().getCurrentSchoolclass() );
         ArrayList<String> options = new ArrayList<>();
         options.add("User-Settings");
@@ -345,7 +340,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks {
         /**
          * Called when an item in the navigation drawer is selected.
          */

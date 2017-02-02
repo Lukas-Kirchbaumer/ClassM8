@@ -59,18 +59,9 @@ public class MainActivity extends Activity {
                 }
                 System.out.println(txtEmail.getText() + "  " + txtPassword.getText());
                 if (correct) {
-                    System.out.println("correct");
                     M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
-                    //  M8 currM8 = new M8(1,"asdf","asdf","asdf","asfd",false, 2, new Schoolclass());
-                    //  Database.getInstance().setCurrentMate(currM8);
-
-
                     if (currM8 != null) {
                         Intent intent = new Intent(MainActivity.this, TestHomeActivity.class);
-
-                        //Falls er wegen Theme.AppCompat theme blablba weint
-                        //android:theme="@style/Theme.AppCompat.Light"
-                        //im Manifest bei der Activity einfügen
                         startActivity(intent);
                     } else {
                         tvLoginPasswordError.setText("M8 nicht bekannt");

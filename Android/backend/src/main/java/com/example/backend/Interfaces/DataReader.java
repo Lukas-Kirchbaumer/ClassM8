@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
+    public static String IP = "10.0.0.37";
     private static DataReader instance = null;
-    public static String IP = "25.68.245.50";
 
     public static DataReader getInstance() {
         if (instance == null) {
@@ -31,14 +31,6 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         return instance;
     }
 
-    /**
-     * Selfexplaining
-     * Returns null if Authentification failed
-     *
-     * @param email    The E-Mail to verify
-     * @param password The Password to verify
-     * @return The Instance of the logged in User
-     */
     @Override
     public M8 login(String email, String password) {
         M8 user = new M8();
@@ -50,12 +42,6 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         return user;
     }
 
-    /**
-     * Method to get the Schoolclass of a specific User
-     *
-     * @param user The logged in User
-     * @return the Schoolclass of the User
-     */
     @Override
     public Schoolclass getSchoolclassByUser(M8 user) {
         Schoolclass schoolclass = SchoolclassServices.getInstance().getSchoolclassByUser(user);
@@ -122,16 +108,6 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         UserServices.getInstance().updateUser(user);
     }
 
-    /**
-     * Replaces the Old User with a new one
-     *
-     * @param firstname firstname of the newly generated
-     * @param lastname
-     * @param eMail
-     * @param password
-     * @param OldUser
-     * @return A new generated User
-     */
     @Override
     public M8 updateUser(String firstname, String lastname, String eMail, String password, M8 OldUser) {
         M8 newUser = new M8();
@@ -168,9 +144,11 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         ChatServices chatService = new ChatServices();
         return new ArrayList<Message>(chatService.receiveMessages());
     }
+
     public boolean addMateToSchoolclass(M8 mate){
         return SchoolclassServices.getInstance().addMateToClass((int)mate.getId());
     }
+
     public M8 getMateByEMail(String mail){
         return UserServices.getInstance().getUserByEMail(mail);
     }

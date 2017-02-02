@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.Message;
+import com.example.laubi.myapplication.Activities.TestHomeActivity;
 import com.example.laubi.myapplication.R;
 
 import java.text.SimpleDateFormat;
@@ -55,7 +56,13 @@ public class ChatArrayAdapter extends ArrayAdapter<Message> {
 
         labelView.setText(info);
         valueView.setText(itemsArrayList.get(position).getContent());
-
+        try {
+            TestHomeActivity.chatSema.acquire();
+            this.notifyDataSetChanged();
+            TestHomeActivity.chatSema.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // 5. retrn rowView
         return rowView;
     }

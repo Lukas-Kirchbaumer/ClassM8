@@ -1,5 +1,8 @@
 package com.example.backend.MappedObjects;
 
+import android.provider.ContactsContract;
+
+import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Mapper.ObjectMapper;
 
@@ -122,6 +125,11 @@ public class MappedM8 {
         mate.setEmail(this.email);
         try {
             mate.setSchoolclass(this.schoolclass.toSchoolClass());
+            System.out.println(this.schoolclass);
+            Database.getInstance().setCurrentSchoolclass(mate.getSchoolclass());
+            for (MappedM8 mappedMate : this.getSchoolclass().getClassMembers()) {
+                Database.getInstance().getCurrentSchoolclass().getClassMembers().add(mappedMate.toM8());
+            }
         } catch (Exception e) {
             System.out.println("schoolclass not known yet");
         }

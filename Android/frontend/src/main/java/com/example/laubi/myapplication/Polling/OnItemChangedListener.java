@@ -27,10 +27,16 @@ public class OnItemChangedListener extends ObservableList.OnListChangedCallback 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ListView lvMessages = (ListView) activity.findViewById(R.id.lvMessages);
-                ChatArrayAdapter caa = (ChatArrayAdapter) lvMessages.getAdapter();
-                caa.notifyDataSetChanged();
-                lvMessages.setSelection(caa.getCount() - 1);
+                try {
+                    TestHomeActivity.chatSema.acquire();
+                    ListView lvMessages = (ListView) activity.findViewById(R.id.lvMessages);
+                    ChatArrayAdapter caa = (ChatArrayAdapter) lvMessages.getAdapter();
+                    caa.notifyDataSetChanged();
+                    lvMessages.setSelection(caa.getCount() - 1);
+                    TestHomeActivity.chatSema.release();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

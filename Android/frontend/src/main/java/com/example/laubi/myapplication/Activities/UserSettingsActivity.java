@@ -55,6 +55,7 @@ public class UserSettingsActivity extends Activity {
                     DataReader.getInstance().updateUser(m8);
                     Database.getInstance().setCurrentMate(m8);
                     Toast.makeText(getApplicationContext(), "User updated", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     tvUserSettingsError.setText("Alle Felder ausfüllen");
                 }

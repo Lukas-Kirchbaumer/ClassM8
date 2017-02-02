@@ -15,9 +15,9 @@ public class Schoolclass implements Serializable {
 
     private long id;
 
-    private List<M8> classMembers;
+    private ArrayList<M8> classMembers;
 
-    private List<File> files;
+    private ArrayList<File> files;
 
     private String name;
 
@@ -41,11 +41,11 @@ public class Schoolclass implements Serializable {
         this.id = id;
     }
 
-    public List<M8> getClassMembers() {
+    public ArrayList<M8> getClassMembers() {
         return classMembers;
     }
 
-    public void setClassMembers(List<M8> classMembers) {
+    public void setClassMembers(ArrayList<M8> classMembers) {
         this.classMembers = classMembers;
     }
 
@@ -105,11 +105,11 @@ public class Schoolclass implements Serializable {
         this.school = sc.school;
     }
 
-    public List<File> getFiles() {
+    public ArrayList<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(ArrayList<File> files) {
         this.files = files;
     }
 
