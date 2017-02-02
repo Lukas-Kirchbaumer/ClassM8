@@ -23,6 +23,7 @@ namespace ClassM8_Client.Controls
     {
         public ClassSettingsControl()
         {
+            DataReader.Instance.getM8Class();
             Schoolclass currClass = Database.Instance.currSchoolclass;
             InitializeComponent();
             txtName.Text = currClass.getName();

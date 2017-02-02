@@ -25,6 +25,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -34,14 +35,19 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Name="lblName" Grid.Row="0" Grid.Column="1" Margin="15" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Text="" FontSize="25" TextAlignment="Left" FontFamily="Rockwell"></TextBlock>
+                <TextBlock Name="lblName" Grid.Row="0" Grid.Column="2" Margin="15" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center" Text="" FontSize="25" TextAlignment="Left" FontFamily="Rockwell"></TextBlock>
                 
-                <Button x:Name="btnSettings" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="40" Width="40" Margin="10" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnSettings_Click">
+                <Button x:Name="btnSettings" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="40" Width="40" Margin="10" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnSettings_Click">
                     <StackPanel>
                         <materialDesign:PackIcon Kind="Settings"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
-                <materialDesign:MaterialDateDisplay Grid.Row="0" Grid.Column="3" Height="Auto" HorizontalAlignment="Right" Width="Auto" Margin="10" ></materialDesign:MaterialDateDisplay>
+                <Button x:Name="btnLogout" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="40" Width="40" Margin="10" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnLogout_Click">
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Logout"></materialDesign:PackIcon>
+                    </StackPanel>
+                </Button>
+                <materialDesign:MaterialDateDisplay Grid.Row="0" Grid.Column="4" Height="Auto" HorizontalAlignment="Right" Width="Auto" Margin="10" ></materialDesign:MaterialDateDisplay>
             </Grid>
         </materialDesign:ColorZone>
 

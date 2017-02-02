@@ -80,7 +80,6 @@ namespace ClassM8_Client
 
         private void poll() {
             while (!finished) {
-                Thread.Sleep(5000);
                 try
                 {
                     List<Message> msgs = new List<Message>();
@@ -96,6 +95,7 @@ namespace ClassM8_Client
                 {
                     Console.WriteLine("Error: poll - " + ex.Message);
                 }
+                Thread.Sleep(5000);
             }
         }
 
@@ -107,5 +107,9 @@ namespace ClassM8_Client
             finished = true;
         }
 
+        private void txtMessage_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Console.WriteLine(txtMessage.Text);
+        }
     }
 }

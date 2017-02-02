@@ -43,10 +43,9 @@ namespace ClassM8_Client
             {
                 if (Database.Instance.currSchoolclass.getId() == -1)
                 {
+                    InitTitleBar();
                     ControllerNavigator.NavigateTo(new NoFriendsControl());
-                    ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
-                    ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
-                    progressBar.Visibility = Visibility.Hidden;
+                    
                 }
 
                 else
@@ -54,18 +53,29 @@ namespace ClassM8_Client
                     ControllerHolder.HomeControl.txtClass.Text = Database.Instance.currSchoolclass.getName();
                     ControllerHolder.HomeControl.txtSchool.Text = Database.Instance.currSchoolclass.getSchool();
                     ControllerHolder.HomeControl.txtRoom.Text = Database.Instance.currSchoolclass.getRoom();
-                    if (Database.Instance.currM8.isHasVoted()) {
+                    if (Database.Instance.currM8.isHasVoted())
+                    {
 
                         ControllerHolder.HomeControl.btnVote.Visibility = Visibility.Hidden;
                     }
+                    else
+                    {
+                        ControllerHolder.HomeControl.btnVote.Visibility = Visibility.Visible;
+                    }
                     ControllerHolder.HomeControl.loadChat();
                     ControllerHolder.HomeControl.lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
-                    ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
-                    ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
-                    progressBar.Visibility = Visibility.Hidden;
+                    InitTitleBar();
                     ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
                 }
             }
+        }
+
+        private void InitTitleBar()
+        {
+            ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
+            ControllerHolder.TitleSettings.Visibility = Visibility.Visible;
+            ControllerHolder.TitleLogout.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Hidden;
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)

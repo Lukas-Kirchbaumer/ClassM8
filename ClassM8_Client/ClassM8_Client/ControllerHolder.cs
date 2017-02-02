@@ -14,6 +14,7 @@ namespace ClassM8_Client
         private static LoginControl loginControl = new LoginControl();
         private static TextBlock titleTextBox;
         private static Button titleSettings;
+        private static Button titleLogout;
         private static Thread pollingThread;
 
         public static HomeControl HomeControl
@@ -34,10 +35,16 @@ namespace ClassM8_Client
             get { return titleTextBox; }
         }
 
-        public static Button TittleSettings
+        public static Button TitleSettings
         {
             set { titleSettings = value; }
             get { return titleSettings; }
+        }
+
+        public static Button TitleLogout
+        {
+            set { titleLogout = value; }
+            get { return titleLogout; }
         }
 
         public static Thread PollingThread() {

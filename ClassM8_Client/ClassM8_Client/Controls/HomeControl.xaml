@@ -17,7 +17,7 @@
         <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="270"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -37,8 +37,8 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="80"></RowDefinition>
-                            <RowDefinition Height="60"></RowDefinition>
-                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="80"></RowDefinition>
+                            <RowDefinition Height="80"></RowDefinition>
                         </Grid.RowDefinitions>
                         <TextBlock x:Name="txtClass" Grid.Row="0" Margin="20" FontSize="30" VerticalAlignment="Center">ClassPlaceHolder</TextBlock>
                         <TextBlock x:Name="txtSchool" Grid.Row="1" Margin="20" FontSize="25" VerticalAlignment="Center">SchoolPlaceHolder</TextBlock>
@@ -70,7 +70,7 @@
 
 
                 <ListBox x:Name="lbChat" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Margin="20,0,20,0" BorderBrush="OrangeRed" BorderThickness="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ListBox>
-                <TextBox x:Name="txtMessage" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="20,20,0,20" VerticalAlignment="Center" ></TextBox>
+                <TextBox x:Name="txtMessage" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="20,20,0,20" VerticalAlignment="Center" TextChanged="txtMessage_TextChanged" ></TextBox>
                 <Button x:Name="btnChat" Grid.Row="2" Grid.Column="5" Margin="20" Height="40" Width="40" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnChat_Click" >
                     <StackPanel>
                         <materialDesign:PackIcon Kind="Play"></materialDesign:PackIcon>

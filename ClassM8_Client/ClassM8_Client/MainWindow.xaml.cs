@@ -1,4 +1,5 @@
 ﻿using ClassM8_Client.Controls;
+using ClassM8_Client.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,11 @@ namespace ClassM8_Client
         public MainWindow()
         {
             InitializeComponent();
-            btnSettings.Visibility = Visibility.Hidden;
-            ControllerNavigator.Frame = mainFrame;
             ControllerHolder.TitleTextBox = lblName;
-            ControllerHolder.TittleSettings = btnSettings;
-            mainFrame.Navigate(new LoginControl());
+            ControllerHolder.TitleSettings = btnSettings;
+            ControllerHolder.TitleLogout = btnLogout;
+            ControllerNavigator.Frame = mainFrame;
+            init();
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
@@ -39,6 +40,23 @@ namespace ClassM8_Client
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ControllerHolder.HomeControl.SetFinished();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            
+            ControllerHolder.HomeControl.SetFinished();
+            Database.Instance.currM8 = null;
+            Database.Instance.currM8 = null;
+            Database.Instance.currUserId = -1;
+            init();
+        }
+
+        private void init() {
+            btnSettings.Visibility = Visibility.Hidden;
+            btnLogout.Visibility = Visibility.Hidden;
+            lblName.Text = "";
+            mainFrame.Navigate(new LoginControl());
         }
     }
 }
