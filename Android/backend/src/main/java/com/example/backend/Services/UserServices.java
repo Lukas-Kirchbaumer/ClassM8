@@ -79,6 +79,30 @@ public class UserServices {
         }
         return user;
     }
+    public M8 getUserByEMail(String eMail){
+        M8 ret = null;
+        try {
+            URL serverURL =serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/byemail/" + eMail);
+
+            Executer executer = new Executer();
+            executer.setMethod("GET");
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            M8 user = gson.fromJson(strFromWebService, M8.class);
+
+            M8Result m8r = gson.fromJson(strFromWebService, M8Result.class);
+
+            ret = m8r.getContent().get(0).toM8();
+        }catch(Exception e){
+            e.printStackTrace();
+            ret = null;
+        }
+        return ret;
+    }
 
     public M8 createNewUser(M8 user) {
         Executer executer = new Executer();
@@ -124,7 +148,7 @@ public class UserServices {
     public void updateUser(M8 user) {
         Executer executer = new Executer();
         try {
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user?id=" + user.getId());
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/user/?id=" + user.getId());
 
             executer.setMethod("PUT");
             executer.setData(gson.toJson(user, M8.class));

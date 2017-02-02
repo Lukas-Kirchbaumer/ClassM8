@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
     private static DataReader instance = null;
-    public static String IP = "172.16.146.1";
+    public static String IP = "25.68.245.50";
 
     public static DataReader getInstance() {
         if (instance == null) {
@@ -167,5 +167,11 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     public ArrayList<Message> receiveMessage() {
         ChatServices chatService = new ChatServices();
         return new ArrayList<Message>(chatService.receiveMessages());
+    }
+    public boolean addMateToSchoolclass(M8 mate){
+        return SchoolclassServices.getInstance().addMateToClass((int)mate.getId());
+    }
+    public M8 getMateByEMail(String mail){
+        return UserServices.getInstance().getUserByEMail(mail);
     }
 }

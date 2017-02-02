@@ -1,0 +1,110 @@
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<android.support.v4.widget.DrawerLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="0.1dp"
+    android:layout_marginRight="0.1dp"
+
+    tools:context="com.example.laubi.myapplication.Activities.TestHomeActivity">
+
+    <!-- As the main content view, the view below consumes the entire
+         space available using match_parent in both dimensions. -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSendMessages"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp"
+                android:background="@android:drawable/ic_menu_send" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/txtMessage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintRight_toLeftOf="@+id/btnSendMessages"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@+id/btnSendMessages"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.33"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:id="@+id/tvCurrClass"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <ListView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@+id/lvClassM8s"
+                app:layout_constraintLeft_toRightOf="@+id/lvClassM8s"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/lvClassM8s"
+                app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/lvMessages" />
+
+            <ListView
+                android:layout_height="323dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="99dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtMessage"
+                android:layout_marginBottom="24dp"
+                android:id="@+id/lvClassM8s"
+                android:maxWidth="100dp"
+                android:minWidth="80dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvYourM8s" />
+
+            <TextView
+                android:text="Your M8s"
+                android:layout_width="66dp"
+                android:layout_height="23dp"
+                android:id="@+id/tvYourM8s"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/tvCurrClass" />
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
+    <!-- The drawer is given a fixed width in dp and extends the full height of
+         the container. -->
+
+    <fragment
+        android:id="@+id/navigation_drawer"
+        android:name="com.example.laubi.myapplication.Fragments.NavigationDrawerFragment"
+        android:layout_width="@dimen/navigation_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        tools:layout="@layout/drawer_test_home" />
+
+</android.support.v4.widget.DrawerLayout>

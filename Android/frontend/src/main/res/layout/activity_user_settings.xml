@@ -11,15 +11,14 @@
         android:id="@+id/txtSettingsFirstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="Vorname"
         android:inputType="textPersonName"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/txtSettingsLastname"
@@ -29,7 +28,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Nachname"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,15 +37,14 @@
         android:id="@+id/txtSettingsEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Email"
         android:inputType="textEmailAddress"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtSettingsLastname"
+        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSettingsLastname" />
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/txtSettingsPassword"
@@ -57,7 +54,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Passwort"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -91,5 +87,37 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSettingsPassword" />
+
+    <TextView
+        android:text="Vorname:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvVorname"
+        app:layout_constraintLeft_toLeftOf="@+id/txtSettingsFirstname"
+        app:layout_constraintBottom_toTopOf="@+id/txtSettingsFirstname" />
+
+    <TextView
+        android:text="Nachname:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNachname"
+        app:layout_constraintLeft_toLeftOf="@+id/txtSettingsLastname"
+        app:layout_constraintBottom_toTopOf="@+id/txtSettingsLastname" />
+
+    <TextView
+        android:text="Email:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvEmail"
+        app:layout_constraintLeft_toLeftOf="@+id/txtSettingsEmail"
+        app:layout_constraintBottom_toTopOf="@+id/txtSettingsEmail" />
+
+    <TextView
+        android:text="Passwort:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPasswort"
+        app:layout_constraintLeft_toLeftOf="@+id/txtSettingsPassword"
+        app:layout_constraintBottom_toTopOf="@+id/txtSettingsPassword" />
 
 </android.support.constraint.ConstraintLayout>

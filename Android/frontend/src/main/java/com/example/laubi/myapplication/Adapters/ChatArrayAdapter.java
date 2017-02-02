@@ -47,7 +47,7 @@ public class ChatArrayAdapter extends ArrayAdapter<Message> {
         TextView labelView = (TextView) rowView.findViewById(R.id.header);
         TextView valueView = (TextView) rowView.findViewById(R.id.content);
         String info = itemsArrayList.get(position).getSender() + "   " +
-                      (itemsArrayList.get(position).getDateTime());
+                      (format.format(itemsArrayList.get(position).getDateTime()));
         String currUser = Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname();
         if(itemsArrayList.get(position).getSender().equals(currUser)){
             info =  "You   " + format.format(itemsArrayList.get(position).getDateTime());

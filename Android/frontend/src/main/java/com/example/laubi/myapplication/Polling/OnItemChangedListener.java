@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.databinding.ObservableList;
 import android.widget.ListView;
 
-import com.example.laubi.myapplication.Activities.HomeActivity;
 import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
 import com.example.laubi.myapplication.R;
+import com.example.laubi.myapplication.Activities.TestHomeActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -16,10 +16,10 @@ import java.lang.ref.WeakReference;
 
 public class OnItemChangedListener extends ObservableList.OnListChangedCallback {
 
-    HomeActivity activity;
+    TestHomeActivity activity;
 
     public OnItemChangedListener(WeakReference<Activity> activity) {
-        this.activity = (HomeActivity) activity.get();
+        this.activity = (TestHomeActivity) activity.get();
     }
 
     @Override

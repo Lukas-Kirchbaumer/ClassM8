@@ -3,10 +3,12 @@ package com.example.laubi.myapplication.Activities;
 import android.app.Activity;
 //import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.backend.Dto.M8;
 import com.example.backend.Interfaces.DataReader;
 import com.example.laubi.myapplication.R;
 
@@ -27,8 +29,12 @@ public class AddM8Activity extends Activity {
             public void onClick(View v) {
                 String email = txtNewM8Email.getText().toString();
 
-                //TODO get M8 by Id (webservice) add M8 with Id (WS)
-
+                M8 mate = DataReader.getInstance().getMateByEMail(email);
+                if(mate!=null)
+                    DataReader.getInstance().addMateToSchoolclass(mate);
+                else
+                    System.out.println("wellp");
+                finish();
             }
         });
 

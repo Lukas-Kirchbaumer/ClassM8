@@ -19,7 +19,6 @@ public class VoteActivity extends Activity {
 
     public final DataReader dr = new DataReader();
     public Spinner spPresidentChoice;
-    public Spinner spDeputyChoice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,11 @@ public class VoteActivity extends Activity {
 
         spPresidentChoice.setAdapter(spinnerArrayAdapter);
 
+        if(Database.getInstance().getCurrentMate().isHasVoted()){
+
+            spPresidentChoice.setEnabled(false);
+            btnVote.setEnabled(false);
+        }
 
         btnVote.setOnClickListener(new View.OnClickListener() {
             @Override

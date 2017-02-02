@@ -81,7 +81,7 @@ public class Executer extends AsyncTask<URL, String, String> {
                 System.out.println("set output properties");
                 urlConnection.setDoOutput(true);
                 urlConnection.setChunkedStreamingMode(0);
-                urlConnection.setConnectTimeout(1000);
+                urlConnection.setConnectTimeout(5000);
                 System.out.println("starting to write outputStream");
                 OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
                 writeStream(out);

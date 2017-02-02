@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
 
                     if (currM8 != null) {
-                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(MainActivity.this, TestHomeActivity.class);
 
                         //Falls er wegen Theme.AppCompat theme blablba weint
                         //android:theme="@style/Theme.AppCompat.Light"

@@ -90,6 +90,28 @@ public class SchoolclassServices {
         return schoolclass;
     }
 
+    public boolean addMateToClass(int id){
+        Executer executer = new Executer();
+        boolean ret = false;
+        try {
+            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/" + id +"?scid=" + Database.getInstance().getCurrentSchoolclass().getId());
+
+            executer.setMethod("POST");
+            executer.setData("");
+            executer.execute(serverURL);
+
+            String strFromWebService = executer.get();
+
+            System.out.println("returned string: " + strFromWebService);
+
+            Result r = gson.fromJson(strFromWebService, Result.class);
+            ret = r.isSuccess();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
     public Schoolclass createNewClass(Schoolclass s) {
         Executer executer = new Executer();
         try {
