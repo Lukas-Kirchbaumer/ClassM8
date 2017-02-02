@@ -2,6 +2,7 @@
 using ClassM8_Client.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,30 +24,82 @@ namespace ClassM8_Client
     /// </summary>
     public partial class LoginControl : UserControl
     {
-        HomeControl homeControl = new HomeControl();
+        BackgroundWorker bw = new BackgroundWorker();
+        M8 mate = new M8();
 
         public LoginControl()
         {
             InitializeComponent();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_WorkCompleted);
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {   
+        private void bw_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!e.Cancelled)
+            {
+                if (Database.Instance.currSchoolclass.getId() == -1)
+                {
+                    ControllerNavigator.NavigateTo(new NoFriendsControl());
+                    ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
+                    ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
+                    progressBar.Visibility = Visibility.Hidden;
+                }
+
+                else
+                {
+                    ControllerHolder.HomeControl.txtClass.Text = Database.Instance.currSchoolclass.getName();
+                    ControllerHolder.HomeControl.txtSchool.Text = Database.Instance.currSchoolclass.getSchool();
+                    ControllerHolder.HomeControl.txtRoom.Text = Database.Instance.currSchoolclass.getRoom();
+                    if (Database.Instance.currM8.isHasVoted()) {
+
+                        ControllerHolder.HomeControl.btnVote.Visibility = Visibility.Hidden;
+                    }
+                    ControllerHolder.HomeControl.loadChat();
+                    ControllerHolder.HomeControl.lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
+                    ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
+                    ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
+                    progressBar.Visibility = Visibility.Hidden;
+                    ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
+                }
+            }
+        }
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            if (e.ProgressPercentage == 0)
+            {
+                progressBar.Visibility = Visibility.Visible;
+            }
+            else if (e.ProgressPercentage == 101)
+            {
+                progressBar.Value = e.ProgressPercentage;
+                bw.CancelAsync();
+            }
+            else
+            {
+                progressBar.Value = e.ProgressPercentage;
+            }
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
             try
             {
-                M8 mate = new M8();
-                mate.setEmail(email.Text);
-                mate.setPassword(password.Password);
-
+                (sender as BackgroundWorker).ReportProgress(0);
                 DataReader.Instance.loginM8(mate);
+                (sender as BackgroundWorker).ReportProgress(30);
 
                 if (Database.Instance.currUserId > 0)
                 {
-                    loginAccepted();
+                    loginAccepted(sender, e);
                 }
                 else
                 {
-                    loginDenied();
+                    loginDenied(sender, e);
                 }
 
             }
@@ -54,8 +107,43 @@ namespace ClassM8_Client
             {
                 Console.WriteLine("Login error: " + ex.Message.ToString());
             }
+        }
+
+
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            mate = new M8();
+            mate.setEmail(email.Text);
+            mate.setPassword(password.Password);
+            bw.RunWorkerAsync();
             
         }
+
+
+        private void loginDenied(object sender, DoWorkEventArgs e)
+        {
+            txtErrorMsg.Dispatcher.Invoke(new Action(() => {
+                txtErrorMsg.Text = "Username or Password was not correct";
+            }));
+            e.Cancel = true;
+            (sender as BackgroundWorker).ReportProgress(101);
+           
+        }
+
+        private void loginAccepted(object sender, DoWorkEventArgs e)
+        {
+            DataReader.Instance.getM8();
+            (sender as BackgroundWorker).ReportProgress(50);
+            DataReader.Instance.getM8Class();
+            (sender as BackgroundWorker).ReportProgress(80);
+            Console.WriteLine(Database.Instance.currSchoolclass.getId());
+            (sender as BackgroundWorker).ReportProgress(100);
+
+        }
+
+
+
 
 
         private void btnNewAcc_Click(object sender, RoutedEventArgs e)
@@ -71,36 +159,6 @@ namespace ClassM8_Client
             
 
         }
-
-        private void loginDenied()
-        {
-            txtErrorMsg.Text = "Username or Password was not correct";
-        }
-
-        private void loginAccepted()
-        {
-            DataReader.Instance.getM8();
-            DataReader.Instance.getM8Class();
-
-
-            Console.WriteLine(Database.Instance.currSchoolclass.getId());
-            if (Database.Instance.currSchoolclass.getId() == -1)
-            {
-                ControllerNavigator.NavigateTo(new NoFriendsControl());
-                ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
-                ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
-            }
-            else {
-                ControllerHolder.HomeControl.lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
-                ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
-                ControllerHolder.TittleSettings.Visibility = Visibility.Visible;
-                
-                ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
-            }
-            
-        }
-
-
 
 
     }

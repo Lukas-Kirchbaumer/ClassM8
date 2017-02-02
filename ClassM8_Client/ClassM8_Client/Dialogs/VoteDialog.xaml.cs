@@ -32,6 +32,7 @@ namespace ClassM8_Client.Dialogs
                 Console.WriteLine("Chosen one: " + selected);
 
                 DataReader.Instance.vote(selected);
+                ControllerHolder.HomeControl.btnVote.Visibility = Visibility.Hidden;
                 this.Close();
             }
             catch (Exception ex)

@@ -35,5 +35,10 @@ namespace ClassM8_Client
         {
             ControllerNavigator.NavigateTo(new UserSettingsControl());
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ControllerHolder.HomeControl.SetFinished();
+        }
     }
 }

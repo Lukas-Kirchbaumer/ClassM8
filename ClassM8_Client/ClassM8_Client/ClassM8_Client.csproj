@@ -83,6 +83,9 @@
     <Compile Include="Controls\FileShareControl.xaml.cs">
       <DependentUpon>FileShareControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NewClassControl.xaml.cs">
+      <DependentUpon>NewClassControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserSettingsControl.xaml.cs">
       <DependentUpon>UserSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NewAccountControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NewClassControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

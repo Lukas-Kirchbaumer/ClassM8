@@ -45,6 +45,7 @@ namespace ClassM8_Client.Controls
             {
                 Console.WriteLine(items.Count);
                 lbDownloadableFiles.ItemsSource = null;
+                lbDownloadableFiles.Items.Clear();
                 lbDownloadableFiles.ItemsSource = items;
             }
             else
@@ -68,7 +69,8 @@ namespace ClassM8_Client.Controls
                 // Buffer to read bytes in chunk size specified above
                 byte[] buffer = new Byte[bytesToRead];
                 // The number of bytes read
-                string url = "http://localhost:8080/ClassM8Web/services/file/content/" + file.getId();
+                string url = AppSettings.ConnectionString + "file/content/" + file.getId();
+                Console.WriteLine(url);
                 try
                 {
                     HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -250,15 +252,17 @@ namespace ClassM8_Client.Controls
                     var result = streamReader.ReadToEnd();
                     Console.WriteLine("Result for File: " + result);
 
+
                     LoginResult obj = Activator.CreateInstance<LoginResult>();
                     MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
                     DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
                     obj = (LoginResult)serializer.ReadObject(ms);
-                    ms.Close();
 
+                    
+                    ms.Close();
+                    file.setId(obj.getId());
                     HttpUploadFile(AppSettings.ConnectionString + "file/content/" + (int)obj.getId(),
                         tempFile, "file", file.getContentType());
-                    //UploadFile((int)obj.getId(), file);
                 }
             }
             catch (WebException ex)

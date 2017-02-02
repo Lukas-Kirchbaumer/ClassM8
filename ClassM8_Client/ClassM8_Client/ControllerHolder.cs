@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
@@ -13,6 +14,7 @@ namespace ClassM8_Client
         private static LoginControl loginControl = new LoginControl();
         private static TextBlock titleTextBox;
         private static Button titleSettings;
+        private static Thread pollingThread;
 
         public static HomeControl HomeControl
         {
@@ -36,6 +38,10 @@ namespace ClassM8_Client
         {
             set { titleSettings = value; }
             get { return titleSettings; }
+        }
+
+        public static Thread PollingThread() {
+            return pollingThread;
         }
     }
 }

@@ -25,15 +25,12 @@ namespace ClassM8_Client
     /// </summary>
     public partial class HomeControl : UserControl
     {
-        private Thread chatPoller;
+        Boolean finished = false;
+
         public HomeControl()
         {
             InitializeComponent();
-
-            loadChat();
         }
-
-
 
         private void btnEditClass_Click(object sender, RoutedEventArgs e)
         {
@@ -72,21 +69,21 @@ namespace ClassM8_Client
             }
         }
 
-        private void loadChat() 
+        public void loadChat() 
         {
             ThreadStart childref = new ThreadStart(poll);
             Console.WriteLine("Creating the Polling Thread");
+            Thread chatPoller = ControllerHolder.PollingThread();
             chatPoller = new Thread(childref);
             chatPoller.Start();
         }
 
         private void poll() {
-            while (true) {
+            while (!finished) {
                 Thread.Sleep(5000);
                 try
                 {
                     List<Message> msgs = new List<Message>();
-
                     msgs = DataReader.Instance.loadChat();
 
                     if (msgs.Count > 0)
@@ -100,6 +97,14 @@ namespace ClassM8_Client
                     Console.WriteLine("Error: poll - " + ex.Message);
                 }
             }
+        }
+
+        public Boolean IsFinished() {
+            return finished;
+        }
+
+        public void SetFinished() {
+            finished = true;
         }
 
     }

@@ -17,6 +17,7 @@
         <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="270"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -31,32 +32,46 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button x:Name="btnEditClass" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Height="40" Width="40" Margin="20,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnEditClass_Click">
+
+                <materialDesign:ColorZone Grid.Column="0" Grid.Row="0" Grid.RowSpan="4" Mode="PrimaryDark" VerticalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="txtClass" Grid.Row="0" Margin="20" FontSize="30" VerticalAlignment="Center">ClassPlaceHolder</TextBlock>
+                        <TextBlock x:Name="txtSchool" Grid.Row="1" Margin="20" FontSize="25" VerticalAlignment="Center">SchoolPlaceHolder</TextBlock>
+                        <TextBlock x:Name="txtRoom" Grid.Row="2" Margin="20" FontSize="25" VerticalAlignment="Center">RoomPlaceHolder</TextBlock>
+                    </Grid>
+                </materialDesign:ColorZone>
+                
+                <Button x:Name="btnEditClass" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="40" Width="40" Margin="20,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnEditClass_Click">
                     <StackPanel>
                         <materialDesign:PackIcon Kind="Settings"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="btnVote" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Height="40" Width="40" Margin="10,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnVote_Click">
+                <Button x:Name="btnVote" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Height="40" Width="40" Margin="10,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnVote_Click">
                     <StackPanel>
                         <materialDesign:PackIcon Kind="ThumbUp"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
 
-                <Button x:Name="btnFiles" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="40" Width="40" Margin="10,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnFiles_Click">
+                <Button x:Name="btnFiles" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Height="40" Width="40" Margin="10,20,10,20" VerticalAlignment="Center"  Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnFiles_Click">
                     <StackPanel>
                         <materialDesign:PackIcon Kind="File"></materialDesign:PackIcon>
                     </StackPanel>
                 </Button>
                 
-                <ListBox x:Name="lbAllM8s" HorizontalAlignment="Right" Margin="0,0,20,20" BorderBrush="OrangeRed" BorderThickness="1" Grid.Column="5" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Stretch" Width="200"/>
+                <ListBox x:Name="lbAllM8s" HorizontalAlignment="Right" Margin="0,0,20,20" BorderBrush="OrangeRed" BorderThickness="1" Grid.Column="6" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Stretch" Width="200"/>
 
                 <Button x:Name="btnAddM8" Content="+" HorizontalAlignment="Left" Grid.Column="3" VerticalAlignment="Center" Click="btnAddM8_Click" Margin="10,20,10,20"  Height="40" Width="40" Style="{DynamicResource MaterialDesignFloatingActionButton}" />
 
 
-                <ListBox x:Name="lbChat" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="20,0,20,0" BorderBrush="OrangeRed" BorderThickness="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ListBox>
-                <TextBox x:Name="txtMessage" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="20,20,0,20" VerticalAlignment="Center" ></TextBox>
-                <Button x:Name="btnChat" Grid.Row="2" Grid.Column="4" Margin="20" Height="40" Width="40" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnChat_Click" >
+                <ListBox x:Name="lbChat" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Margin="20,0,20,0" BorderBrush="OrangeRed" BorderThickness="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></ListBox>
+                <TextBox x:Name="txtMessage" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Margin="20,20,0,20" VerticalAlignment="Center" ></TextBox>
+                <Button x:Name="btnChat" Grid.Row="2" Grid.Column="5" Margin="20" Height="40" Width="40" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnChat_Click" >
                     <StackPanel>
                         <materialDesign:PackIcon Kind="Play"></materialDesign:PackIcon>
                     </StackPanel>

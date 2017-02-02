@@ -24,5 +24,10 @@ namespace ClassM8_Client.Controls
         {
             InitializeComponent();
         }
+
+        private void btnNewClass_Click(object sender, RoutedEventArgs e)
+        {
+            ControllerNavigator.NavigateTo(new NewClassControl());
+        }
     }
 }

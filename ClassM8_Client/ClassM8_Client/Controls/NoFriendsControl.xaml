@@ -23,6 +23,6 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">Wait until you're invited to join a class or create a class your own.</TextBlock>
-        <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="1" Content="Create New Class" FontSize="14" HorizontalAlignment="Center" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto"/>
+        <Button x:Name="btnNewClass" Grid.Row="1" Grid.Column="1" Content="Create New Class" FontSize="14" HorizontalAlignment="Center" Height="40" Margin="10" VerticalAlignment="Top" Width="Auto" Click="btnNewClass_Click"/>
     </Grid>
 </UserControl>

@@ -14,7 +14,12 @@
              d:DesignHeight="825" d:DesignWidth="1600">
 
     <Grid Height="825" Width="1600">
-        <materialDesign:Card Margin="10" Height="Auto" MinWidth="300" MaxWidth="500" MinHeight="275" VerticalAlignment="Center" >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition  Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.Row="1" Margin="10" Height="Auto" MinWidth="300" MaxWidth="500" MinHeight="275" VerticalAlignment="Center" >
             <Grid VerticalAlignment="Center" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -49,5 +54,6 @@
                 <Button x:Name="btnNewAcc" Click="btnNewAcc_Click" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Column="4" Margin="8 20 8 20" Style="{DynamicResource MaterialDesignFloatingActionButton}">+</Button>
             </Grid>
         </materialDesign:Card>
+        <ProgressBar Grid.Row="2" x:Name="progressBar"  Visibility="Hidden"></ProgressBar>
     </Grid>
 </UserControl>
