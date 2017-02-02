@@ -20,7 +20,7 @@ import com.example.backend.Database.Database;
 import com.example.backend.Dto.*;
 import com.example.backend.Interfaces.*;
 import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
-import com.example.laubi.myapplication.Polling.AlarmListener;
+
 import com.example.laubi.myapplication.Polling.OnItemChangedListener;
 import com.example.laubi.myapplication.Polling.ReceiveMessageTask;
 import com.example.laubi.myapplication.R;
@@ -36,7 +36,7 @@ public class HomeActivity extends Activity{
     static final int ADDM8 = 3;
     private static ListView lvMessages;
     TextView tvCurrClass = null;
-    private  ArrayList<M8> m8s;
+    private  ArrayList<com.example.backend.Dto.M8> m8s;
     private Button btnStartVote;
     private Button btnDownloads;
     private Button btnSendMessage;
