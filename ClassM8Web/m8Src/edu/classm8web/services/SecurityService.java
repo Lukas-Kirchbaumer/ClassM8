@@ -17,7 +17,11 @@ public class SecurityService {
 	}
 
 	public long checkLogin(String email, String password) throws DatabaseException {
+		
 		long ret = -1;
+		
+		email = email.toLowerCase();
+		
 		ArrayList<M8> result = (ArrayList<M8>) MateService.getInstance().findByEmail(email);
 		M8 dude = result.get(0);
 		

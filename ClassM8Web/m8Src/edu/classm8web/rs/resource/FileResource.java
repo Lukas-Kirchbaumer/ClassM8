@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,6 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -37,13 +39,14 @@ public class FileResource extends AbstractResource {
 	@GET
 	@Path("content/{fileid}")
 	@Produces(value = { MediaType.APPLICATION_OCTET_STREAM })
-	public Response streamFileById(@PathParam("fileid") String fileid) {
+	public Response streamFileById(@Context HttpServletRequest httpServletRequest, @PathParam("fileid") String fileid) {
 
+		logMessage(this.getClass(), httpServletRequest, "Stream binary file");
+		
 		Result r = new Result();
 
 		ResponseBuilder builder = null;
 
-		System.out.println(fileid);
 		try {
 			File file = FileService.getInstance().findById(Long.valueOf(fileid));
 			if(file != null){
@@ -62,14 +65,19 @@ public class FileResource extends AbstractResource {
 			handelAndThrowError(e, r);
 		}
 
+
 		return builder.build();
 	}
 
 	@POST
 	@Path("content/{fileid}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
+	public Response uploadFile(@Context HttpServletRequest httpServletRequest, @FormDataParam("file") InputStream uploadedInputStream,
 	@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("fileid") String fileid) {
+		
+		logMessage(this.getClass(), httpServletRequest, "Upload binary file");
+
+		
 		Result r = new Result();
 		try{
 			File f = FileService.getInstance().findById(Long.parseLong(fileid));
@@ -91,14 +99,18 @@ public class FileResource extends AbstractResource {
 		catch(Exception e){
 			handelAndThrowError(e, r);
 		}
-		return null;
+		
+
+		return Response.status(Status.CREATED).build();
 	}
 
 	@POST
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Consumes("application/json")
-	public Response createFileMetaDataInGroup(@QueryParam("schoolclassid") String schoolclassid, final File input) {
+	public Response createFileMetaDataInGroup(@Context HttpServletRequest httpServletRequest, @QueryParam("schoolclassid") String schoolclassid, final File input) {
 
+		logMessage(this.getClass(), httpServletRequest, "Create Metadata for File");
+		
 		LoginResult r = new LoginResult();
 
 		try {
@@ -123,6 +135,7 @@ public class FileResource extends AbstractResource {
 		} catch (Exception e) {
 			handelAndThrowError(e, r);
 		}
+
 
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}

@@ -4,10 +4,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,7 +24,8 @@ public class ElectionResource extends AbstractResource {
 
 	@PUT
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response vote(@QueryParam("voterid") String voterM8, @QueryParam("votedid") String votedM8) {
+	public Response vote(@Context HttpServletRequest httpServletRequest, @QueryParam("voterid") String voterM8, @QueryParam("votedid") String votedM8) {
+		logMessage(this.getClass(), httpServletRequest, "vote");
 		workaround();
 		Result result = new Result();
 
@@ -32,7 +35,6 @@ public class ElectionResource extends AbstractResource {
 
 			if (voter.getSchoolclass().getId() == voted.getSchoolclass().getId() && !voter.isHasVoted()) {
 				Schoolclass sc = SchoolclassService.getInstance().findById(voter.getSchoolclass().getId());
-				System.out.println(sc);
 				if(sc != null){
 					voter.setHasVoted(true);
 					int votes = voted.getVotes() + 1;
@@ -73,6 +75,7 @@ public class ElectionResource extends AbstractResource {
 		} catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
+
 
 		return Response.status(Response.Status.ACCEPTED).entity(result).build();
 	}

@@ -1,9 +1,11 @@
 package edu.classm8web.rs.resource;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -17,8 +19,11 @@ public class SecurityResource extends AbstractResource {
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response login(final M8 input) {
+	public Response login(@Context HttpServletRequest httpServletRequest, final M8 input) {
 
+		logMessage(this.getClass(), httpServletRequest, "Login");
+
+		
 		LoginResult res = new LoginResult();
 
 		try {

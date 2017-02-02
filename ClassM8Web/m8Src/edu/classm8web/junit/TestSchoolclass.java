@@ -87,13 +87,13 @@ public class TestSchoolclass {
 		m8.setLastname("lastname");
 		m8.setEmail("testingEmail34343434343434343434344343434");
 		m8.setPassword("password123");
-		ur.create(m8);
+		ur.create(null, m8);
 		
 		sc.setName("TestBHIFS");
 		sc.setRoom("1337");
 		sc.setSchool("TestTL");
 		
-		Response res = scr.createSchoolclass(sc, m8.getId() + "");
+		Response res = scr.createSchoolclass(null, sc, m8.getId() + "");
 		Result result = (Result) res.getEntity();
 		assertTrue(result.isSuccess());
 	}
@@ -164,7 +164,7 @@ public class TestSchoolclass {
 		m8dos.setLastname("lastname");
 		m8dos.setEmail("testingEmailm8dos777777777777777777777");
 		m8dos.setPassword("password123");
-		ur.create(m8dos);
+		ur.create(null, m8dos);
 		
 		Response res = scr.addM8ToSchoolClass(null, null, m8dos.getId() + "", sc.getId()+ "");
 		Result result = (Result) res.getEntity();
@@ -184,7 +184,7 @@ public class TestSchoolclass {
 	@Test
 	public void test7A_Election() {
 		System.out.println("Election");
-		Response res = er.vote(m8dos.getId() + "", m8.getId() + "");
+		Response res = er.vote(null, m8dos.getId() + "", m8.getId() + "");
 		Result result = (Result) res.getEntity();
 		assertTrue(result.isSuccess());
 	}
@@ -192,7 +192,7 @@ public class TestSchoolclass {
 	@Test
 	public void test7B_ElectionFail() {
 		System.out.println("Election Failing");
-		Response res = er.vote(m8dos.getId() + "", m8.getId() + "");
+		Response res = er.vote(null, m8dos.getId() + "", m8.getId() + "");
 		Result result = (Result) res.getEntity();
 		assertFalse(result.isSuccess());
 	}

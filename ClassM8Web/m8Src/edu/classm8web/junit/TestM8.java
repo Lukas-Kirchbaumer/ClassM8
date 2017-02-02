@@ -94,7 +94,7 @@ public class TestM8 {
 		m8.setLastname("lastname");
 		m8.setEmail("testingEmail1212121212121212121212121212121212121212121212121212121212121");
 		m8.setPassword("password123");
-		Response res = ur.create(m8);
+		Response res = ur.create(null, m8);
 		M8Result result = (M8Result) res.getEntity();
 		assertTrue(result.isSuccess());
 	}
@@ -105,7 +105,7 @@ public class TestM8 {
 		m8dos.setLastname("lastname");
 		m8dos.setEmail("testingEmail1212121212121212121212121212121212121212121212121212121212121");
 		m8dos.setPassword("password123");
-		Response res = ur.create(m8dos);
+		Response res = ur.create(null, m8dos);
 		M8Result result = (M8Result) res.getEntity();
 		assertFalse(result.isSuccess());
 	}
@@ -134,14 +134,14 @@ public class TestM8 {
 	
 	@Test
 	public void test4A_Login() {
-		Response res = sr.login(m8);
+		Response res = sr.login(null, m8);
 		Result result = (Result) res.getEntity();
 		assertTrue(result.isSuccess());
 	}
 	
 	@Test
 	public void test4B_LoginFail() {
-		Response res = sr.login(new M8());
+		Response res = sr.login(null, new M8());
 		Result result = (Result) res.getEntity();
 		assertFalse(result.isSuccess());
 	}

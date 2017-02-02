@@ -43,6 +43,8 @@ public class SchoolclassResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getAllSchoolclasses(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 		
+		logMessage(this.getClass(), httpServletRequest, "All schoolclasses");
+		
 		workaround();
 		
 		SchoolclassResult res = new SchoolclassResult();
@@ -64,6 +66,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response updateSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id, final Schoolclass input) {
 
+		logMessage(this.getClass(), httpServletRequest, "Update schoolclass");
+
+		
 		Result r = new Result();
 
 		try {
@@ -82,7 +87,11 @@ public class SchoolclassResource extends AbstractResource {
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response createSchoolclass(final Schoolclass input, @QueryParam("m8id") String id) {
+	public Response createSchoolclass(@Context HttpServletRequest httpServletRequest, final Schoolclass input, @QueryParam("m8id") String id) {
+		
+		logMessage(this.getClass(), httpServletRequest, "Create schoolclass");
+
+		
 		Result r = new Result();
 
 		try {
@@ -124,6 +133,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response deleteSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
 
+		logMessage(this.getClass(), httpServletRequest, "Delete schoolclass");
+
+		
 		Result r = new Result();
 
 		try {
@@ -143,6 +155,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response getClassbyUser(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("m8id") String id) {
 
+		logMessage(this.getClass(), httpServletRequest, "Return class for m8");
+
+		
 		workaround();
 
 		
@@ -171,6 +186,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response addM8ToSchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("m8id") String m8id, @QueryParam("scid") String scid) {
 
+		logMessage(this.getClass(), httpServletRequest, "Add m8 to schoolclass");
+
+		
 		Result r = new Result();
 
 		try {
@@ -203,6 +221,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response removeM8fromSchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("m8id") String m8id, @QueryParam("scid") String scid) {
 
+		logMessage(this.getClass(), httpServletRequest, "Remove m8 from schoolclass");
+
+		
 		Result r = new Result();
 
 		try {
@@ -247,6 +268,9 @@ public class SchoolclassResource extends AbstractResource {
 	public Response getChatFromSchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("scid") String id) {
 		
+		logMessage(this.getClass(), httpServletRequest, "Chat content");
+
+		
 		ChatResult result = new ChatResult();
 
 		
@@ -282,6 +306,9 @@ public class SchoolclassResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response pushMessage(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("scid") String scid, @QueryParam("m8id") String m8id, final String message){
+		
+		logMessage(this.getClass(), httpServletRequest, "Push message");
+
 		
 		Result r = new Result();
 		
