@@ -30,11 +30,9 @@ public class SecurityService {
 				ret = dude.getId();
 			}
 		} else {
-			
+			//false
 		}
 
-		if (dude != null)
-			ret = dude.getId();
 
 		return ret;
 	}

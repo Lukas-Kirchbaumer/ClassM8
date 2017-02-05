@@ -130,8 +130,11 @@ public class ElectionResource extends AbstractResource {
 			});
 		}
 		
-		sc.setPresident(comp.get(0));
-		sc.setPresidentDeputy(comp.get(1));
+		if(comp.size() >= 2){
+			sc.setPresident(comp.get(0));
+			sc.setPresidentDeputy(comp.get(1));
+		}
+
 		
 		
 		SchoolclassService.getInstance().update(sc);
