@@ -10,6 +10,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
+        Icon="icon/icon.png"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         Title="ClassM8" Height="900" Width="1600"
         Closing="Window_Closing">

@@ -62,6 +62,7 @@ namespace ClassM8_Client
                     {
                         ControllerHolder.HomeControl.btnVote.Visibility = Visibility.Visible;
                     }
+                    ControllerHolder.HomeControl.SetFinished(false);
                     ControllerHolder.HomeControl.loadChat();
                     ControllerHolder.HomeControl.lbAllM8s.ItemsSource = Database.Instance.currSchoolclass.getClassMembers();
                     InitTitleBar();

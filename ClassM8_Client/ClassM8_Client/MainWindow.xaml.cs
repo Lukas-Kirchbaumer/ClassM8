@@ -39,13 +39,13 @@ namespace ClassM8_Client
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ControllerHolder.HomeControl.SetFinished();
+            ControllerHolder.HomeControl.SetFinished(true);
         }
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             
-            ControllerHolder.HomeControl.SetFinished();
+            ControllerHolder.HomeControl.SetFinished(true);
             Database.Instance.currM8 = null;
             Database.Instance.currM8 = null;
             Database.Instance.currUserId = -1;

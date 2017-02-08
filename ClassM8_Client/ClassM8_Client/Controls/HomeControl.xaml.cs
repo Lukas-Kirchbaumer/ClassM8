@@ -60,8 +60,12 @@ namespace ClassM8_Client
             chat();
         }
 
-        public void loadChat() 
+        public void loadChat()
         {
+
+            lbChat.ItemsSource = null;
+            lbChat.Items.Clear();
+            lbChat.ItemsSource = new List<Message>();
             ThreadStart childref = new ThreadStart(poll);
             Console.WriteLine("Creating the Polling Thread");
             Thread chatPoller = ControllerHolder.PollingThread();
@@ -79,6 +83,7 @@ namespace ClassM8_Client
                     if (msgs.Count > 0)
                     {
                         btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
+                        lbChat.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ScrollIntoView(msgs.ElementAt(msgs.Count-1))));
                     }
 
                 }
@@ -94,8 +99,8 @@ namespace ClassM8_Client
             return finished;
         }
 
-        public void SetFinished() {
-            finished = true;
+        public void SetFinished(Boolean b) {
+            finished = b;
         }
 
         private void txtMessage_TextChanged(object sender, TextChangedEventArgs e)
