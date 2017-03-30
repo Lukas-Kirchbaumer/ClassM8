@@ -44,6 +44,7 @@ public class ClassM8Application extends Application{
 		SchoolclassService.getInstance();
 		FileService.getInstance(); //Create Persistence Components
 		
+		
 		System.out.println(MateService.getInstance().getEm());
 		System.out.println(SchoolclassService.getInstance().getEm());
 		System.out.println(FileService.getInstance().getEm());

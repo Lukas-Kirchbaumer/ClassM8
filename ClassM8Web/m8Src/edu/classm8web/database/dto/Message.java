@@ -1,5 +1,6 @@
 package edu.classm8web.database.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -7,14 +8,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Embeddable
-public class Message {
+public class Message implements Comparable<Message>{
 
 	private String content;
 	
 	private String sender;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateTime;
+	private Timestamp dateTime;
 	
 	public Message() {}
 
@@ -34,12 +34,17 @@ public class Message {
 		this.sender = sender;
 	}
 
-	public Date getDateTime() {
+	public Timestamp getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Date dateTime) {
+	public void setDateTime(Timestamp dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	@Override
+	public int compareTo(Message m) {
+		return this.dateTime.compareTo(m.dateTime);
 	}
 	
 	

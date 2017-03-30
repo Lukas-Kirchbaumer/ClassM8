@@ -1,4 +1,6 @@
 package edu.classm8web.rs.resource;
+import javax.servlet.http.HttpServletRequest;
+
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
@@ -13,7 +15,7 @@ public abstract class AbstractResource {
 		error.setErrorMessage(e.getMessage());
 		r.setError(error);
 		r.setSuccess(false);
-		e.printStackTrace();
+		System.out.println("[Error Info] : " + e.toString());
 	}
 	
 	protected void workaround() {
@@ -36,7 +38,9 @@ public abstract class AbstractResource {
 		SchoolclassService.getInstance().createPersistentComponents();
 		FileService.getInstance().createPersistentComponents();
 
-		System.out.println("######## WORKAROUND DONE ########");
-
+	}
+	
+	public void logMessage(Class<?> res, HttpServletRequest r, String meth){
+		System.out.println("[Service Info] : @" + r.getRemoteAddr() + " -> " + r.getMethod() + " : " + res.getSimpleName() + " // action : " + meth);
 	}
 }

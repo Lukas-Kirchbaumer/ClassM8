@@ -33,6 +33,9 @@ public class UserResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getUsers(@Context Request request, @Context HttpServletRequest httpServletRequest) {
 
+		logMessage(this.getClass(), httpServletRequest, "User");
+
+		
 		workaround();
 
 		
@@ -55,6 +58,9 @@ public class UserResource extends AbstractResource {
 	public Response update(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id, final M8 input) {
 
+		logMessage(this.getClass(), httpServletRequest, "Update User");
+
+		
 		Result r = new Result();
 
 		try {
@@ -72,8 +78,11 @@ public class UserResource extends AbstractResource {
 	@POST
 	@Consumes("application/json")
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response create(final M8 input) {
+	public Response create(@Context HttpServletRequest httpServletRequest, final M8 input) {
 
+		logMessage(this.getClass(), httpServletRequest, "Create User");
+
+		
 		M8Result r = new M8Result();
 
 		try {
@@ -96,6 +105,9 @@ public class UserResource extends AbstractResource {
 	public Response delete(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("id") String id) {
 
+		logMessage(this.getClass(), httpServletRequest, "Delete User");
+
+		
 		Result r = new Result();
 
 		try {
@@ -116,6 +128,9 @@ public class UserResource extends AbstractResource {
 	public Response get(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("id") String id) {
 
+		logMessage(this.getClass(), httpServletRequest, "User by id");
+
+		
 		workaround();
 		
 		M8Result result = new M8Result();
@@ -137,6 +152,10 @@ public class UserResource extends AbstractResource {
 	public Response getBySchoolClass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("id") String scid) {
 
+		
+		logMessage(this.getClass(), httpServletRequest, "Schoolclass by id");
+
+		
 		workaround();
 		
 		M8Result result = new M8Result();
@@ -162,6 +181,9 @@ public class UserResource extends AbstractResource {
 	public Response getByEmail(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@PathParam("email") String email) {
 
+		logMessage(this.getClass(), httpServletRequest, "User by email");
+
+		
 		workaround();
 		
 		M8Result result = new M8Result();
