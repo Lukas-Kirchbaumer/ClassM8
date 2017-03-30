@@ -471,12 +471,15 @@ namespace ClassM8_Client
             return ok;
         }
 
-        public List<Message> loadChat() {
+        public List<Message> loadChat(String date) {
             List<Message> msgs = new List<Message>();
             if (Database.Instance.currSchoolclass != null && Database.Instance.currSchoolclass.getId() != -1) {
                 try
                 {
-                    string url = AppSettings.ConnectionString + "schoolclass/chat?scid=" + Database.Instance.currSchoolclass.getId();
+                    string url = AppSettings.ConnectionString + "schoolclass/chat?scid=" + Database.Instance.currSchoolclass.getId()
+                        + "&limit=" + date;
+
+                    Console.WriteLine(url);
 
                     var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                     httpWebRequest.ContentType = "application/json; charset=utf-8";
@@ -498,6 +501,8 @@ namespace ClassM8_Client
                         obj = (ChatResult)serializer.ReadObject(ms);
                         ms.Close();
 
+                        Console.WriteLine(obj.isSuccess());
+
                         if (obj.isSuccess()) {
                             msgs = obj.getSchoolclassChat().getMessages();
                             Console.WriteLine("Messages count : " + obj.getSchoolclassChat().getMessages().Count);
@@ -509,6 +514,7 @@ namespace ClassM8_Client
                     Console.WriteLine("Error: DataReader.loadChat - " + ex.Message);
                 }
             }
+            Console.WriteLine("in method " + msgs.Count);
             return msgs;
         }
 

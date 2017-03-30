@@ -25,6 +25,7 @@ namespace ClassM8_Client
     /// </summary>
     public partial class HomeControl : UserControl
     {
+        List<Message> msgs = new List<Message>();
         Boolean finished = false;
 
         public HomeControl()
@@ -62,7 +63,6 @@ namespace ClassM8_Client
 
         public void loadChat()
         {
-
             lbChat.ItemsSource = null;
             lbChat.Items.Clear();
             lbChat.ItemsSource = new List<Message>();
@@ -77,14 +77,28 @@ namespace ClassM8_Client
             while (!finished) {
                 try
                 {
-                    List<Message> msgs = new List<Message>();
-                    msgs = DataReader.Instance.loadChat();
+                    List<Message> newMsgs = new List<Message>();
+                    Console.WriteLine(msgs.Count);
+
+                    if (msgs.Count != 0)
+                    {
+                        newMsgs = DataReader.Instance.loadChat(msgs[msgs.Count - 1].getDateTime());
+                        Console.WriteLine(msgs[msgs.Count - 1].getDateTime());
+                        foreach (Message m in newMsgs) {
+                            msgs.Add(m);
+                        }
+                    }
+                    else {
+                        msgs = DataReader.Instance.loadChat("2011-10-02 18:48:05.123");
+                    }
 
                     if (msgs.Count > 0)
                     {
                         btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
+                        btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.Items.Refresh()));
                         lbChat.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ScrollIntoView(msgs.ElementAt(msgs.Count-1))));
                     }
+                    Console.WriteLine(msgs.Count);
 
                 }
                 catch (Exception ex)
@@ -120,9 +134,6 @@ namespace ClassM8_Client
         private void chat() {
             DataReader.Instance.sendMessage(txtMessage.Text);
             txtMessage.Text = "";
-            List<Message> msgs = new List<Message>();
-
-            msgs = DataReader.Instance.loadChat();
 
             if (msgs.Count > 0)
             {
