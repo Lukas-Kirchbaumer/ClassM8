@@ -2,6 +2,7 @@ package edu.classm8web.rs.result;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement
 public class LoginResult extends Result {
 	private long id;
@@ -15,5 +16,6 @@ public class LoginResult extends Result {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 
 }

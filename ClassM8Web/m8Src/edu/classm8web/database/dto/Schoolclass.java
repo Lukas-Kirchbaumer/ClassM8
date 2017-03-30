@@ -1,6 +1,7 @@
 package edu.classm8web.database.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -31,6 +32,9 @@ public class Schoolclass implements Serializable{
 	
 	@OneToMany(mappedBy = "referencedSchoolclass")
 	private List<File> files;
+	
+	@OneToMany(mappedBy = "referencedSchoolclass")
+	private List<Emote> emotes;
 	
 	private String name;
 	
@@ -133,5 +137,15 @@ public class Schoolclass implements Serializable{
 	public void setSchoolclassChat(Chat schoolclassChat) {
 		this.schoolclassChat = schoolclassChat;
 	}
+
+	public List<Emote> getEmotes() {
+		return emotes;
+	}
+
+	public void setEmotes(List<Emote> emotes) {
+		this.emotes = emotes;
+	}
+	
+	
 	
 }

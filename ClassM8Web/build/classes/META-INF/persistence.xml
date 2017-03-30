@@ -6,6 +6,9 @@
 		<class>edu.classm8web.database.dto.M8</class>
 		<class>edu.classm8web.database.dto.Schoolclass</class>
 		<class>edu.classm8web.database.dto.File</class>
+		<class>edu.classm8web.database.dto.Chat</class>
+		<class>edu.classm8web.database.dto.Message</class>
+		<class>edu.classm8web.database.dto.Emote</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:oracle:thin:@212.152.179.117:1521:ora11g" />

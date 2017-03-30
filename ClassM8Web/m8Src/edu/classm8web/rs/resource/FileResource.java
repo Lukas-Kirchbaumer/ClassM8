@@ -23,6 +23,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.SchoolclassService;
+import edu.classm8web.database.dto.Emote;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.rs.result.LoginResult;
@@ -126,4 +127,7 @@ public class FileResource extends AbstractResource {
 
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}
+	
+	
+	
 }
