@@ -10,13 +10,14 @@ namespace ClassM8_Client.Data
     [DataContract]
     public class Schoolclass
     {
-        private static long serialVersionUID = -69655466883930376L;
         [DataMember]
         private long id;
         [DataMember]
         private List<M8> classMembers = new List<M8>();
         [DataMember]
         private List<File> files = new List<File>();
+        [DataMember]
+        private List<Emote> emotes = new List<Emote>();
         [DataMember]
         private String name;
         [DataMember]

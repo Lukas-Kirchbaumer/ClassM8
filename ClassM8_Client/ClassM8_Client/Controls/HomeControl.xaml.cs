@@ -130,6 +130,10 @@ namespace ClassM8_Client
             }
         }
 
-
+        private void btnEmote_Click(object sender, RoutedEventArgs e)
+        {
+            EmoteDialog ed = new EmoteDialog();
+            ed.ShowDialog();
+        }
     }
 }
