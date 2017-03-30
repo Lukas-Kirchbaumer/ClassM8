@@ -3,9 +3,11 @@ package edu.classm8web.mapper;
 import java.util.List;
 import java.util.Vector;
 
+import edu.classm8web.database.dto.Emote;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.M8;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.mapper.objects.MappedEmote;
 import edu.classm8web.mapper.objects.MappedFile;
 import edu.classm8web.mapper.objects.MappedM8;
 import edu.classm8web.mapper.objects.MappedSchoolclass;
@@ -22,6 +24,7 @@ public class ObjectMapper {
 		msc.setSchool(sc.getSchool());
 		Vector<MappedM8> mscClassMembers = new Vector<MappedM8>();
 		Vector<MappedFile> mscFiles = new Vector<MappedFile>();
+		Vector<MappedEmote> mscEmotes = new Vector<MappedEmote>();
 		
 		for(M8 m8 : sc.getClassMembers()){
 			mscClassMembers.add(ObjectMapper.mapForSchoolClass(m8));
@@ -29,6 +32,10 @@ public class ObjectMapper {
 		
 		for(File f : sc.getFiles()){
 			mscFiles.add(ObjectMapper.mapForSchoolClasss(f));
+		}
+		
+		for(Emote e : sc.getEmotes()){
+			mscEmotes.add(ObjectMapper.mapForSchoolClasss(e));
 		}
 		
 		msc.setFiles(mscFiles);
@@ -46,6 +53,11 @@ public class ObjectMapper {
 		MappedFile mf = new MappedFile();
 		mf.setNewFileNoSchoolClass(f);
 		return mf;
+	}
+	private static MappedEmote mapForSchoolClasss(Emote e) {
+		MappedEmote me = new MappedEmote();
+		me.setNewEmoteNoSchoolClass(e);
+		return me;
 	}
 	
 	public static MappedSchoolclass mapForM8(Schoolclass sc){

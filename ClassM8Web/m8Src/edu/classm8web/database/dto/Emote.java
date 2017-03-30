@@ -68,4 +68,7 @@ public class Emote {
 	public void setReferencedSchoolclass(Schoolclass referencedSchoolclass) {
 		this.referencedSchoolclass = referencedSchoolclass;
 	}
+	
+	
+
 }

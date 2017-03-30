@@ -1,9 +1,16 @@
 package edu.classm8web.database.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.persistence.*;
+
+import java.sql.Timestamp;
+
+import edu.classm8web.comparator.BackwardsDateComparator;
 
 /**
  * Entity implementation class for Entity: Chat
@@ -42,6 +49,25 @@ public class Chat implements Serializable {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+	
+	public List<Message> getMessagesAfterDate(Timestamp date){
+		List<Message> recentMessages = new ArrayList<Message>();
+		List<Message> backwards = new ArrayList<Message>();
+		backwards.addAll(messages);
+		backwards.sort(new BackwardsDateComparator());
+		
+		for(Message m : backwards){
+			if(m.getDateTime().after(date)){
+				System.out.println("-----------");
+				System.out.println(date);
+				System.out.println(m.getSender()+ " " + m.getDateTime());
+				recentMessages.add(m);
+			}
+		}
+		
+		return recentMessages;
+		
 	}
 	
 	

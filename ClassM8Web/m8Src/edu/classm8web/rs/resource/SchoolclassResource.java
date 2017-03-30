@@ -1,12 +1,15 @@
 package edu.classm8web.rs.resource;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -255,29 +258,47 @@ public class SchoolclassResource extends AbstractResource {
 			@QueryParam("scid") String id, @QueryParam("limit") String limit) {
 
 		logMessage(this.getClass(), httpServletRequest, "Chat content");
-
 		ChatResult result = new ChatResult();
-		Integer chatSize = null;
 		Chat mapped = new Chat();
-		
-		
+		Timestamp limitDate = null;
 		try{
-			chatSize = Integer.parseInt(limit);
+			System.out.println(limit);
+			limit = limit.replace("T", " ");
+			System.out.println(limit);
+			limit = limit.substring(0, limit.length()-5);
+			System.out.println(limit);
+			limitDate = Timestamp.valueOf(limit);
 		} catch(Exception e){
-			System.out.println("Warning: No limit");
-			chatSize = null;
+			e.printStackTrace();
+			System.out.println("Warning: No Date");
+			limitDate = null;
 		}
 
 		try {
-			
-
 			Schoolclass sc = SchoolclassService.getInstance().findById(Long.parseLong(id));
 
-			if (sc != null) {
+			if (sc != null && limitDate != null) {
 				Chat c = sc.getSchoolclassChat();
 
 				if (c != null) {
-					List<Message> mes = c.getMessages();
+					List<Message> mes = c.getMessagesAfterDate(limitDate);
+					
+					if(mes.size() != 0){
+						mapped.setMessages(mes);
+						Collections.sort(mapped.getMessages());
+						mapped.setId(c.getId());
+						result.setSchoolclassChat(mapped);
+						result.setSuccess(true);
+					}
+				}
+			} else {
+				throw new Exception("Schoolclass not found");
+			}
+		}catch (Exception e) {
+			handelAndThrowError(e, result);
+		}
+					
+					/*
 					if (chatSize != null) {
 						List<Message> filteredMes = new ArrayList<Message>();
 						
@@ -302,14 +323,13 @@ public class SchoolclassResource extends AbstractResource {
 					result.setSuccess(true);
 
 				}
+				
 
 			} else {
 				throw new Exception("Schoolclass not found");
 			}
+*/
 
-		} catch (Exception e) {
-			handelAndThrowError(e, result);
-		}
 
 		return Response.status(Status.ACCEPTED).entity(result).build();
 	}
