@@ -4,8 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.SequenceInputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,6 +17,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -27,6 +32,7 @@ import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.Emote;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.rs.result.EmoteResult;
 import edu.classm8web.rs.result.LoginResult;
 import edu.classm8web.rs.result.Result;
 
@@ -36,16 +42,18 @@ public class EmoteResource extends AbstractResource {
 
 	private static final String EMOTE_PATH = "E:\\HTL\\BSD\\5. Klasse\\Glassfish\\glassfish4\\glassfish\\domains\\cm8\\generated\\emotes\\";
 	
+	
 	@GET
 	@Path("content/{fileid}")
 	@Produces(value = { MediaType.APPLICATION_OCTET_STREAM })
-	public Response streamFileById(@PathParam("fileid") String fileid) {
+	public Response streamFileById(@Context HttpServletRequest httpServletRequest, @PathParam("fileid") String fileid) {
 
+		logMessage(this.getClass(), httpServletRequest, "Stream binary file");
+		
 		Result r = new Result();
 
 		ResponseBuilder builder = null;
 
-		System.out.println(fileid);
 		try {
 			File file = FileService.getInstance().findById(Long.valueOf(fileid));
 			if(file != null){
@@ -64,9 +72,11 @@ public class EmoteResource extends AbstractResource {
 			handelAndThrowError(e, r);
 		}
 
+
 		return builder.build();
 	}
 
+	
 	@POST
 	@Path("content/{fileid}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -74,14 +84,14 @@ public class EmoteResource extends AbstractResource {
 	@FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("fileid") String fileid) {
 		Result r = new Result();
 		try{
-			File f = FileService.getInstance().findById(Long.parseLong(fileid));
-			if(f != null){
+			Emote e = EmoteService.getInstance().findById(Long.parseLong(fileid));
+			if(e != null){
 		        OutputStream os = null;
-		        java.io.File fileToUpload = new java.io.File(EMOTE_PATH + f.getFileName());
+		        java.io.File fileToUpload = new java.io.File(EMOTE_PATH + e.getFileName());
 		        fileToUpload.getParentFile().mkdirs(); 
 		        fileToUpload.createNewFile();
 		        os = new FileOutputStream(fileToUpload);
-		        byte[] b = new byte[(int) f.getContentSize()];
+		        byte[] b = new byte[(int) e.getContentSize()];
 		        int length;
 		        while ((length = uploadedInputStream.read(b)) != -1) {
 		            os.write(b, 0, length);
@@ -93,7 +103,7 @@ public class EmoteResource extends AbstractResource {
 		catch(Exception e){
 			handelAndThrowError(e, r);
 		}
-		return null;
+		return Response.status(Status.ACCEPTED).entity(r).build();
 	}
 	
 	
@@ -106,10 +116,12 @@ public class EmoteResource extends AbstractResource {
 
 		LoginResult r = new LoginResult();
 
+		System.out.println(schoolclassid);
+		
 		try {
 			Schoolclass s = SchoolclassService.getInstance().findById(Long.valueOf(schoolclassid));
 			if (s != null) {
-				Date now = new Date();
+				input.setReferencedSchoolclass(s);
 				EmoteService.getInstance().persist(input);
 
 				s.getEmotes().add(input);
@@ -126,6 +138,22 @@ public class EmoteResource extends AbstractResource {
 			handelAndThrowError(e, r);
 		}
 
+		return Response.status(Status.ACCEPTED).entity(r).build();
+	}
+	
+	
+	@GET
+	@Path("all/{scid}")
+	@Produces(value = { MediaType.APPLICATION_JSON })
+	public Response getAllEmotesForSchoolClass(@Context HttpServletRequest httpServletRequest, @PathParam("scid") String scid) {
+
+		EmoteResult r = new EmoteResult();
+		try{
+			r.setEmotes(SchoolclassService.getInstance().findById(Long.valueOf(scid)).getEmotes());
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}
 }

@@ -14,6 +14,7 @@ import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
 import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.rs.resource.ElectionResource;
+import edu.classm8web.rs.resource.EmoteResource;
 import edu.classm8web.rs.resource.FileResource;
 import edu.classm8web.rs.resource.SchoolclassResource;
 import edu.classm8web.rs.resource.SecurityResource;
@@ -31,6 +32,7 @@ public class ClassM8Application extends Application{
 		classes.add(SecurityResource.class);
 		classes.add(SchoolclassResource.class);
 		classes.add(FileResource.class);
+		classes.add(EmoteResource.class);
 		classes.add(ElectionResource.class);
 		classes.add(MultiPartFeature.class);
 		return classes;

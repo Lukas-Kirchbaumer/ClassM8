@@ -1,5 +1,6 @@
 package edu.classm8web.database.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -91,7 +92,7 @@ public class EmoteService implements BaseDBService<Long,Emote>{
 
 	@Override
 	public List<Emote> findAll() {
-		String query = new StringBuilder("SELECT u FROM ").append(File.class.getSimpleName()).append(" u").toString();
+		String query = new StringBuilder("SELECT u FROM ").append(Emote.class.getSimpleName()).append(" u").toString();
 		return em.createQuery(query).getResultList();
 	}
 
@@ -127,5 +128,6 @@ public class EmoteService implements BaseDBService<Long,Emote>{
 	public EntityManager getEm() {
 		return this.em;
 	}
+	
 
 }
