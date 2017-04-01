@@ -2,18 +2,21 @@ package edu.classm8web.rs.result;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import edu.classm8web.database.dto.Emote;
+import edu.classm8web.mapper.objects.MappedEmote;
 
+@XmlRootElement
 public class EmoteResult extends Result {
-	private List<Emote> emotes;
+	private List<MappedEmote> emotes;
 	
 	public EmoteResult() {}
 	
-	public List<Emote> getEmotes() {
+	public List<MappedEmote> getEmotes() {
 		return emotes;
 	}
 	
-	public void setEmotes(List<Emote> ids) {
+	public void setEmotes(List<MappedEmote> ids) {
 		this.emotes = ids;
 	}
 	

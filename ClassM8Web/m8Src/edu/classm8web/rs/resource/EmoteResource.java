@@ -32,6 +32,7 @@ import edu.classm8web.database.dao.SchoolclassService;
 import edu.classm8web.database.dto.Emote;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.Schoolclass;
+import edu.classm8web.mapper.ObjectMapper;
 import edu.classm8web.rs.result.EmoteResult;
 import edu.classm8web.rs.result.LoginResult;
 import edu.classm8web.rs.result.Result;
@@ -69,6 +70,7 @@ public class EmoteResource extends AbstractResource {
 			}
 
 		} catch (Exception e) {
+			System.out.println("bört");
 			handelAndThrowError(e, r);
 		}
 
@@ -144,16 +146,22 @@ public class EmoteResource extends AbstractResource {
 	
 	@GET
 	@Path("all/{scid}")
-	@Produces(value = { MediaType.APPLICATION_JSON })
-	public Response getAllEmotesForSchoolClass(@Context HttpServletRequest httpServletRequest, @PathParam("scid") String scid) {
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getAllEmotesForSchoolClass(@PathParam("scid") String scid) {
 
+		System.out.println("fgt1");
 		EmoteResult r = new EmoteResult();
+		System.out.println("fgt2");
 		try{
-			r.setEmotes(SchoolclassService.getInstance().findById(Long.valueOf(scid)).getEmotes());
+			System.out.println("fgt3");
+			r.setEmotes(ObjectMapper.map(SchoolclassService.getInstance().findById(Long.valueOf(scid)).getEmotes()));
+			r.setSuccess(true);
+			System.out.println("fgt4");
 		}
-		catch(Exception ex){
-			ex.printStackTrace();
+		catch(Exception e){
+			handelAndThrowError(e, r);
 		}
+		System.out.println("fgt5");
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}
 }

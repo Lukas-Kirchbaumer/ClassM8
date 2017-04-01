@@ -1,5 +1,6 @@
 package edu.classm8web.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -59,6 +60,14 @@ public class ObjectMapper {
 		me.setNewEmoteNoSchoolClass(e);
 		return me;
 	}
+	public static List<MappedEmote> map(List<Emote> emotes) {
+		List<MappedEmote> mscEmotes = new ArrayList<MappedEmote>();
+		for(Emote e : emotes){
+			mscEmotes.add(ObjectMapper.mapForSchoolClasss(e));
+		}
+		return mscEmotes;
+	}
+	
 	
 	public static MappedSchoolclass mapForM8(Schoolclass sc){
 		MappedSchoolclass mmc = new MappedSchoolclass();
