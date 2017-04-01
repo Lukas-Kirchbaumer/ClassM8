@@ -26,5 +26,21 @@ namespace ClassM8_Client.Data
                 return instance;
             }
         }
+
+        internal void mapEmotes()
+        {
+            Dictionary<String, Emote> mapped = new Dictionary<string, Emote>();
+            if (currSchoolclass.getEmotesUnmapped() != null)
+            {
+                foreach (Emote e in currSchoolclass.getEmotesUnmapped())
+                {
+                    mapped.Add(e.getShortString(), e);
+                }
+                currSchoolclass.setEmotes(mapped);
+            }
+            else {
+                currSchoolclass.setEmotes(new Dictionary<string, Emote>());
+            }
+        }
     }
 }

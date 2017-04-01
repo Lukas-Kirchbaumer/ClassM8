@@ -29,6 +29,8 @@ namespace ClassM8_Client.Data
         [DataMember]
         private String school;
 
+        private Dictionary<String, Emote> dicEmotes;
+
         public Schoolclass() { }
 
         public long getId()
@@ -79,6 +81,15 @@ namespace ClassM8_Client.Data
             return room;
         }
 
+        internal void addEmote(Emote emote)
+        {
+            if (emotes == null) {
+                emotes = new List<Emote>();
+            }
+            emotes.Add(emote);
+            dicEmotes.Add(emote.getShortString(), emote);
+        }
+
         public void setRoom(String room)
         {
             this.room = room;
@@ -113,6 +124,20 @@ namespace ClassM8_Client.Data
         {
             this.school = school;
         }
+        public List<Emote> getEmotesUnmapped()
+        {
+            return emotes;
+        }
+
+        public Dictionary<String,Emote> getEmotes()
+        {
+            return dicEmotes;
+        }
+
+        public void setEmotes(Dictionary<String, Emote> e)
+        {
+            this.dicEmotes = e;
+        }
 
         public void setNewClass(Schoolclass sc)
         {
@@ -125,7 +150,6 @@ namespace ClassM8_Client.Data
             this.files = sc.files;
         }
 
-    
         override public int GetHashCode()
         {
             int prime = 31;

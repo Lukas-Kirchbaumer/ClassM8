@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ClassM8_Client.Data
 {
     [DataContract]
-    class Emote
+    public class Emote
     {
         [DataMember]
         private long id;
@@ -20,6 +20,12 @@ namespace ClassM8_Client.Data
         private long contentSize;
         [DataMember]
         private Schoolclass referencedSchoolclass;
+
+        public Emote() { }
+
+        public Emote(String ss) {
+            this.shortString = ss;
+        }
 
         public long getId()
         {
@@ -69,6 +75,11 @@ namespace ClassM8_Client.Data
         public void setReferencedSchoolclass(Schoolclass referencedSchoolclass)
         {
             this.referencedSchoolclass = referencedSchoolclass;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            return this.shortString.Equals(((Emote)obj).getShortString());
         }
     }
 }

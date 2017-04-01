@@ -147,6 +147,10 @@ namespace ClassM8_Client
             DataReader.Instance.getM8();
             (sender as BackgroundWorker).ReportProgress(50);
             DataReader.Instance.getM8Class();
+            if (Database.Instance.currSchoolclass.getId() != -1) {
+                DataReader.Instance.getAllEmotesForClass();
+                Database.Instance.mapEmotes();
+            }
             (sender as BackgroundWorker).ReportProgress(80);
             Console.WriteLine(Database.Instance.currSchoolclass.getId());
             (sender as BackgroundWorker).ReportProgress(100);

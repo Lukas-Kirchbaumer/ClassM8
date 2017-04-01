@@ -92,6 +92,10 @@
     <Compile Include="Data\Chat.cs" />
     <Compile Include="Data\ChatResult.cs" />
     <Compile Include="Data\Emote.cs" />
+    <Compile Include="Data\EmoteResult.cs" />
+    <Compile Include="Dialogs\AddEmoteDialog.xaml.cs">
+      <DependentUpon>AddEmoteDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddM8Dialog.xaml.cs">
       <DependentUpon>AddM8Dialog.xaml</DependentUpon>
     </Compile>
@@ -194,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\UserSettingsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AddEmoteDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

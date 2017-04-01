@@ -530,5 +530,89 @@ namespace ClassM8_Client
             Console.WriteLine("hier");
         }
 
+        public void getAllEmotesForClass()
+        {
+            List<Emote> emotes = getAllEmoteIdsForClass();
+            if (emotes != null) { 
+                foreach (Emote e in emotes) {
+                    getEmoteById(e);
+                }
+            }
+
+        }
+
+        private void getEmoteById(Emote e)
+        {
+            if (e != null)
+            {
+                Stream stream = null;
+                int bytesToRead = 10000;
+                byte[] buffer = new Byte[bytesToRead];
+                string url = AppSettings.ConnectionString + "emote/content/" + e.getId();
+                Console.WriteLine(url);
+                try
+                {
+                    HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(url);
+                    HttpWebResponse fileResp = (HttpWebResponse)fileReq.GetResponse();
+                    if (fileReq.ContentLength > 0)
+                        fileResp.ContentLength = fileReq.ContentLength;
+                    stream = fileResp.GetResponseStream();
+                    Console.WriteLine(stream);
+                    using (var fileStream = new FileStream("\\emotes\\" + e.getFileName(), FileMode.Create, FileAccess.Write))
+                    {
+                        Console.WriteLine("fgt");
+                        stream.CopyTo(fileStream);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    if (stream != null)
+                    {
+                        //Close the input stream
+                        stream.Close();
+                    }
+                }
+            }
+            
+        }
+
+        private List<Emote> getAllEmoteIdsForClass() {
+            string url = AppSettings.ConnectionString + "emote/all/" +
+               Database.Instance.currSchoolclass.getId();
+            List<Emote> emotes = new List<Emote>();
+            Console.WriteLine(url + "       -----------------------");
+
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "GET";
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine(result);
+                    EmoteResult er = Activator.CreateInstance<EmoteResult>();
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(er.GetType());
+                    er = (EmoteResult)serializer.ReadObject(ms);
+                    ms.Close();
+                    emotes = er.getEmotes();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.load all emotes - " + ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Database.Instance.currUserId = -1;
+            }
+            return emotes;
+        }
     }
 }

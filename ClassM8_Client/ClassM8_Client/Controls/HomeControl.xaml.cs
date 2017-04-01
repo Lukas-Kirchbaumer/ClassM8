@@ -26,6 +26,7 @@ namespace ClassM8_Client
     public partial class HomeControl : UserControl
     {
         List<Message> msgs = new List<Message>();
+        List<Border> borders = new List<Border>();
         Boolean finished = false;
 
         public HomeControl()
@@ -78,35 +79,88 @@ namespace ClassM8_Client
                 try
                 {
                     List<Message> newMsgs = new List<Message>();
-                    Console.WriteLine(msgs.Count);
-
+                    String dt = "";
                     if (msgs.Count != 0)
                     {
-                        newMsgs = DataReader.Instance.loadChat(msgs[msgs.Count - 1].getDateTime());
-                        Console.WriteLine(msgs[msgs.Count - 1].getDateTime());
-                        foreach (Message m in newMsgs) {
-                            msgs.Add(m);
-                        }
+                        dt = msgs[msgs.Count - 1].getDateTime();
                     }
                     else {
-                        msgs = DataReader.Instance.loadChat("2011-10-02 18:48:05.123");
+                        dt = "2011-10-02 18:48:05.123";
                     }
+                    newMsgs = DataReader.Instance.loadChat(dt);
+
+                    foreach (Message m in newMsgs)
+                    {
+                        msgs.Add(m);
+                        this.Dispatcher.Invoke(DispatcherPriority.Background, new Action(() => 
+                            borders.Add(generateBorderForMessage(m))));
+                        
+                    }
+
 
                     if (msgs.Count > 0)
                     {
-                        btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
-                        btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.Items.Refresh()));
-                        lbChat.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ScrollIntoView(msgs.ElementAt(msgs.Count-1))));
+                        this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = borders));
+                        this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.Items.Refresh()));
+                        this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ScrollIntoView(borders.ElementAt(borders.Count-1))));
                     }
                     Console.WriteLine(msgs.Count);
 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error: poll - " + ex.Message);
+                    
+                    Console.WriteLine("Error: poll - " + ex.Message + "\n" + ex.StackTrace);
                 }
                 Thread.Sleep(5000);
             }
+        }
+
+        private Border generateBorderForMessage(Message m)
+        {
+            Border b = new Border();
+            TextBlock t = new TextBlock();
+            string[] subStrings = m.getContent().Split('§');
+            foreach (string s in subStrings)
+            {
+                if (Database.Instance.currSchoolclass.getEmotes().ContainsKey(s))
+                {
+                    Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
+                    Console.WriteLine(e.getFileName());
+
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri("E:\\Bilder\\Emotes\\awe.png");
+                    image.EndInit();
+
+                    Image emote = new Image();
+                    emote.Width = 16;
+                    emote.Height = 16;
+                    emote.Source = image;
+
+
+                    t.Inlines.Add(emote);
+                }
+                else {
+                    /*
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri("E:\\Bilder\\Emotes\\awe.png");
+                    image.EndInit();
+
+                    Image emote = new Image();
+                    emote.Width = 16;
+                    emote.Height = 16;
+                    emote.Source = image;
+                    */
+
+                    t.Inlines.Add(s);
+                    //t.Inlines.Add(emote);
+                }
+            }
+
+            b.Child = t;
+            return b;
         }
 
         public Boolean IsFinished() {
@@ -134,11 +188,6 @@ namespace ClassM8_Client
         private void chat() {
             DataReader.Instance.sendMessage(txtMessage.Text);
             txtMessage.Text = "";
-
-            if (msgs.Count > 0)
-            {
-                btnVote.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => lbChat.ItemsSource = msgs));
-            }
         }
 
         private void btnEmote_Click(object sender, RoutedEventArgs e)

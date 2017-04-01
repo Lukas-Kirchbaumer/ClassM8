@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ClassM8_Client.Data;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +29,9 @@ namespace ClassM8_Client.Dialogs
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            AddEmoteDialog aed = new AddEmoteDialog();
+            aed.ShowDialog();
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
