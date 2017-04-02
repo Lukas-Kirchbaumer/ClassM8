@@ -56,16 +56,16 @@ public class EmoteResource extends AbstractResource {
 		ResponseBuilder builder = null;
 
 		try {
-			File file = FileService.getInstance().findById(Long.valueOf(fileid));
-			if(file != null){
+			Emote emote = EmoteService.getInstance().findById(Long.valueOf(fileid));
+			if(emote != null){
 				java.io.File f = new java.io.File(
-						EMOTE_PATH + file.getFileName());
+						EMOTE_PATH + emote.getFileName());
 	
 				InputStream is = new FileInputStream(f);
 	
 				builder = Response.status(Status.ACCEPTED).entity(is);
-				builder.type(file.getContentType());
-				builder.header("Content-Disposition", "attachment; filename=\"" + file.getFileName() + "\"");
+				builder.type("image/png");
+				builder.header("Content-Disposition", "attachment; filename=\"" + emote.getFileName() + "\"");
 				r.setSuccess(true);
 			}
 
