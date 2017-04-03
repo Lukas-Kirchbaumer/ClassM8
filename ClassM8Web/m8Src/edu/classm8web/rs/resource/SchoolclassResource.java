@@ -262,11 +262,6 @@ public class SchoolclassResource extends AbstractResource {
 		Chat mapped = new Chat();
 		Timestamp limitDate = null;
 		try{
-			System.out.println(limit);
-			limit = limit.replace("T", " ");
-			System.out.println(limit);
-			limit = limit.substring(0, limit.length()-5);
-			System.out.println(limit);
 			limitDate = Timestamp.valueOf(limit);
 		} catch(Exception e){
 			e.printStackTrace();
