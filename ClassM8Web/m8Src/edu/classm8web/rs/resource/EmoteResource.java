@@ -33,6 +33,7 @@ import edu.classm8web.database.dto.Emote;
 import edu.classm8web.database.dto.File;
 import edu.classm8web.database.dto.Schoolclass;
 import edu.classm8web.mapper.ObjectMapper;
+import edu.classm8web.mapper.objects.MappedEmote;
 import edu.classm8web.rs.result.EmoteResult;
 import edu.classm8web.rs.result.LoginResult;
 import edu.classm8web.rs.result.Result;
@@ -149,19 +150,57 @@ public class EmoteResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getAllEmotesForSchoolClass(@PathParam("scid") String scid) {
 
-		System.out.println("fgt1");
 		EmoteResult r = new EmoteResult();
-		System.out.println("fgt2");
 		try{
-			System.out.println("fgt3");
 			r.setEmotes(ObjectMapper.map(SchoolclassService.getInstance().findById(Long.valueOf(scid)).getEmotes()));
 			r.setSuccess(true);
-			System.out.println("fgt4");
 		}
 		catch(Exception e){
 			handelAndThrowError(e, r);
 		}
-		System.out.println("fgt5");
+		return Response.status(Status.ACCEPTED).entity(r).build();
+	}
+	
+	@GET
+	@Path("check/{scid}/{num}")
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response getNewEmotes(@PathParam("scid") String scid, @PathParam("num") String num) {
+
+		EmoteResult r = new EmoteResult();
+		try{
+			System.out.println("num: " + num);
+			System.out.println("scid: " + scid);
+			Integer numberClient = Integer.parseInt(num);
+			List<Emote> allEmotes = SchoolclassService.getInstance().findById(Long.valueOf(scid)).getEmotes();
+			List<MappedEmote> newEmotes = new ArrayList<MappedEmote>();
+			Integer numberServer = allEmotes.size();
+			
+			System.out.println(numberClient + " " + numberServer);
+			if(numberClient.intValue() < numberServer.intValue()){
+				System.out.println(numberServer.intValue() - numberClient.intValue());
+				for(int dif = numberServer.intValue() - numberClient.intValue() ; dif>0 ; dif--){
+					System.out.println(dif);
+					MappedEmote me = ObjectMapper.map(allEmotes.get(numberClient + dif -1));
+					newEmotes.add(me);
+				}
+				
+				r.setEmotes(newEmotes);
+				r.setSuccess(true);
+				
+			}
+			else if(numberClient.intValue() > numberServer.intValue()){
+				r.setSuccess(false);
+				
+			}
+			else{
+				r.setEmotes(new ArrayList<MappedEmote>());
+				r.setSuccess(true);
+			}
+			
+		}
+		catch(Exception e){
+			handelAndThrowError(e, r);
+		}
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}
 }

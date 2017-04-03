@@ -36,7 +36,7 @@ public class ObjectMapper {
 		}
 		
 		for(Emote e : sc.getEmotes()){
-			mscEmotes.add(ObjectMapper.mapForSchoolClasss(e));
+			mscEmotes.add(ObjectMapper.map(e));
 		}
 		
 		msc.setFiles(mscFiles);
@@ -55,7 +55,7 @@ public class ObjectMapper {
 		mf.setNewFileNoSchoolClass(f);
 		return mf;
 	}
-	private static MappedEmote mapForSchoolClasss(Emote e) {
+	public static MappedEmote map(Emote e) {
 		MappedEmote me = new MappedEmote();
 		me.setNewEmoteNoSchoolClass(e);
 		return me;
@@ -63,7 +63,7 @@ public class ObjectMapper {
 	public static List<MappedEmote> map(List<Emote> emotes) {
 		List<MappedEmote> mscEmotes = new ArrayList<MappedEmote>();
 		for(Emote e : emotes){
-			mscEmotes.add(ObjectMapper.mapForSchoolClasss(e));
+			mscEmotes.add(ObjectMapper.map(e));
 		}
 		return mscEmotes;
 	}
