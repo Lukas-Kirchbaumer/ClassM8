@@ -64,6 +64,7 @@ namespace ClassM8_Client
 
         public void loadChat()
         {
+            btnEmote.IsEnabled = false;
             lbChat.ItemsSource = null;
             lbChat.Items.Clear();
             lbChat.ItemsSource = new List<Message>();
@@ -72,12 +73,14 @@ namespace ClassM8_Client
             Thread chatPoller = ControllerHolder.PollingThread();
             chatPoller = new Thread(childref);
             chatPoller.Start();
+            btnEmote.IsEnabled = true;
         }
 
         private void poll() {
             while (!finished) {
                 try
                 {
+                    DataReader.Instance.checkForNewEmotes();
                     List<Message> newMsgs = new List<Message>();
                     String dt = "";
                     if (msgs.Count != 0)
@@ -119,47 +122,60 @@ namespace ClassM8_Client
         private Border generateBorderForMessage(Message m)
         {
             Border b = new Border();
+            StackPanel sp = new StackPanel();
             TextBlock t = new TextBlock();
+            TextBlock header = new TextBlock();
             string[] subStrings = m.getContent().Split('§');
+
             foreach (string s in subStrings)
             {
-                if (Database.Instance.currSchoolclass.getEmotes().ContainsKey(s))
+                if (Database.Instance.currSchoolclass.getEmotes().ContainsKey(s) && Database.Instance.currSchoolclass.getEmotes() != null)
                 {
-                    Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
-                    Console.WriteLine(e.getFileName());
+                    try
+                    {
+                        Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
+                        Console.WriteLine(e.getFileName());
+                        Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
+                        Console.WriteLine(uri.AbsolutePath);
 
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.UriSource = new Uri("E:\\Bilder\\Emotes\\awe.png");
-                    image.EndInit();
+                        BitmapImage image = new BitmapImage();
+                        image.BeginInit();
+                        image.UriSource = uri;
+                        image.EndInit();
 
-                    Image emote = new Image();
-                    emote.Width = 16;
-                    emote.Height = 16;
-                    emote.Source = image;
+                        Image emote = new Image();
+                        emote.Width = 16;
+                        emote.Height = 16;
+                        emote.Source = image;
 
-
-                    t.Inlines.Add(emote);
+                        t.Inlines.Add(emote);
+                    }
+                    catch (Exception e)
+                    {
+                        t.Inlines.Add(s);
+                    }
                 }
                 else {
-                    /*
-                    BitmapImage image = new BitmapImage();
-                    image.BeginInit();
-                    image.UriSource = new Uri("E:\\Bilder\\Emotes\\awe.png");
-                    image.EndInit();
-
-                    Image emote = new Image();
-                    emote.Width = 16;
-                    emote.Height = 16;
-                    emote.Source = image;
-                    */
-
                     t.Inlines.Add(s);
-                    //t.Inlines.Add(emote);
                 }
             }
 
-            b.Child = t;
+            String headerString =m.getSender() +
+                " " + m.getFormattedDate();
+
+            header.Inlines.Add(new Bold(new Italic(new Run(headerString))));
+            header.FontSize = 15;
+            header.Margin = new Thickness(0,0,0,5);
+            header.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ee7600"));
+
+            b.CornerRadius = new CornerRadius(8,8,8,8);
+            b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7B7A7C"));
+            b.Margin = new Thickness(5, 5, 5, 5);
+            b.Padding = new Thickness(5, 5, 5, 5);
+
+            sp.Children.Add(header);
+            sp.Children.Add(t);
+            b.Child = sp;
             return b;
         }
 
@@ -194,6 +210,10 @@ namespace ClassM8_Client
         {
             EmoteDialog ed = new EmoteDialog();
             ed.ShowDialog();
+            if (ed.SelectedItem != "")
+            {
+                txtMessage.Text = txtMessage.Text + "§" + ed.SelectedItem + "§";
+            }
         }
     }
 }

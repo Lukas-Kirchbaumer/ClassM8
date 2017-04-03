@@ -75,5 +75,12 @@ namespace ClassM8_Client.Data
             return this.getSender() + "   " + time + "\r\n" + this.getContent(); ;
         }
 
+        internal string getFormattedDate()
+        {
+            String ret = "";
+            ret = this.dateTime.Replace("T", " ");
+            ret = ret.Substring(0, ret.Length - 13);
+            return ret;
+        }
     }
 }

@@ -23,7 +23,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <materialDesign:Card Margin="10,0,10,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-            <ListBox Name="listBox" Margin="0">
+            <ListBox Name="listBox" Margin="0" SelectionChanged="listBox_SelectionChanged">
             </ListBox>
         </materialDesign:Card>
         <Button Grid.Row="0" Grid.Column="1" x:Name="btnAdd" Height="40" Width="40" Margin="0,20,20,20"   VerticalAlignment="Center" HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnAdd_Click">+</Button>

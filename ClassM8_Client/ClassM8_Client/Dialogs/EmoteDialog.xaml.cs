@@ -22,9 +22,36 @@ namespace ClassM8_Client.Dialogs
     /// </summary>
     public partial class EmoteDialog : Window
     {
+        public string SelectedItem
+        {
+            get;
+            set;
+        }
+
         public EmoteDialog()
         {
+            SelectedItem = "";
+            DataReader.Instance.checkForNewEmotes();
             InitializeComponent();
+            foreach (String s in Database.Instance.currSchoolclass.getEmotes().Keys){
+                TextBlock t = new TextBlock();
+                Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
+                Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = uri;
+                image.EndInit();
+
+                Image emote = new Image();
+                emote.Width = 16;
+                emote.Height = 16;
+                emote.Source = image;
+
+                t.Inlines.Add(emote);
+                t.Inlines.Add(" " + e.getId() + " ");
+                t.Inlines.Add(e.getShortString());
+                listBox.Items.Add(t);
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -36,6 +63,13 @@ namespace ClassM8_Client.Dialogs
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Inline il = ((TextBlock)listBox.SelectedItem).Inlines.ElementAt(2);
+            SelectedItem = ((Run)il).Text;
             this.Close();
         }
     }

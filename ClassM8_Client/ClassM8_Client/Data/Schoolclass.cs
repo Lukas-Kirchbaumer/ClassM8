@@ -220,5 +220,9 @@ namespace ClassM8_Client.Data
             return true;
         }
 
+        internal void setEmotesUnmapped(List<Emote> emotes)
+        {
+            this.emotes = emotes;
+        }
     }
 }

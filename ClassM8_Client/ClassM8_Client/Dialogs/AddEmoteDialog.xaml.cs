@@ -36,7 +36,6 @@ namespace ClassM8_Client.Dialogs
         {
             emote.setShortString(txtShorString.Text);
             if (emote.getShortString().Length != 0) {
-                Database.Instance.currSchoolclass.addEmote(emote);
                 createMetaData(emote);
             }
             this.Close();
