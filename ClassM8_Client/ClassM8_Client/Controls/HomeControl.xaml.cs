@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -88,7 +89,7 @@ namespace ClassM8_Client
                         dt = msgs[msgs.Count - 1].getDateTime();
                     }
                     else {
-                        dt = "2011-10-02 18:48:05.123";
+                        dt = "2011-10-02T18:48:05.123aaaaa";
                     }
                     newMsgs = DataReader.Instance.loadChat(dt);
 
@@ -164,14 +165,16 @@ namespace ClassM8_Client
                 " " + m.getFormattedDate();
 
             header.Inlines.Add(new Bold(new Italic(new Run(headerString))));
-            header.FontSize = 15;
-            header.Margin = new Thickness(0,0,0,5);
+            header.FontSize = 18;
+            header.Margin = new Thickness(0,0,0,10);
             header.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ee7600"));
-
-            b.CornerRadius = new CornerRadius(8,8,8,8);
+            
             b.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7B7A7C"));
             b.Margin = new Thickness(5, 5, 5, 5);
             b.Padding = new Thickness(5, 5, 5, 5);
+            b.MinWidth = 400;
+
+            t.FontSize = 16;
 
             sp.Children.Add(header);
             sp.Children.Add(t);

@@ -518,6 +518,9 @@ namespace ClassM8_Client
 
         public List<Message> loadChat(String date) {
             List<Message> msgs = new List<Message>();
+
+            date= date.Replace("T", " ");
+            date = date.Substring(0, date.Length - 5);
             if (Database.Instance.currSchoolclass != null && Database.Instance.currSchoolclass.getId() != -1) {
                 try
                 {
