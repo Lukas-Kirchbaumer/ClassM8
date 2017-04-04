@@ -1,5 +1,6 @@
 package edu.classm8web.database.dto;
 
+import edu.classm8web.rs.result.Point;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -133,7 +134,19 @@ public class M8 implements Serializable{
 	public void setSchoolclass(Schoolclass schoolclass) {
 		this.schoolclass = schoolclass;
 	}
+	
+	public Point getPositionFromSpatial(){
+		//TODO read spatial
+		return null;
+	}
+	
+	public void insertPositionToSpatial(Point p){
+		//TODO set spatial
+	}
 
+	public void updatePositionToSpatial(Point p){
+		//TODO set spatial
+	}
 
 	
 }
