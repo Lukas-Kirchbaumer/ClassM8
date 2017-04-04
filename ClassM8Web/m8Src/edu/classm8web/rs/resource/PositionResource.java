@@ -36,6 +36,9 @@ public class PositionResource extends AbstractResource {
 	public Response getPositonsBySchoolclass(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("scid") String scid) {
 		
+		logMessage(this.getClass(), httpServletRequest, "Position by Schoolclass");
+
+		
 		PositionResult r = new PositionResult();
 		Vector<Position> positions = new Vector<>();
 		
@@ -81,6 +84,9 @@ public class PositionResource extends AbstractResource {
 	public Response createPosition(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("mid") String mid, final Point p) {
 		
+		logMessage(this.getClass(), httpServletRequest, "Position by M8 Id");
+
+		
 		Result r = new Result();
 		
 		try {
@@ -110,6 +116,10 @@ public class PositionResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response updatePosition(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("mid") String mid, final Point p) {
+		
+		logMessage(this.getClass(), httpServletRequest, "Position by M8 Id");
+
+		
 		Result r = new Result();
 		
 		try {
@@ -137,6 +147,9 @@ public class PositionResource extends AbstractResource {
 	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response deletePosition(@Context Request request, @Context HttpServletRequest httpServletRequest,
 			@QueryParam("mid") String mid) {
+		
+		logMessage(this.getClass(), httpServletRequest, "Position by M8 Id");
+
 		
 		Result r = new Result();
 		
