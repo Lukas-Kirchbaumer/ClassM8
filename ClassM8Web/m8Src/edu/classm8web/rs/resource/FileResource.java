@@ -63,6 +63,7 @@ public class FileResource extends AbstractResource {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
 
@@ -98,6 +99,7 @@ public class FileResource extends AbstractResource {
 			}
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
 		
@@ -134,6 +136,7 @@ public class FileResource extends AbstractResource {
 				throw new Exception("Schoolclass doesn't exist");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			handelAndThrowError(e, r);
 		}
 

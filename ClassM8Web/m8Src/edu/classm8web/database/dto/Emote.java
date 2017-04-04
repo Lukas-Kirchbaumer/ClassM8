@@ -9,23 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "EmoteMate")
+@Table(name="EmoteMate",  uniqueConstraints={
+		   @UniqueConstraint(columnNames={"fileName", "schoolclassid"})
+		})
 public class Emote {
 	
+	
+	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="fileid", unique = true)
+	@Column(name="fileid")
 	private long id;
 	
 	private String fileName;
 	
-	@Id
 	private String shortString;
 	
 	private long contentSize;
 
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "schoolclassid")
 	private Schoolclass referencedSchoolclass;
