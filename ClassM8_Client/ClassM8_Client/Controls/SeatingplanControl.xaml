@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ClassM8_Client.Controls.SeatingplanControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClassM8_Client.Controls"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+             d:DesignHeight="700" d:DesignWidth="1200">
+    <Grid>
+                <materialDesign:Card Margin="10,10,10,0" Height="700">
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Mode="PrimaryDark" Height="70" VerticalAlignment="Center">
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40">Sitzplan</TextBlock>
+            </materialDesign:ColorZone>
+
+            <Grid Name="innerGrid" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="1" Margin="20 8 20 8" Height="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button x:Name="btnAddSeat" Content="Add Seat" Grid.Column="0" Grid.Row="0" Width="100" Margin="20 8 20 8" Click="btnAddSeat_Click"/>
+                <Button x:Name="btnLoadSeats" Content="Load Seats" Grid.Column="0" Grid.Row="1" Width="100" Margin="20 8 20 8" Click="btnLoadSeats_Click"/>
+                <Button x:Name="btnSaveSeats" Content="Save Seats" Grid.Column="0" Grid.Row="2" Width="100" Margin="20 8 20 8" Click="btnSaveSeats_Click"/>
+                <Button x:Name="btnClear" Content="Clear" Grid.Column="0" Grid.Row="3" Width="100" Margin="20 8 20 8" Click="btnClear_Click"/>
+                <Button x:Name="btnBack" Content="Back" Grid.Column="0" Grid.Row="4" Width="100" Margin="20 8 20 8" Click="btnBack_Click"/>
+            </Grid>
+
+            <Canvas Name="canvasSeats" Grid.Row="3" Margin="92,10,88,-354" Grid.Column="1" Background="AntiqueWhite" Width="Auto" Height="Auto"/>
+
+        </Grid>
+    </materialDesign:Card>
+    </Grid>
+</UserControl>
+
+
+
+
+
+
+
+
+
