@@ -35,8 +35,13 @@ namespace ClassM8_Client.Dialogs
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             emote.setShortString(txtShorString.Text);
-            if (emote.getShortString().Length != 0) {
+            if (emote.getShortString().Length != 0)
+            {
+                txtError.Text = "";
                 createMetaData(emote);
+            }
+            else {
+                txtError.Text = "Name must not be empty";
             }
             this.Close();
             

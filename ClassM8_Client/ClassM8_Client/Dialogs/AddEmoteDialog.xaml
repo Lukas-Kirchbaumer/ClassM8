@@ -23,6 +23,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
@@ -30,7 +31,8 @@
                 <Button Grid.Row="0" Grid.Column="0"  x:Name="btnFile" Height="40" Width="40" Margin="20,20,0,20" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignFloatingActionButton}" Click="btnFile_Click">...</Button>
                 <TextBox Grid.Row="1" Grid.Column="2" Margin="20" Name="txtShorString"></TextBox>
                 <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,20,0,20">Name</TextBlock>
-                <Button x:Name="btnAdd" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Click="btnAdd_Click">Add</Button>
+                <Button x:Name="btnAdd" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,20,20,20" Click="btnAdd_Click">Add</Button>
+                <TextBlock x:Name="txtError" Grid.Row="2" HorizontalAlignment="Center" Grid.ColumnSpan="2"></TextBlock>
             </Grid>
         </materialDesign:Card>
     </Grid>
