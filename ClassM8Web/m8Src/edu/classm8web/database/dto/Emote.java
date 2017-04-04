@@ -14,13 +14,13 @@ import javax.persistence.Table;
 @Table(name = "EmoteMate")
 public class Emote {
 	
-	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="fileid")
+	@Column(name="fileid", unique = true)
 	private long id;
 	
 	private String fileName;
 	
+	@Id
 	private String shortString;
 	
 	private long contentSize;

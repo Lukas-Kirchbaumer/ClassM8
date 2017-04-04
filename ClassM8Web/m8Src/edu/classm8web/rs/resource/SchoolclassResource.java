@@ -292,38 +292,6 @@ public class SchoolclassResource extends AbstractResource {
 		}catch (Exception e) {
 			handelAndThrowError(e, result);
 		}
-					
-					/*
-					if (chatSize != null) {
-						List<Message> filteredMes = new ArrayList<Message>();
-						
-						ListIterator<Message> it = mes.listIterator(mes.size());
-
-						for (; it.hasPrevious() && chatSize > 0; chatSize--) {
-							filteredMes.add(it.previous());
-						}
-
-						Collections.sort(filteredMes);
-
-						mapped.setId(c.getId());
-						mapped.setMessages(filteredMes);
-						result.setSchoolclassChat(mapped);
-					} else {
-						Collections.sort(mes);
-						c.setMessages(mes);
-						result.setSchoolclassChat(c);
-
-					}
-					
-					result.setSuccess(true);
-
-				}
-				
-
-			} else {
-				throw new Exception("Schoolclass not found");
-			}
-*/
 
 
 		return Response.status(Status.ACCEPTED).entity(result).build();
