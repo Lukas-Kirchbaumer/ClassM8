@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Sprint3\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\
 ClassM8_Client
 none
 false
 DEBUG;TRACE
-E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\App.xaml
-131472616183
+C:\Users\Anwender\Desktop\HTL\5BHIFS\BSD\Sprint3\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\App.xaml
+15658427181
 
-381925465003
-24-333615163
-Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NewClassControl.xaml;Controls\NoFriendsControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddEmoteDialog.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\EmoteDialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
+431878539844
+24886667247
+Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NewClassControl.xaml;Controls\NoFriendsControl.xaml;Controls\SeatingplanControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddEmoteDialog.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\EmoteDialog.xaml;Dialogs\SetSeatDialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
 
 False
 

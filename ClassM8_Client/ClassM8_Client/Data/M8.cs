@@ -30,6 +30,12 @@ namespace ClassM8_Client.Data
 
         public M8() { }
 
+        public M8(int id, string fn, string ln) {
+            this.id = id;
+            this.firstname = fn;
+            this.lastname = ln;
+        }
+
         public long getId()
         {
             return id;

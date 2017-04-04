@@ -171,10 +171,7 @@ namespace ClassM8_Client
             catch (Exception ex)
             {
                 Console.WriteLine("Error: DataReader.getM8Class: " + ex.Message);
-
             }
-
-
         }
 
         public void getM8()
@@ -662,5 +659,165 @@ namespace ClassM8_Client
             }
             return emotes;
         }
+
+        public void getPositions()
+        {
+
+            string url = AppSettings.ConnectionString + "position/?scid=" + Database.Instance.currSchoolclass.getId();
+
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "GET";
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine(url + "  Res: " + result);
+
+                    PositionResult obj = Activator.CreateInstance<PositionResult>();
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                    obj = (PositionResult)serializer.ReadObject(ms);
+                    ms.Close();
+
+                    if (obj.isSuccess())
+                    {
+                        Console.WriteLine("Positions_Count: " + obj.content.Count);
+                        Database.Instance.positions = obj.content;
+                        
+                    }
+                    else
+                    {
+                        Database.Instance.positions = new List<Position>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.getM8Class: " + ex.Message);
+            }
+        }
+
+        public void updatePosition(int id, Point p)
+        {
+            try
+            {
+                string url = AppSettings.ConnectionString + "position/?mid=" + id;
+
+                MemoryStream stream1 = new MemoryStream();
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Point));
+                ser.WriteObject(stream1, p);
+                stream1.Position = 0;
+                StreamReader sr = new StreamReader(stream1);
+                Console.Write("JSON form of Point object: ");
+                string jsonContent = sr.ReadToEnd();
+
+                Console.WriteLine(jsonContent);
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "PUT";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(jsonContent);
+                    streamWriter.Flush();
+                }
+
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("UpdatePosition result: " + result);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.updatePosition - " + ex.Message);
+            }
+        }
+
+        public void deletePosition(int id)
+        {
+            try
+            {
+                string url = AppSettings.ConnectionString + "position/?mid=" + id;
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json; charset=utf-8";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "DELETE";
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("Res for deletePosition: " + result);
+                }
+
+                Database.Instance.currM8 = null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.deletePosition - " + ex.Message);
+            }
+
+        }
+
+
+        public void addNewPosition(int id, Point p)
+        {
+            try
+            {
+                string url = AppSettings.ConnectionString + "position/?mid=" + id;
+
+                MemoryStream stream1 = new MemoryStream();
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Point));
+                ser.WriteObject(stream1, p);
+                stream1.Position = 0;
+                StreamReader sr = new StreamReader(stream1);
+                Console.Write("JSON form of Point object: ");
+                string jsonContent = sr.ReadToEnd();
+
+                Console.WriteLine(jsonContent);
+
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Accept = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(jsonContent);
+                    streamWriter.Flush();
+                }
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine("Add new Position result: " + result);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: DataReader.createNewUser - " + ex.Message);
+            }
+
+        }
+
+
+
     }
 }

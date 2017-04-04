@@ -215,5 +215,10 @@ namespace ClassM8_Client
                 txtMessage.Text = txtMessage.Text + "§" + ed.SelectedItem + "§";
             }
         }
+
+        private void btnSeats_Click(object sender, RoutedEventArgs e)
+        {
+            ControllerNavigator.NavigateTo(new SeatingplanControl());
+        }
     }
 }

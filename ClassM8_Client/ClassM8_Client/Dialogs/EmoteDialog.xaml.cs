@@ -36,7 +36,8 @@ namespace ClassM8_Client.Dialogs
             foreach (String s in Database.Instance.currSchoolclass.getEmotes().Keys){
                 TextBlock t = new TextBlock();
                 Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
-                Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
+                //Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
+                Uri uri = new Uri("C:\\Users\\Anwender\\Desktop\\HTL\\5BHIFS\\BSD\\Sprint3\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
                 BitmapImage image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = uri;
