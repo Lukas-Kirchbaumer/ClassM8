@@ -25,6 +25,7 @@ public class Emote {
 	
 	private long contentSize;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "schoolclassid")
 	private Schoolclass referencedSchoolclass;
