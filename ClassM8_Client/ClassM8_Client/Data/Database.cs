@@ -13,6 +13,7 @@ namespace ClassM8_Client.Data
         public M8 currM8;
         public int currUserId;
         public Schoolclass currSchoolclass;
+        public List<Position> positions;
 
         private Database()
         { }
@@ -25,6 +26,26 @@ namespace ClassM8_Client.Data
                     instance = new Database();
                 return instance;
             }
+        }
+
+        public M8 getM8ById(int id) {
+            M8 m8 = new M8(-1, "", "");
+            try
+            {
+                Console.WriteLine("loking for id: " + id);
+                Console.WriteLine("cms " + currSchoolclass.getClassMembers().Count);
+                foreach (M8 m in currSchoolclass.getClassMembers())
+                {
+                    Console.WriteLine("mate: " + m);
+                }
+                m8 = currSchoolclass.getClassMembers().Find(x => x.getId() == id);
+                if (m8 == null && id == Database.Instance.currM8.getId())
+                    m8 = Database.Instance.currM8;
+            }
+            catch (NullReferenceException nre) {
+                Console.WriteLine(nre.StackTrace);
+            }
+            return m8;
         }
 
         internal void mapEmotes()

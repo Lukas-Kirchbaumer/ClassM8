@@ -1,6 +1,7 @@
 ﻿using ClassM8_Client.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,8 +43,6 @@ namespace ClassM8_Client.Controls
                 Console.WriteLine("User: " + firstname.Text + " " + lastname.Text);
                 txtError.Text = "";
                 createNewUser();
-                ControllerHolder.LoginControl.email.Text = Database.Instance.currM8.getEmail();
-                ControllerNavigator.NavigateTo(ControllerHolder.LoginControl); 
             }
             else
             {
@@ -53,13 +52,35 @@ namespace ClassM8_Client.Controls
 
         public void createNewUser()
         {
-            M8 mate = new M8();
-            mate.setEmail(email.Text);
-            mate.setFirstname(firstname.Text);
-            mate.setLastname(lastname.Text);
-            mate.setPassword(password.Password);
-            Database.Instance.currM8 = mate;
-            DataReader.Instance.createNewUser(mate);
+            if (email.Text.Length != 0)
+            {
+                if (IsValidEmail(email.Text))
+                {
+                    M8 mate = new M8();
+                    mate.setEmail(email.Text);
+                    mate.setFirstname(firstname.Text);
+                    mate.setLastname(lastname.Text);
+                    mate.setPassword(password.Password);
+                    Database.Instance.currM8 = mate;
+                    DataReader.Instance.createNewUser(mate);
+                    ControllerNavigator.NavigateTo(ControllerHolder.LoginControl);
+                }
+                else
+                {
+                    txtError.Text = "Not a valid email";
+                }
+            }
+            else
+            {
+                txtError.Text = "email must not be empty";
+            }
+        }
+
+        bool IsValidEmail(string email)
+        {
+
+            var check = new EmailAddressAttribute();
+            return check.IsValid(email);
         }
     }
 }

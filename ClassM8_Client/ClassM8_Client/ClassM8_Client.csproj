@@ -48,6 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -86,6 +87,9 @@
     <Compile Include="Controls\NewClassControl.xaml.cs">
       <DependentUpon>NewClassControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SeatingplanControl.xaml.cs">
+      <DependentUpon>SeatingplanControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserSettingsControl.xaml.cs">
       <DependentUpon>UserSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -93,6 +97,9 @@
     <Compile Include="Data\ChatResult.cs" />
     <Compile Include="Data\Emote.cs" />
     <Compile Include="Data\EmoteResult.cs" />
+    <Compile Include="Data\Point.cs" />
+    <Compile Include="Data\Position.cs" />
+    <Compile Include="Data\PositionResult.cs" />
     <Compile Include="Dialogs\AddEmoteDialog.xaml.cs">
       <DependentUpon>AddEmoteDialog.xaml</DependentUpon>
     </Compile>
@@ -130,6 +137,9 @@
     </Compile>
     <Compile Include="Dialogs\EmoteDialog.xaml.cs">
       <DependentUpon>EmoteDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SetSeatDialog.xaml.cs">
+      <DependentUpon>SetSeatDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\VoteDialog.xaml.cs">
       <DependentUpon>VoteDialog.xaml</DependentUpon>
@@ -197,6 +207,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SeatingplanControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\UserSettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\EmoteDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SetSeatDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

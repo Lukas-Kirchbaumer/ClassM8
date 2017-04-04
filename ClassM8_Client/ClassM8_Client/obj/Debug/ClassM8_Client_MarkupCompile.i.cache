@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\App.xaml
-131472616183
+15658427181
 
-381925465003
-24-333615163
-Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NewClassControl.xaml;Controls\NoFriendsControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddEmoteDialog.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\EmoteDialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
+43-1103122296
+25164404935
+Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NewClassControl.xaml;Controls\NoFriendsControl.xaml;Controls\SeatingplanControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddEmoteDialog.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\EmoteDialog.xaml;Dialogs\SetSeatDialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
 
-False
+True
 

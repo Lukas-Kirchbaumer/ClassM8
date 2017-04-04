@@ -136,7 +136,7 @@ namespace ClassM8_Client
                     {
                         Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
                         Console.WriteLine(e.getFileName());
-                        Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
+                        Uri uri = new Uri((System.IO.Directory.GetCurrentDirectory() + "/emotes/") + e.getFileName());
                         Console.WriteLine(uri.AbsolutePath);
 
                         BitmapImage image = new BitmapImage();
@@ -217,6 +217,11 @@ namespace ClassM8_Client
             {
                 txtMessage.Text = txtMessage.Text + "§" + ed.SelectedItem + "§";
             }
+        }
+
+        private void btnSeats_Click(object sender, RoutedEventArgs e)
+        {
+            ControllerNavigator.NavigateTo(new SeatingplanControl());
         }
     }
 }

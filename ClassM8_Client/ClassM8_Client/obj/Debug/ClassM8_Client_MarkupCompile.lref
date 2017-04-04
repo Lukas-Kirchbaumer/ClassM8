@@ -7,10 +7,12 @@ FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\Lo
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\NewAccountControl.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\NewClassControl.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\NoFriendsControl.xaml;;
+FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\SeatingplanControl.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Controls\UserSettingsControl.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Dialogs\AddEmoteDialog.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Dialogs\AddM8Dialog.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Dialogs\EmoteDialog.xaml;;
+FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Dialogs\SetSeatDialog.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\Dialogs\VoteDialog.xaml;;
 FE:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\MainWindow.xaml;;
 

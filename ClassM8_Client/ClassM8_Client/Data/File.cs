@@ -89,7 +89,7 @@ namespace ClassM8_Client.Data
         override
         public String ToString()
         {
-            return fileName + " | " + contentType;
+            return fileName;
         }
     }
 }

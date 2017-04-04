@@ -81,8 +81,7 @@ namespace ClassM8_Client.Controls
                     Console.WriteLine(stream);
 
 
-
-                    using (var fileStream = new FileStream("C:\\Users\\mhaid\\Downloads\\deving\\" + file.getFileName(), FileMode.Create, FileAccess.Write))
+                    using (var fileStream = new FileStream((System.IO.Directory.GetCurrentDirectory() + "/downloads/") + file.getFileName(), FileMode.Create, FileAccess.Write))
                     {
                         stream.CopyTo(fileStream);
                     }

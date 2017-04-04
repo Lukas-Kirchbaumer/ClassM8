@@ -3,6 +3,7 @@ using ClassM8_Client.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -125,10 +126,13 @@ namespace ClassM8_Client
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             mate = new M8();
-            mate.setEmail(email.Text);
-            mate.setPassword(password.Password);
-            bw.RunWorkerAsync();
-            
+            if (email.Text.Length != 0) {
+
+                mate.setEmail(email.Text);
+                mate.setPassword(password.Password);
+                bw.RunWorkerAsync();
+                
+            }
         }
 
 
@@ -173,6 +177,13 @@ namespace ClassM8_Client
             }
             
 
+        }
+
+        bool IsValidEmail(string email)
+        {
+            
+            var check = new EmailAddressAttribute();
+            return check.IsValid(email);
         }
 
 
