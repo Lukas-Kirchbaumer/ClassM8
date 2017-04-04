@@ -1,7 +1,9 @@
 package edu.classm8web.database.dto;
 
+import edu.classm8web.database.dao.SpatialService;
 import edu.classm8web.rs.result.Point;
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -135,17 +137,20 @@ public class M8 implements Serializable{
 		this.schoolclass = schoolclass;
 	}
 	
-	public Point getPositionFromSpatial(){
-		//TODO read spatial
-		return null;
+	public Point getPositionFromSpatial() throws SQLException{
+		return SpatialService.getInstance().getPositionById(this.id);
 	}
 	
-	public void insertPositionToSpatial(Point p){
-		//TODO set spatial
+	public void insertPositionToSpatial(Point p) throws SQLException{
+		SpatialService.getInstance().setPointById(this.id, p.getX(), p.getY());
 	}
 
-	public void updatePositionToSpatial(Point p){
-		//TODO set spatial
+	public void updatePositionToSpatial(Point p) throws SQLException{
+		SpatialService.getInstance().updatePointById(this.id, p.getX(), p.getY());
+	}
+	
+	public void deletePositionFromSpatial() throws SQLException{
+		SpatialService.getInstance().deletePointById(this.id);
 	}
 
 	

@@ -1,6 +1,9 @@
 package edu.classm8web.database.dao;
 
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -125,6 +128,28 @@ public class FileService implements BaseDBService<Long,File>{
 	@Override
 	public EntityManager getEm() {
 		return this.em;
+	}
+	
+	public String getConnectionSting(){
+		String dbName = null;
+	    Map<String, Object> map = emf.getProperties();
+	    String url = (String) map.get("javax.persistence.jdbc.url");
+
+	    return url;
+	}
+	
+	public String getUsername(){
+	    Map<String, Object> map = emf.getProperties();
+	    String user = (String) map.get("javax.persistence.jdbc.user");
+
+	    return user;
+	}
+	
+	public String getPassword(){
+	    Map<String, Object> map = emf.getProperties();
+	    String pw = (String) map.get("javax.persistence.jdbc.password");
+
+	    return pw;
 	}
 
 }

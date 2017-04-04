@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -48,21 +49,14 @@ public class PositionResource extends AbstractResource {
 				
 				if(!s.getClassMembers().isEmpty()){
 					
-					double i = 0 ;
 					
 					for(M8 mate : s.getClassMembers()){
 						
 						Position pos = new Position();
 						MappedM8 mapped = ObjectMapper.map(mate);
-						
 						pos.setOwner(mapped);
-						pos.setCoordinate(new Point(i, i*2.1));
-						
-						//pos.setCoordinate(mate.getPositionFromSpatial());
-						
+						pos.setCoordinate(mate.getPositionFromSpatial());
 						positions.add(pos);
-						
-						i = i + 150;
 					}
 					
 					r.setSuccess(true);
@@ -135,6 +129,33 @@ public class PositionResource extends AbstractResource {
 			handelAndThrowError(e, r);
 		}
 		
+		
+		return Response.status(Status.ACCEPTED).entity(r).build();
+	}
+	
+	@DELETE
+	@Produces(value = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response deletePosition(@Context Request request, @Context HttpServletRequest httpServletRequest,
+			@QueryParam("mid") String mid) {
+		
+		Result r = new Result();
+		
+		try {
+			Long mateId = Long.parseLong(mid);
+			M8 mate = MateService.getInstance().findById(mateId);
+			
+			if(mate != null){
+				
+				mate.deletePositionFromSpatial();;
+				r.setSuccess(true);
+				
+			} else {
+				throw new Exception("No mate or no point to work with");
+			}
+			
+		} catch (Exception e) {
+			handelAndThrowError(e, r);
+		}
 		
 		return Response.status(Status.ACCEPTED).entity(r).build();
 	}

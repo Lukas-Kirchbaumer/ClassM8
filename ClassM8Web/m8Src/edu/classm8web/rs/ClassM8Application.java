@@ -1,5 +1,6 @@
 package edu.classm8web.rs;
 
+import java.sql.Connection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,8 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+
+
 
 import edu.classm8web.database.dao.FileService;
 import edu.classm8web.database.dao.MateService;
@@ -20,6 +23,7 @@ import edu.classm8web.rs.resource.PositionResource;
 import edu.classm8web.rs.resource.SchoolclassResource;
 import edu.classm8web.rs.resource.SecurityResource;
 import edu.classm8web.rs.resource.UserResource;
+import edu.classm8web.database.dao.SpatialService;
 
 @ApplicationPath("/services")
 public class ClassM8Application extends Application{
@@ -48,10 +52,19 @@ public class ClassM8Application extends Application{
 		SchoolclassService.getInstance();
 		FileService.getInstance(); //Create Persistence Components
 		
+		String cs = FileService.getInstance().getConnectionSting(); //Read DB Credentials from 
+		String user = FileService.getInstance().getUsername();
+		String pw = FileService.getInstance().getPassword();
+		
+		System.out.println("Read DB creds from EM: " + cs + " / " + user + " / " + pw);
+		SpatialService.getInstance().createConnection(cs, user, pw);
+
 		
 		System.out.println(MateService.getInstance().getEm());
 		System.out.println(SchoolclassService.getInstance().getEm());
 		System.out.println(FileService.getInstance().getEm());
+		
+
 
 	}
 	
