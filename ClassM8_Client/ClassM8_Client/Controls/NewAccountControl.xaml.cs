@@ -40,9 +40,17 @@ namespace ClassM8_Client.Controls
 
             if (pw.Equals(pwv) == true)
             {
-                Console.WriteLine("User: " + firstname.Text + " " + lastname.Text);
-                txtError.Text = "";
-                createNewUser();
+                if (pw.Length != 0) {
+                    Console.WriteLine("User: " + firstname.Text + " " + lastname.Text);
+                    txtError.Text = "";
+                    createNewUser();
+                }
+                else
+                {
+
+                    txtError.Text = "Passwords must not be empty";
+                }
+
             }
             else
             {
@@ -62,8 +70,14 @@ namespace ClassM8_Client.Controls
                     mate.setLastname(lastname.Text);
                     mate.setPassword(password.Password);
                     Database.Instance.currM8 = mate;
-                    DataReader.Instance.createNewUser(mate);
-                    ControllerNavigator.NavigateTo(ControllerHolder.LoginControl);
+                    if (DataReader.Instance.createNewUser(mate))
+                    {
+                        ControllerNavigator.NavigateTo(ControllerHolder.LoginControl);
+                    }
+                    else
+                    {
+                        txtError.Text = "Email already in use!";
+                    }
                 }
                 else
                 {

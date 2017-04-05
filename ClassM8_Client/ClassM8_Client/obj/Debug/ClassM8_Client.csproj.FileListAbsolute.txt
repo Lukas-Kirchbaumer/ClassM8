@@ -193,7 +193,6 @@ E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\Ma
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignColors.pdb
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.pdb
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\bin\Debug\MaterialDesignThemes.Wpf.xml
-E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\ClassM8_Client.csprojResolveAssemblyReference.cache
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\ClassSettingsControl.g.cs
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\FileShareControl.g.cs
 E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\obj\Debug\Controls\HomeControl.g.cs

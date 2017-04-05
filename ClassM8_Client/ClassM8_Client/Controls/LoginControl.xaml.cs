@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClassM8_Client
 {
@@ -27,6 +28,7 @@ namespace ClassM8_Client
     {
         BackgroundWorker bw = new BackgroundWorker();
         M8 mate = new M8();
+        Boolean isWorking = false;
 
         public LoginControl()
         {
@@ -40,6 +42,8 @@ namespace ClassM8_Client
 
         private void bw_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            txtErrorMsg.Text = "";
+            isWorking = false;
             if (!e.Cancelled)
             {
                 if (Database.Instance.currSchoolclass.getId() == -1)
@@ -125,14 +129,24 @@ namespace ClassM8_Client
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            mate = new M8();
-            if (email.Text.Length != 0) {
 
-                mate.setEmail(email.Text);
-                mate.setPassword(password.Password);
-                bw.RunWorkerAsync();
-                
+            if (!isWorking) {
+                isWorking = true;
+                mate = new M8();
+                if (email.Text.Length != 0)
+                {
+
+                    mate.setEmail(email.Text);
+                    mate.setPassword(password.Password);
+                    bw.RunWorkerAsync();
+
+                }
             }
+            else
+            {
+                txtErrorMsg.Text = "Login already in Progress, wait for Completion";
+            }
+
         }
 
 
@@ -158,6 +172,7 @@ namespace ClassM8_Client
             (sender as BackgroundWorker).ReportProgress(80);
             Console.WriteLine(Database.Instance.currSchoolclass.getId());
             (sender as BackgroundWorker).ReportProgress(100);
+            
 
         }
 

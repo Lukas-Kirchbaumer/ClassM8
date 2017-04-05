@@ -11,7 +11,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Emotes" Height="300" Width="500"
+        Title="Emotes" Height="330" Width="500"
         ResizeMode="NoResize">
     <Grid>
         <materialDesign:Card Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">

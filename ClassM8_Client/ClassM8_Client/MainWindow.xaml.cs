@@ -47,8 +47,10 @@ namespace ClassM8_Client
             
             ControllerHolder.HomeControl.SetFinished(true);
             Database.Instance.currM8 = null;
-            Database.Instance.currM8 = null;
+            Database.Instance.currSchoolclass = null;
             Database.Instance.currUserId = -1;
+            Database.Instance.msgs.Clear();
+            Database.Instance.borders.Clear();
             init();
         }
 

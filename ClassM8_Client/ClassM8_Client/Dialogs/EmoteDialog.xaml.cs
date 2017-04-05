@@ -36,22 +36,31 @@ namespace ClassM8_Client.Dialogs
             foreach (String s in Database.Instance.currSchoolclass.getEmotes().Keys){
                 TextBlock t = new TextBlock();
                 Emote e = Database.Instance.currSchoolclass.getEmotes()[s];
-                //Uri uri = new Uri("E:\\HTL\\BSD\\5. Klasse\\Frontend\\ClassM8\\ClassM8_Client\\ClassM8_Client\\bin\\Debug\\emotes\\" + e.getFileName());
-                Uri uri = new Uri((System.IO.Directory.GetCurrentDirectory() + "/emotes/") + e.getFileName());
-                BitmapImage image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = uri;
-                image.EndInit();
 
-                Image emote = new Image();
-                emote.Width = 16;
-                emote.Height = 16;
-                emote.Source = image;
+                try
+                {
+                    Uri uri = new Uri((System.IO.Directory.GetCurrentDirectory() + "/emotes/") + e.getFileName());
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = uri;
+                    image.EndInit();
 
-                t.Inlines.Add(emote);
-                t.Inlines.Add(" " + e.getId() + " ");
-                t.Inlines.Add(e.getShortString());
-                listBox.Items.Add(t);
+                    Image emote = new Image();
+                    emote.Width = 16;
+                    emote.Height = 16;
+                    emote.Source = image;
+
+                    t.Inlines.Add(emote);
+                    t.Inlines.Add(" " + e.getId() + " ");
+                    t.Inlines.Add(e.getShortString());
+                    listBox.Items.Add(t);
+                }
+                catch (Exception ex) {
+                    t.Inlines.Add(" " + e.getId() + " ");
+                    t.Inlines.Add(e.getShortString());
+                    listBox.Items.Add(t);
+                }
+
             }
         }
 

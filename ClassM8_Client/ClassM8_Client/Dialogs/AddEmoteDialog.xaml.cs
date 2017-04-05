@@ -34,16 +34,36 @@ namespace ClassM8_Client.Dialogs
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            emote.setShortString(txtShorString.Text);
-            if (emote.getShortString().Length != 0)
+            try {
+                String[] array = txtFile.Text.Split('.');
+                String ext = array[array.Length - 1];
+
+                if (ext.ToLower().Equals("png"))
+                {
+
+                    emote.setShortString(txtShorString.Text);
+                    if (emote.getShortString().Length != 0)
+                    {
+                        txtError.Text = "";
+                        createMetaData(emote);
+                        this.Close();
+                    }
+                    else
+                    {
+                        txtError.Text = "Name must not be empty";
+                    }
+
+                }
+                else {
+                    txtError.Text = "Image has to be a png";
+                }
+            }
+            catch (Exception ex)
             {
-                txtError.Text = "";
-                createMetaData(emote);
+
             }
-            else {
-                txtError.Text = "Name must not be empty";
-            }
-            this.Close();
+
+
             
         }
 

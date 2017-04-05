@@ -23,17 +23,14 @@ namespace ClassM8_Client.Controls
     {
         public ClassSettingsControl()
         {
-            DataReader.Instance.getPresidents();
-            DataReader.Instance.getM8Class();
-            Schoolclass currClass = Database.Instance.currSchoolclass;
             InitializeComponent();
-            txtName.Text = currClass.getName();
-            txtSchool.Text = currClass.getSchool();
-            txtRoom.Text = currClass.getRoom();
+            txtName.Text = Database.Instance.currSchoolclass.getName();
+            txtSchool.Text = Database.Instance.currSchoolclass.getSchool();
+            txtRoom.Text = Database.Instance.currSchoolclass.getRoom();
             try
             {
-                txtPres.Text = currClass.getPresident().getFirstname() + " " + currClass.getPresident().getLastname();
-                txtPresDep.Text = currClass.getPresidentDeputy().getFirstname() + " " + currClass.getPresidentDeputy().getLastname();
+                txtPres.Text = Database.Instance.currSchoolclass.getPresident().getFirstname() + " " + Database.Instance.currSchoolclass.getPresident().getLastname();
+                txtPresDep.Text = Database.Instance.currSchoolclass.getPresidentDeputy().getFirstname() + " " + Database.Instance.currSchoolclass.getPresidentDeputy().getLastname();
             }
             catch (Exception ex)
             {

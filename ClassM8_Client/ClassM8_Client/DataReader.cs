@@ -83,6 +83,7 @@ namespace ClassM8_Client
 
         internal void checkForNewEmotes()
         {
+
             string url = AppSettings.ConnectionString + "emote/check/" +
                 Database.Instance.currSchoolclass.getId() + "/" + Database.Instance.currSchoolclass.getEmotesUnmapped().Count;
             List<Emote> emotes = new List<Emote>();
@@ -211,8 +212,9 @@ namespace ClassM8_Client
             }
         }
 
-        public void createNewUser(M8 mate)
+        public Boolean createNewUser(M8 mate)
         {
+            Boolean success = false;
             try
             {
                 string url = AppSettings.ConnectionString + "user";
@@ -242,15 +244,23 @@ namespace ClassM8_Client
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     var result = streamReader.ReadToEnd();
-                    Console.WriteLine("Create new Account result: " + result);
+                    M8Result obj = Activator.CreateInstance<M8Result>();
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(result));
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                    obj = (M8Result)serializer.ReadObject(ms);
+                    success = obj.isSuccess();
+                    
                 }
+
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: DataReader.createNewUser - " + ex.Message);
+                success = false;
             }
 
+            return success;
         }
 
         public void deleteUser()
@@ -572,7 +582,6 @@ namespace ClassM8_Client
             httpWebRequest.Method = "GET";
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            Console.WriteLine("hier");
         }
 
         public void getAllEmotesForClass()

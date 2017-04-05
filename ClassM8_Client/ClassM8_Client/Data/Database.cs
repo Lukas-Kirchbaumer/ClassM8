@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace ClassM8_Client.Data
 {
+
     class Database
     {
         private static Database instance;
@@ -14,6 +16,9 @@ namespace ClassM8_Client.Data
         public int currUserId;
         public Schoolclass currSchoolclass;
         public List<Position> positions;
+
+        public List<Message> msgs = new List<Message>();
+        public List<Border> borders = new List<Border>();
 
         private Database()
         { }

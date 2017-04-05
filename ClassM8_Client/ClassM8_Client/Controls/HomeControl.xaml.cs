@@ -26,8 +26,7 @@ namespace ClassM8_Client
     /// </summary>
     public partial class HomeControl : UserControl
     {
-        List<Message> msgs = new List<Message>();
-        List<Border> borders = new List<Border>();
+
         Boolean finished = false;
 
         public HomeControl()
@@ -78,6 +77,8 @@ namespace ClassM8_Client
         }
 
         private void poll() {
+            List<Message> msgs = Database.Instance.msgs;
+            List<Border> borders = Database.Instance.borders;
             while (!finished) {
                 try
                 {

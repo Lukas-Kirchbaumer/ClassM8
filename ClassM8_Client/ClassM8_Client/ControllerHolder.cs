@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClassM8_Client.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,8 @@ namespace ClassM8_Client
             set { loginControl = value; }
             get { return loginControl; }
         }
+
+
 
         public static TextBlock TitleTextBox
         {

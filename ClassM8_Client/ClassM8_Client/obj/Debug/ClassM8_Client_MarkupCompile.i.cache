@@ -16,5 +16,5 @@ E:\HTL\BSD\5. Klasse\Frontend\ClassM8\ClassM8_Client\ClassM8_Client\App.xaml
 25164404935
 Controls\ClassSettingsControl.xaml;Controls\FileShareControl.xaml;Controls\HomeControl.xaml;Controls\LoginControl.xaml;Controls\NewAccountControl.xaml;Controls\NewClassControl.xaml;Controls\NoFriendsControl.xaml;Controls\SeatingplanControl.xaml;Controls\UserSettingsControl.xaml;Dialogs\AddEmoteDialog.xaml;Dialogs\AddM8Dialog.xaml;Dialogs\EmoteDialog.xaml;Dialogs\SetSeatDialog.xaml;Dialogs\VoteDialog.xaml;MainWindow.xaml;
 
-True
+False
 
