@@ -64,29 +64,35 @@ namespace ClassM8_Client.Controls
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!String.IsNullOrEmpty(password.Text)) {
+                M8 mate = new M8();
+                mate.setEmail(email.Text);
+                mate.setFirstname(firstname.Text);
+                mate.setLastname(lastname.Text);
+                mate.setPassword(password.Text);
+                mate.setSchoolclass(Database.Instance.currM8.getSchoolclass());
 
-            M8 mate = new M8();
-            mate.setEmail(email.Text);
-            mate.setFirstname(firstname.Text);
-            mate.setLastname(lastname.Text);
-            mate.setPassword(password.Text);
-            mate.setSchoolclass(Database.Instance.currM8.getSchoolclass());
+                Database.Instance.currM8 = mate;
 
-            Database.Instance.currM8 = mate;
+                DataReader.Instance.updateUser(mate);
 
-            DataReader.Instance.updateUser(mate);
+                txtInfo.Text = "Benutzer bearbeitet";
+                ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
 
-            txtInfo.Text = "Benutzer bearbeitet";
-            ControllerHolder.TitleTextBox.Text = Database.Instance.currM8.getFirstname() + " " + Database.Instance.currM8.getLastname();
-
-            if (Database.Instance.currSchoolclass.getId() == -1)
-            {
-                ControllerNavigator.NavigateTo(new NoFriendsControl());
+                if (Database.Instance.currSchoolclass.getId() == -1)
+                {
+                    ControllerNavigator.NavigateTo(new NoFriendsControl());
+                }
+                else
+                {
+                    ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
+                }
             }
             else
             {
-                ControllerNavigator.NavigateTo(ControllerHolder.HomeControl);
+                txtInfo.Text = "Password must not be empty";
             }
+
         }
     }
 }
