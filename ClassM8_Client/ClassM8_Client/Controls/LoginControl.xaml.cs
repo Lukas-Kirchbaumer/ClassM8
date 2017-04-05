@@ -42,7 +42,6 @@ namespace ClassM8_Client
 
         private void bw_WorkCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            txtErrorMsg.Text = "";
             isWorking = false;
             if (!e.Cancelled)
             {
