@@ -2,6 +2,7 @@ package com.example.laubi.myapplication.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_main);
         mainActivity = this;
         final Button btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -59,9 +62,9 @@ public class MainActivity extends Activity {
                 }
                 System.out.println(txtEmail.getText() + "  " + txtPassword.getText());
                 if (correct) {
-                    M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString());
+                    M8 currM8 = dr.login(txtEmail.getText().toString(), txtPassword.getText().toString(), getApplicationContext());
                     if (currM8 != null) {
-                        Intent intent = new Intent(MainActivity.this, TestHomeActivity.class);
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(intent);
                     } else {
                         tvLoginPasswordError.setText("M8 nicht bekannt");

@@ -1,5 +1,7 @@
 package com.example.backend.Interfaces;
 
+import android.content.Context;
+
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 
@@ -8,7 +10,7 @@ import com.example.backend.Dto.Schoolclass;
  */
 
 interface InterfaceBetweenFrontAndBackendInterface {
-    public M8 login(String email, String password);
+    public M8 login(String email, String password, Context c);
 
     public Schoolclass getSchoolclassByUser(M8 user);
 

@@ -2,6 +2,7 @@ package com.example.backend.AsyncTasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import com.example.backend.Dto.File;
 import com.example.backend.Interfaces.DataReader;
@@ -29,11 +30,13 @@ import java.util.List;
  */
 
 public class FileExecuter extends AsyncTask<File, String, String> {
+
     private Context context;
     private boolean isDownload;
     private java.io.File original;
     private File metaFile;
     private int id;
+    private String Directory;
 
     @Override
     protected String doInBackground(File... files) {
@@ -53,8 +56,11 @@ public class FileExecuter extends AsyncTask<File, String, String> {
 
                 in = con.getInputStream();
 
-                java.io.File nf = new java.io.File(context.getFilesDir(), file.getFileName());
+                java.io.File nf = new java.io.File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS),file.getFileName());
+                nf.createNewFile();
                 OutputStream out = new FileOutputStream(nf);
+
                 byte[] buf = new byte[1024];
                 int len;
                 while ((len = in.read(buf)) > 0) {
@@ -358,6 +364,14 @@ outputStream.close();
 
         return sb.toString();
 
+    }
+
+    public String getDirectory() {
+        return Directory;
+    }
+
+    public void setDirectory(String directory) {
+        Directory = directory;
     }
 
     private String convertStreamToString(InputStream is) {

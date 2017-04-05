@@ -11,7 +11,7 @@ public class SchoolclassChat implements Serializable {
 
     private long id;
 
-    private List<Message> messages;
+    private List<Message> messages = null;
 
     public SchoolclassChat() {}
 
@@ -24,7 +24,10 @@ public class SchoolclassChat implements Serializable {
     }
 
     public List<Message> getMessages() {
-        return messages;
+        if(messages == null)
+            return null;
+        else
+            return messages;
     }
 
     public void setMessages(List<Message> messages) {

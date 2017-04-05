@@ -8,9 +8,6 @@ import java.util.List;
 
 public class Schoolclass implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -69655466883930376L;
 
     private long id;
@@ -32,6 +29,8 @@ public class Schoolclass implements Serializable {
     public Schoolclass() {
         classMembers = new ArrayList<>();
     }
+
+    private List<Emote> emotes = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -124,6 +123,15 @@ public class Schoolclass implements Serializable {
                 ", president=" + president +
                 ", presidentDeputy=" + presidentDeputy +
                 ", school='" + school + '\'' +
+                ", emotes=" + emotes +
                 '}';
+    }
+
+    public List<Emote> getEmotes() {
+        return emotes;
+    }
+
+    public void setEmotes(List<Emote> emotes) {
+        this.emotes = emotes;
     }
 }

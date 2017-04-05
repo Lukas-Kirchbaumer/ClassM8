@@ -1,10 +1,12 @@
 package com.example.backend.MappedObjects;
 
+import com.example.backend.Dto.Emote;
 import com.example.backend.Dto.File;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 
@@ -25,6 +27,8 @@ public class MappedSchoolclass {
     private String school;
 
     private Vector<MappedFile> files = new Vector<MappedFile>();
+
+    private Vector<MappedEmote> emotes= new Vector<MappedEmote>();
 
     public MappedSchoolclass() {
     }
@@ -111,6 +115,21 @@ public class MappedSchoolclass {
         this.files = files;
     }
 
+    @Override
+    public String toString() {
+        return "MappedSchoolclass{" +
+                "id=" + id +
+                ", classMembers=" + classMembers +
+                ", name='" + name + '\'' +
+                ", room='" + room + '\'' +
+                ", president=" + president +
+                ", presidentDeputy=" + presidentDeputy +
+                ", school='" + school + '\'' +
+                ", files=" + files +
+                ", emotes=" + emotes +
+                '}';
+    }
+
     public Schoolclass toSchoolClass() {
         Schoolclass s = new Schoolclass();
         s.setId(this.getId());
@@ -126,8 +145,16 @@ public class MappedSchoolclass {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try{
+            for(MappedEmote e :this.emotes){
+                s.getEmotes().add(e.toEmote());
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         s.setClassMembers(new ArrayList<M8>());
+
 
         try {
             s.setPresident(this.president.toM8());

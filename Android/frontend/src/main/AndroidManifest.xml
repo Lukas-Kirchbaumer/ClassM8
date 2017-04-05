@@ -12,7 +12,10 @@
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
         <uses-feature android:name="android.hardware.wifi" />
+
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.HomeActivity" />
         <activity android:name=".Activities.NewAccountActivity" />
         <activity android:name=".Activities.UserSettingsActivity" />
         <activity android:name=".Activities.VoteActivity" />
@@ -29,8 +31,11 @@
         <activity android:name=".Activities.FileShareActivity" />
         <activity android:name=".Activities.AddM8Activity" />
         <activity
-            android:name=".Activities.TestHomeActivity"
-            android:label="@string/title_activity_test_home"></activity>
+            android:name=".Activities.HomeActivity"
+            android:label="@string/title_activity_test_home" />
+        <activity
+            android:name=".Activities.SittingPlanActivity"
+            android:label="@string/title_activity_sitting_plan"></activity>
     </application>
 
 </manifest>

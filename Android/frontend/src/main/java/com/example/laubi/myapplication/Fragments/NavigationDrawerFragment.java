@@ -23,13 +23,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.backend.Database.Database;
-import com.example.backend.Interfaces.DataReader;
 import com.example.laubi.myapplication.Activities.AddM8Activity;
 import com.example.laubi.myapplication.Activities.FileShareActivity;
+import com.example.laubi.myapplication.Activities.SittingPlanActivity;
 import com.example.laubi.myapplication.Activities.UserSettingsActivity;
 import com.example.laubi.myapplication.Activities.VoteActivity;
 import com.example.laubi.myapplication.R;
-import com.example.laubi.myapplication.Activities.TestHomeActivity;
+import com.example.laubi.myapplication.Activities.HomeActivity;
 
 import java.util.ArrayList;
 
@@ -50,7 +50,7 @@ public class NavigationDrawerFragment extends Fragment {
      * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-    static TestHomeActivity testHomeActivity;
+    static HomeActivity homeActivity;
     /**
      * A pointer to the current callbacks instance (the Activity).
      */
@@ -70,12 +70,12 @@ public class NavigationDrawerFragment extends Fragment {
     public NavigationDrawerFragment() {
     }
 
-    public TestHomeActivity getTestHomeActivity() {
-        return testHomeActivity;
+    public HomeActivity getHomeActivity() {
+        return homeActivity;
     }
 
-    public void setTestHomeActivity(TestHomeActivity testHomeActivity) {
-        NavigationDrawerFragment.testHomeActivity = testHomeActivity;
+    public void setHomeActivity(HomeActivity homeActivity) {
+        NavigationDrawerFragment.homeActivity = homeActivity;
     }
 
     @Override
@@ -122,6 +122,7 @@ public class NavigationDrawerFragment extends Fragment {
         if(Database.getInstance().getCurrentSchoolclass() != null) {
             options.add("AddM8");
             options.add("Files");
+            options.add("Sitting-Plan");
         }
         if(!Database.getInstance().getCurrentMate().isHasVoted() && Database.getInstance().getCurrentSchoolclass() != null)
             options.add("Vote-System");
@@ -253,7 +254,17 @@ public class NavigationDrawerFragment extends Fragment {
                 System.out.println("mate-Settings pressed");
                 break;
             }
-            case 3:
+            case 3:{
+                if (Database.getInstance().getCurrentSchoolclass() != null) {
+                    Intent intentSettings = new Intent(getActivity().getApplicationContext(), SittingPlanActivity.class);
+                    startActivity(intentSettings);
+                } else {
+                    System.out.println("No Schoolclass, so no files");
+                }
+                System.out.println("Sitting-Plan pressed");
+                break;
+            }
+            case 4:
             {
                 if (Database.getInstance().getCurrentSchoolclass() != null) {
                     Intent intentSettings = new Intent(getActivity().getApplicationContext(), VoteActivity.class);
@@ -264,6 +275,7 @@ public class NavigationDrawerFragment extends Fragment {
                 System.out.println("mate-Settings pressed");
                 break;
             }
+
             default:
                 break;
         }
@@ -272,7 +284,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADDEDM8) {
-            testHomeActivity.updateMateList();
+            homeActivity.updateMateList();
         }
     }
 

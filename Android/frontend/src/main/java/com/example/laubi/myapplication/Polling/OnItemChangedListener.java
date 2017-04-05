@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
 import com.example.laubi.myapplication.R;
-import com.example.laubi.myapplication.Activities.TestHomeActivity;
+import com.example.laubi.myapplication.Activities.HomeActivity;
 
 import java.lang.ref.WeakReference;
 
@@ -16,10 +16,12 @@ import java.lang.ref.WeakReference;
 
 public class OnItemChangedListener extends ObservableList.OnListChangedCallback {
 
-    TestHomeActivity activity;
+    HomeActivity activity;
+    ChatArrayAdapter caa;
 
-    public OnItemChangedListener(WeakReference<Activity> activity) {
-        this.activity = (TestHomeActivity) activity.get();
+    public OnItemChangedListener(HomeActivity activity, ChatArrayAdapter chatArrayAdapter) {
+        this.activity = activity;
+        caa= chatArrayAdapter;
     }
 
     @Override
@@ -28,12 +30,10 @@ public class OnItemChangedListener extends ObservableList.OnListChangedCallback 
             @Override
             public void run() {
                 try {
-                    TestHomeActivity.chatSema.acquire();
                     ListView lvMessages = (ListView) activity.findViewById(R.id.lvMessages);
-                    ChatArrayAdapter caa = (ChatArrayAdapter) lvMessages.getAdapter();
+                    //lvMessages.invalidate();
                     caa.notifyDataSetChanged();
                     lvMessages.setSelection(caa.getCount() - 1);
-                    TestHomeActivity.chatSema.release();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

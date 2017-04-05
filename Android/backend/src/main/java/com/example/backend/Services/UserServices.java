@@ -1,8 +1,10 @@
 package com.example.backend.Services;
 
+import android.content.Context;
 import android.provider.ContactsContract;
 
 import com.example.backend.Database.Database;
+import com.example.backend.Dto.Emote;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.AsyncTasks.Executer;
@@ -16,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by laubi on 12/22/2016.
@@ -35,7 +38,7 @@ public class UserServices {
         return instance;
     }
 
-    public M8 login(M8 user) {
+    public M8 login(M8 user, Context c) {
         try {
             Executer executer = new Executer();
             URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/login");
@@ -65,8 +68,6 @@ public class UserServices {
 
             System.out.println("returned string: " + strFromWebService);
 
-            user = gson.fromJson(strFromWebService, M8.class);
-
             M8Result m8r = gson.fromJson(strFromWebService, M8Result.class);
 
             System.out.println(m8r.getContent());
@@ -77,13 +78,25 @@ public class UserServices {
             Database.getInstance().setCurrentMate(user);
             System.out.println(user.detailedToString());
             Database.getInstance().setCurrentSchoolclass(user.getSchoolclass());
-            System.out.println(Database.getInstance().getCurrentSchoolclass());
+            System.out.println();
+            if (Database.getInstance().getCurrentSchoolclass() != null) {
+
+                ArrayList<Emote> emotes = EmoteService.getInstance().getEmotesOfSchoolclass();
+                Database.getInstance().getCurrentSchoolclass().setEmotes(emotes);
+                Database.getInstance().setEmojis(emotes);
+
+                for (Emote e : emotes) {
+                    EmoteService.getInstance().downloadFile(e, c);
+                }
+            }
+
         } catch (Exception e) {
             user = null;
             e.printStackTrace();
         }
         return user;
     }
+
     public M8 getUserByEMail(String eMail){
         M8 ret = null;
         try {

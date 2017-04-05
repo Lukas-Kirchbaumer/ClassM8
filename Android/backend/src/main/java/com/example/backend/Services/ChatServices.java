@@ -1,5 +1,7 @@
 package com.example.backend.Services;
 
+import android.content.Context;
+
 import com.example.backend.Database.Database;
 import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Message;
@@ -16,7 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Vector;
 import java.util.concurrent.Semaphore;
 
@@ -48,11 +52,18 @@ public class ChatServices {
         return s;
     }
 
-    public ArrayList<Message> receiveMessages() {
+    public ArrayList<Message> receiveMessages(Context x) {
         ArrayList<Message> messages = new ArrayList<>();
         try {
             Executer executer = new Executer();
-            URL serverURL = new URL("http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?scid=" + Database.getInstance().getCurrentSchoolclass().getId());
+
+            String timestamp = Database.getInstance().getTimeStampOfLastMessageSentToCurrentUser(x);
+
+
+String url = "http://" + DataReader.IP + ":8080/ClassM8Web/services/schoolclass/chat?scid=" +java.net.URLEncoder.encode(Long.toString(Database.getInstance().getCurrentSchoolclass().getId()),"UTF-8") + "&limit="+ java.net.URLEncoder.encode(timestamp,"UTF-8");
+
+            System.out.println(url);
+            URL serverURL = new URL(url);
 
             executer.setMethod("GET");
             executer.execute(serverURL);
@@ -62,11 +73,28 @@ public class ChatServices {
             System.out.println("returned string: " + strFromWebService);
 
             ChatResult cr = gson.fromJson(strFromWebService, ChatResult.class);
-            messages = new ArrayList<>(cr.schoolclassChat.getMessages());
+
+            if(cr.schoolclassChat != null) {
+                messages = new ArrayList<>(cr.schoolclassChat.getMessages());
+                System.out.println(cr.schoolclassChat.getMessages());
+                saveReceivedMessages(messages, x);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return messages;
+    }
+
+    private void saveReceivedMessages(ArrayList<Message> messages, Context x) {
+        for(Message m:messages){
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(m.getDateTime().getTime());
+            cal.add(Calendar.HOUR, 2);
+            m.setDateTime(new Timestamp(cal.getTime().getTime()));
+
+            Database.getInstance().addSingleMessage(m);
+            Database.getInstance().addLocalMessage(m,x);
+        }
     }
 }

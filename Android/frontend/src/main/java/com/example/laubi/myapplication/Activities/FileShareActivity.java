@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class FileShareActivity extends Activity {
 
     private ListView lvDownloads;
-    private Button btnUpload;
+   // private Button btnUpload;
     private Button btnDownload;
     private DataReader dr = new DataReader();
     private File currentSelected;
@@ -35,7 +35,7 @@ public class FileShareActivity extends Activity {
         super.onCreate(savedInstanceState);
         lvDownloads = (ListView) findViewById(R.id.lvDownloads);
         btnDownload = (Button) findViewById(R.id.btnDownloadFile);
-        btnUpload = (Button) findViewById(R.id.btnUploadFile);
+      //  btnUpload = (Button) findViewById(R.id.btnUploadFile);
 
         Schoolclass sc = dr.getSchoolclassByUser(Database.getInstance().getCurrentMate());
 
@@ -67,15 +67,11 @@ public class FileShareActivity extends Activity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                System.out.println("in");
-                System.out.println((lvDownloads.getSelectedItemPosition()));
                 DataReader.getInstance().downloadFile(currentSelected, FileShareActivity.this);
-
             }
         });
 
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+  /*      btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -99,7 +95,7 @@ public class FileShareActivity extends Activity {
 
                 dialog.show();
             }
-        });
+        });*/
     }
 
     private void setCurrentSelected(File selectedItem) {

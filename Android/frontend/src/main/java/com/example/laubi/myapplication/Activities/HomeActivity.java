@@ -1,152 +1,236 @@
 package com.example.laubi.myapplication.Activities;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
+
+import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.backend.Database.Database;
-import com.example.backend.Dto.*;
-import com.example.backend.Interfaces.*;
+import com.example.backend.Dto.Emote;
+import com.example.backend.Dto.M8;
+import com.example.backend.Dto.Message;
+import com.example.backend.Interfaces.DataReader;
+import com.example.backend.Services.EmoteService;
 import com.example.laubi.myapplication.Adapters.ChatArrayAdapter;
-
+import com.example.laubi.myapplication.Adapters.ListAdapter;
+import com.example.laubi.myapplication.Fragments.NavigationDrawerFragment;
+import com.example.laubi.myapplication.Fragments.PlaceholderFragment;
 import com.example.laubi.myapplication.Polling.OnItemChangedListener;
 import com.example.laubi.myapplication.Polling.ReceiveMessageTask;
 import com.example.laubi.myapplication.R;
 
-import java.lang.ref.WeakReference;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
+import java.util.concurrent.Semaphore;
 
-public class HomeActivity extends Activity{
+public class HomeActivity extends Activity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    static private Semaphore updating = new Semaphore(1);
+
     static final int UPDATE_DELETE_CLASS = 1;
-    static final int VOTE = 2;
     static final int ADDM8 = 3;
     private static ListView lvMessages;
-    TextView tvCurrClass = null;
-    private  ArrayList<com.example.backend.Dto.M8> m8s;
-    private Button btnStartVote;
-    private Button btnDownloads;
+    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private CharSequence mTitle;
+    private ListView lvClassM8s;
+    private TextView tvCurrClass = null;
+    private TextView tvYourM8s;
+    private ArrayList<M8> m8s;
     private Button btnSendMessage;
     private EditText txtMessage;
+    private Button btnShowEmojis;
+
+    public static Semaphore getUpdating() {
+        return updating;
+    }
+
+    public static void setUpdating(Semaphore updating) {
+        HomeActivity.updating = updating;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_test_home);
         MainActivity.mainActivity.finish();
-
-        final Button btnM8Settings = (Button) findViewById(R.id.btnM8Settings);
-        btnStartVote = (Button) findViewById(R.id.btnStartVote);
-        tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
-        btnDownloads = (Button) findViewById(R.id.btnDownloads);
-        final ListView lvClassM8s = (ListView) findViewById(R.id.lvClassM8s);
-        lvMessages = (ListView) findViewById(R.id.lvMessages);
-        btnSendMessage = (Button) findViewById(R.id.btnSendMessage);
-        txtMessage = (EditText) findViewById(R.id.txtMessage);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        this.assignViews();
+        this.setTitle("Home");
+        this.assignListeners();
 
         M8 m8 = Database.getInstance().getCurrentMate();
-
-        System.out.println(m8);
         getCurrClass(m8);
+
         try {
             m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
         } catch (NullPointerException npe) {
             System.out.println("schoolclass is null");
-            m8s = new ArrayList<M8>();
+            m8s = new ArrayList<>();
         }
+
+        this.setUpArrayAdapter();
+        this.setUpDrawer();
+
+        Database.getInstance().getLocalMessagesOfCurrentUser(this.getApplicationContext());
+
+        try {
+            DataReader.getInstance().receiveMessage(this.getApplicationContext());
+        }catch(Exception ex){
+            System.out.println("error while receiving messages");
+        }
+
+        System.out.println("Total messages: " + Database.getInstance().getMessages().size());
+
+        if (Database.getInstance().getCurrentSchoolclass() != null) {
+            this.setUpPolling();
+        }else{
+            this.hideSchoolclassComponents();
+        }
+    }
+
+    private void setUpPolling(){
+        ReceiveMessageTask rmt = new ReceiveMessageTask(this.getApplicationContext(), HomeActivity.this);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(rmt, 0, 10000);
+    }
+
+    private void hideSchoolclassComponents(){
+        txtMessage.setVisibility(View.INVISIBLE);
+        btnSendMessage.setVisibility(View.INVISIBLE);
+        tvYourM8s.setVisibility(View.INVISIBLE);
+    }
+
+    private void setUpArrayAdapter(){
         final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
                 R.layout.m8row, m8s);
         lvClassM8s.setAdapter(listViewArrayAdapter);
+    }
 
-        ArrayList<Message> msgs = new ArrayList<Message>();
-        try {
-            msgs = DataReader.getInstance().receiveMessage();
-        }catch(Exception ex){
-            System.out.println("---------err");
-        }
+    public static ListView getLvMessages() {
+        return lvMessages;
+    }
 
-        System.out.println("Total messages: " + msgs.size());
-        MappedChat.getInstance().addMultipleMessages(msgs);
+    public static void setLvMessages(ListView lvMessages) {
+        HomeActivity.lvMessages = lvMessages;
+    }
 
-        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, MappedChat.getInstance().getMessages());
+    private void assignViews(){
+        tvCurrClass = (TextView) findViewById(R.id.tvCurrClass);
+        tvYourM8s = (TextView) findViewById(R.id.tvYourM8s);
+        lvClassM8s = (ListView) findViewById(R.id.lvClassM8s);
+        lvMessages = (ListView) findViewById(R.id.lvMessages);
+        btnSendMessage = (Button) findViewById(R.id.btnSendMessages);
+        txtMessage = (EditText) findViewById(R.id.txtMessage);
+        btnShowEmojis = (Button) findViewById(R.id.btnEmoji);
+    }
 
+    private void setUpDrawer(){
+        mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        mTitle = getTitle();
+
+        mNavigationDrawerFragment.setHomeActivity(this);
+
+        mNavigationDrawerFragment.setUp(
+                R.id.navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    private void assignListeners(){
+        final ChatArrayAdapter chatAdapter = new ChatArrayAdapter(this, Database.getInstance().getLocalMessagesOfCurrentUser(HomeActivity.this));
         lvMessages.setAdapter(chatAdapter);
-
-        MappedChat.getInstance().getMessages().addOnListChangedCallback(new OnItemChangedListener(new WeakReference<Activity>(this)));
-
-        if(Database.getInstance().getCurrentMate().isHasVoted()){
-            btnStartVote.setVisibility(View.GONE);
-        }
-
-        if (Database.getInstance().getCurrentSchoolclass() != null) {
-            ReceiveMessageTask rmt = new ReceiveMessageTask();
-            Timer timer = new Timer();
-            timer.scheduleAtFixedRate(rmt, 0, 5000);
-        }
-
-        btnDownloads.setOnClickListener(new View.OnClickListener() {
+        btnShowEmojis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Database.getInstance().getCurrentSchoolclass() != null) {
-                    Intent intentDownloads = new Intent(HomeActivity.this, FileShareActivity.class);
-                    startActivity(intentDownloads);
-                } else {
-                    System.out.println("No Schoolclass, so no files");
+
+                // Prepare grid view
+                GridView gridView = new GridView(HomeActivity.this);
+
+                List<Integer> mList = new ArrayList<Integer>();
+                for (int i = 1; i < 36; i++) {
+                    mList.add(i);
                 }
-            }
-        });
 
-        btnM8Settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSettings = new Intent(HomeActivity.this, UserSettingsActivity.class);
-                startActivity(intentSettings);
-            }
-        });
+                final ListAdapter a = new ListAdapter(HomeActivity.this);
 
-        btnStartVote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Database.getInstance().getCurrentSchoolclass() != null) {
-                    Intent intentSettings = new Intent(HomeActivity.this, VoteActivity.class);
-                    startActivityForResult(intentSettings, VOTE);
-                } else {
-                    System.out.println("No Schoolclass, so no files");
+                for(Emote e : Database.getInstance().getEmojis()){
+                    a.addEmote(e);
                 }
+
+                gridView.setAdapter(a);//, android.R.layout.simple_list_item_1, mList
+                gridView.setNumColumns(5);
+
+                // Set grid view to alertDialog
+                final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setView(gridView);
+                builder.setTitle("Choose an Emoji");
+                final AlertDialog alert = builder.create();
+                alert.show();
+                gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        System.out.println(a.getItem(position));
+                        Emote e = (Emote)a.getItem(position);
+                        txtMessage.getText().append("§" + e.getShortString() + "§");
+                        alert.cancel();
+                    }
+                });
             }
         });
 
         btnSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Database.getInstance().getCurrentSchoolclass() != null) {
-                    Message m = new Message();
-                    String s = String.valueOf(txtMessage.getText());
-                    m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
-                    m.setDateTime(new Date());
-                    m.setContent(s);
 
-                    try {
-                        DataReader.getInstance().sendMessage(s);
-                        chatAdapter.add(m);
-                        lvMessages.setSelection(chatAdapter.getCount() - 1);
-                    } catch (Exception ex) {
-                        Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+
+                    final Message m = new Message();
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(System.currentTimeMillis());
+                    cal.add(Calendar.HOUR, 2);
+                    cal.add(Calendar.MINUTE, 55);
+                    Timestamp t = new Timestamp(cal.getTime().getTime());
+
+                    final String s = String.valueOf(txtMessage.getText());
+                    m.setSender(Database.getInstance().getCurrentMate().getFirstname() + " " + Database.getInstance().getCurrentMate().getLastname());
+                    m.setDateTime(t);
+                    m.setContent(s);
+                    if (!s.equals("")) {
+                        HomeActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    DataReader.getInstance().sendMessage(s);
+                                    Database.getInstance().addLocalMessage(new Message(s, Database.getInstance().getCurrentMate().getFirstname(), new Timestamp(System.currentTimeMillis())), HomeActivity.this);
+                                    //chatAdapter.add(m);
+                                    lvMessages.setSelection(chatAdapter.getCount() - 1);
+                                    txtMessage.setText("");
+                                    chatAdapter.notifyDataSetChanged();
+                                } catch (Exception ex) {
+                                    Toast.makeText(getApplicationContext(), "Error while sending", Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
                     }
+
                 }
 
             }
@@ -161,6 +245,38 @@ public class HomeActivity extends Activity{
                 return true;
             }
         });
+
+     //   Database.getInstance().getMessages().addOnListChangedCallback(new OnItemChangedListener(this,chatAdapter));
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        // update the main content by replacing fragments
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .commit();
+    }
+
+    public void onSectionAttached(int number) {
+        switch (number) {
+            case 1:
+                mTitle = getString(R.string.title_section1);
+                break;
+            case 2:
+                mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
+                mTitle = getString(R.string.title_section3);
+                break;
+        }
+    }
+
+    public void restoreActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
     }
 
     public void getCurrClass(com.example.backend.Dto.M8 m8){
@@ -174,11 +290,13 @@ public class HomeActivity extends Activity{
         else{
             createClass();
         }
-
     }
 
     public void showClass(){
         tvCurrClass.setText(Database.getInstance().getCurrentSchoolclass().getName());
+        txtMessage.setVisibility(View.VISIBLE);
+        btnSendMessage.setVisibility(View.VISIBLE);
+        tvYourM8s.setVisibility(View.VISIBLE);
         tvCurrClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,13 +327,25 @@ public class HomeActivity extends Activity{
                 createClass();
             }
         }
-        if(requestCode == VOTE){
-            if(Database.getInstance().getCurrentMate().isHasVoted() == true){
-                btnStartVote.setVisibility(View.GONE);
-            }
-        }
-        if(requestCode == ADDM8){
-            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
+        if (requestCode == ADDM8) {
+            this.updateMateList();
         }
     }
+
+    public void updateMateList(){
+        try {
+            System.out.println("updateMateList");
+            DataReader.getInstance().getSchoolclassByUser(Database.getInstance().getCurrentMate());
+            m8s = Database.getInstance().getCurrentSchoolclass().getClassMembers();
+        } catch (NullPointerException npe) {
+            System.out.println("schoolclass is null");
+            m8s = new ArrayList<>();
+        }
+        final ArrayAdapter listViewArrayAdapter = new ArrayAdapter(this,
+                R.layout.m8row, m8s);
+        lvClassM8s.setAdapter(null);
+        lvClassM8s.setAdapter(listViewArrayAdapter);
+    }
+
+
 }

@@ -8,6 +8,7 @@ import com.example.backend.Dto.M8;
 import com.example.backend.Dto.Message;
 import com.example.backend.Dto.Schoolclass;
 import com.example.backend.Services.ChatServices;
+import com.example.backend.Services.EmoteService;
 import com.example.backend.Services.FileServices;
 import com.example.backend.Services.SchoolclassServices;
 import com.example.backend.Services.UserServices;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
 
-    public static String IP = "10.0.0.37";
+    public static String IP = "25.68.245.50";
     private static DataReader instance = null;
 
     public static DataReader getInstance() {
@@ -32,13 +33,12 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
     }
 
     @Override
-    public M8 login(String email, String password) {
+    public M8 login(String email, String password, Context c) {
         M8 user = new M8();
         user.setEmail(email);
         user.setPassword(password);
         System.out.println(user);
-        user = UserServices.getInstance().login(user);
-
+        user = UserServices.getInstance().login(user, c);
         return user;
     }
 
@@ -140,9 +140,9 @@ public class DataReader implements InterfaceBetweenFrontAndBackendInterface {
         chatService.writeMessage(Database.getInstance().getCurrentMate(), message);
     }
 
-    public ArrayList<Message> receiveMessage() {
+    public ArrayList<Message> receiveMessage(Context x) {
         ChatServices chatService = new ChatServices();
-        return new ArrayList<Message>(chatService.receiveMessages());
+        return new ArrayList<Message>(chatService.receiveMessages(x));
     }
 
     public boolean addMateToSchoolclass(M8 mate){
