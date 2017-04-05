@@ -59,9 +59,6 @@ public class Chat implements Serializable {
 		
 		for(Message m : backwards){
 			if(m.getDateTime().after(date)){
-				System.out.println("-----------");
-				System.out.println(date);
-				System.out.println(m.getSender()+ " " + m.getDateTime());
 				recentMessages.add(m);
 			}
 		}

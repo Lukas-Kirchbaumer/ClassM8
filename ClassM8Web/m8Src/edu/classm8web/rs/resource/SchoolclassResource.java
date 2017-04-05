@@ -113,6 +113,9 @@ public class SchoolclassResource extends AbstractResource {
 
 				input.setSchoolclassChat(c);
 				SchoolclassService.getInstance().update(input);
+				
+				input.setCustomEmojis();
+				SchoolclassService.getInstance().update(input);
 
 				r.setSuccess(true);
 			} else {

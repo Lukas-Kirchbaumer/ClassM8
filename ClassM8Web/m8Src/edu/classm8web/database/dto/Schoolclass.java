@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import edu.classm8web.database.dao.EmoteService;
+import edu.classm8web.database.dao.SchoolclassService;
+
 
 @Entity
 public class Schoolclass implements Serializable{
@@ -54,7 +57,8 @@ public class Schoolclass implements Serializable{
 	@JoinColumn(name="chatid")
 	private Chat schoolclassChat;
 	
-	public Schoolclass() {}
+	public Schoolclass() {
+	}
 
 	public long getId() {
 		return id;
@@ -144,6 +148,10 @@ public class Schoolclass implements Serializable{
 
 	public void setEmotes(List<Emote> emotes) {
 		this.emotes = emotes;
+	}
+
+	public void setCustomEmojis() {
+		EmoteService.getInstance().initEmotesForClass(this);		
 	}
 	
 	

@@ -65,9 +65,8 @@ public class ClassM8Application extends Application{
 		System.out.println(FileService.getInstance().getEm());
 		
 
-
 	}
-	
+
 	@PreDestroy
 	private void servletTearDown(){
 		if(MateService.getInstance().getEm().isOpen()){
@@ -88,4 +87,5 @@ public class ClassM8Application extends Application{
 		System.out.println("######## STOP - JAX RS - SERVLET ########");
 
 	}
+	
 }
